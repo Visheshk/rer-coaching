@@ -9,7 +9,7 @@ import 'react-native-gesture-handler';
 import {AsyncStorage} from 'react-native';
 import { styles } from '../style';
 
-export function WelcomeScreen({navigation, route}) {
+export function MenuScreen({navigation, route}) {
 	// render() {
     const [userInfo, setUserInfo] = React.useState();
     var storeData = async (vals) => {

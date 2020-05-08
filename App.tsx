@@ -11,6 +11,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import 'react-native-gesture-handler';
 
 import { WelcomeScreen } from './components/Welcome';
+import { MenuScreen } from './components/Menu';
+import { BookList } from './components/BookList';
+import { BookRead } from './components/BookRead';
 import { styles } from './style';
 
 function LoginScreen ( {route, navigation} ) {
@@ -203,6 +206,21 @@ export default function App(props) {
           name="Welcome"
           component={WelcomeScreen}
           options={{title: 'Welcome'}}
+        />
+        <Stack.Screen
+          name="Menu"
+          component={MenuScreen}
+          options={{title: 'Menu'}}
+        />
+        <Stack.Screen
+          name="BookList"
+          component={BookList}
+          options={{title: 'Pick a book'}}
+        />
+        <Stack.Screen
+          name="BookRead"
+          component={BookRead}
+          options={{title: 'Read!'}}
         />
 
       </Stack.Navigator>

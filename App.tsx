@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, TextInput, Alert } from 'react-native';
 import {AsyncStorage} from 'react-native';
 import { Button } from 'react-native-paper';
 import { SplashScreen } from 'expo';
+import { Audio, Video } from 'expo-av';
 import { Formik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
@@ -12,14 +13,20 @@ import 'react-native-gesture-handler';
 
 import { WelcomeScreen } from './components/Welcome';
 import { MenuScreen } from './components/Menu';
+import { VideoList } from './components/VideoList';
+import { VideoWatch } from './components/VideoWatch';
 import { BookList } from './components/BookList';
 import { BookRead } from './components/BookRead';
+
 import { styles } from './style';
+import { LoginVideo } from './assets/loginvid.mp4';
 
 function LoginScreen ( {route, navigation} ) {
   var storeData = async (vals) => {
     try {
       // console.log(vals);
+      await AsyncStorage.setItem('bookPages', JSON.stringify({}));
+
       await AsyncStorage.setItem('userInfo', JSON.stringify(vals));
       await AsyncStorage.setItem('age', vals["age"]);
       await AsyncStorage.setItem('studentId', vals["studentId"]);
@@ -32,6 +39,21 @@ function LoginScreen ( {route, navigation} ) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>READY to Read</Text>
+      
+      <Video
+        source={{ uri: 'https://www.dropbox.com/s/qtnn10iru7v89xt/welcomevid.mp4?raw=1' }}
+        rate={1.0}
+        volume={1.0}
+        isMuted={false}
+        resizeMode="contain"
+        useNativeControls={true}
+        shouldPlay={false}
+        isLooping
+        style={{ maxHeight: 300 }}
+      />
+
+      <Text> {"\n"} </Text>
+
       <Formik
         initialValues={{ name: '', age: '', studentId: '' }}
         validationSchema={Yup.object({
@@ -221,6 +243,16 @@ export default function App(props) {
           name="BookRead"
           component={BookRead}
           options={{title: 'Read!'}}
+        />
+        <Stack.Screen
+          name="VideoList"
+          component={VideoList}
+          options={{title: 'Videos!'}}
+        />
+        <Stack.Screen
+          name="VideoWatch"
+          component={VideoWatch}
+          options={{title: 'Videos!'}}
         />
 
       </Stack.Navigator>

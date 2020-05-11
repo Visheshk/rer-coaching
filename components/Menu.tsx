@@ -10,15 +10,15 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import videos from '../assets/videos.png'; 
-import start from '../assets/start.png'; 
-import letsread from '../assets/letsread.png'; 
+import Videos from '../assets/videos.png'; 
+import Start from '../assets/start.png'; 
+import Letsread from '../assets/letsread.png'; 
 
 
 const useStyles = makeStyles({
   root: {
     maxWidth: "345px",
-    width: "40%",
+    width: "42%",
     height: "auto"
   },
 
@@ -46,12 +46,13 @@ export function MenuScreen({navigation, route}) {
       <View style={{ flexDirection: 'row', justifyContent: 'space-around'}}>
 			
       <Card className={classes.root} variant="outlined">
-        <CardActionArea>
+        <CardActionArea
+        onClick={() => navigation.navigate('VideoList')}>
           <CardMedia
             component="img"
             alt="Go to introductory videos"
             className={classes.media}
-            image={videos}
+            image={Videos}
             title="Videos"
           />
           <CardContent>
@@ -59,34 +60,33 @@ export function MenuScreen({navigation, route}) {
               Videos
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
-              Videos on how to navigate and use this app
+              Tips for building young kids' literacy skills.
             </Typography>
           </CardContent>
         </CardActionArea>
-
       </Card>
    
       <Card className={classes.root} variant="outlined">
-      <CardActionArea
-        onClick={() => navigation.navigate('BookList')}>
-        <CardMedia
-          component="img"
-          alt="Read through books and practice recording prompts"
-          className={classes.media}
-          image={letsread}
-          title="Let's Read"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            Let's Read
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            Read introductory books
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      
-    </Card>
+        <CardActionArea
+          onClick={() => navigation.navigate('BookList')}>
+          <CardMedia
+            component="img"
+            alt="Read through books and practice recording prompts"
+            className={classes.media}
+            image={Letsread}
+            title="Let's Read"
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="h2">
+              Let's Read
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              Learn and practice simple literacy-building strategies for reading aloud with your child.
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+
     </View>
 		);
 	// }

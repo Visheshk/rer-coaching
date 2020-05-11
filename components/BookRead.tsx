@@ -53,27 +53,21 @@ export function BookRead({navigation, route}) {
       console.log(error);
     }
     var bp = {};
-    if (bookPages != null){
-      bp = JSON.parse(bookPages);
+    bp = JSON.parse(bookPages);
 
-      if (bookName in bp) {
-        setCurrentPage(parseInt(bp[bookName]));
-        // console.log(bp);
-      }
-      else {
-        bp[bookName] = currentPage;
-        console.log(bp);
-        await AsyncStorage.setItem('bookPages', JSON.stringify(bp));
-      }
+    if (bookName in bp) {
+      console.log("found book in bp");
+      setCurrentPage(parseInt(bp[bookName]));
+      setImageName("p" + currentPage);
+      console.log(imageName);
     }
     else {
       bp[bookName] = currentPage;
       console.log(bp);
       await AsyncStorage.setItem('bookPages', JSON.stringify(bp));
+      setImageName("p" + currentPage);
     }
-    setImageName("p" + currentPage);
-    console.log(bearPages[imageName]);
-    
+        
     // await AsyncStorage.setItem('bookPages', JSON.stringify(bp));
     // }
     // if (currentPage == 0) {

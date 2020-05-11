@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, StyleSheet, TextInput, Alert } from 'react-native';
-import { Button } from 'react-native-paper';
+import Button from '@material-ui/core/Button';
 import 'react-native-gesture-handler';
 import {AsyncStorage} from 'react-native';
 import { Audio, Video } from 'expo-av';
@@ -27,38 +27,20 @@ export function WelcomeScreen({navigation, route}) {
 		return (
 			<View>
         <Text style={styles.title}>READY to Read {userInfo} </Text>
-        <Video
-          source={{ uri: 'https://www.dropbox.com/s/qtnn10iru7v89xt/welcomevid.mp4?raw=1' }}
-          rate={1.0}
-          volume={1.0}
-          isMuted={false}
-          resizeMode="cover"
-          useNativeControls={true}
-          shouldPlay={false}
-          isLooping
-          style={{ width: 450, height: 300 }}
-        />
-
 				<Button
-          onPress={() => navigation.navigate('Login', {name: 'Jane'})}
-          color="black"
-          mode="contained"
+          onClick={() => console.log(JSON.stringify(userInfo))}
+          color="primary"
+          variant="contained"
+          disabled
           style={{ marginTop: 16 }}>
-          Home
-        </Button>
-				<Button
-          onPress={() => console.log(JSON.stringify(userInfo))}
-          color="black"
-          mode="contained"
-          style={{ marginTop: 16 }}>
-          Info
+          Read Aloud with Floppy
         </Button>
         <Button
-          onPress={() => navigation.navigate('Menu', {name: 'Jane'})}
-          color="black"
-          mode="contained"
+          onClick={() => navigation.navigate('Menu', {name: 'Jane'})}
+          color="primary"
+          variant="contained"
           style={{ marginTop: 16 }}>
-          Go to Menu
+          READY Coaching App
         </Button>
 			</View>
 		);

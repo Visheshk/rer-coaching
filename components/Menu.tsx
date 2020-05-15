@@ -26,7 +26,7 @@ export function MenuScreen({navigation, route}) {
         <Card>
           <CardItem>
             <Left>
-              <Thumbnail source={Videos} />
+              <Thumbnail square source={Videos} />
               <Body>
                 <Text>Videos</Text>
                 <Text note>Tips for building young kids' literacy skills.
@@ -44,7 +44,7 @@ export function MenuScreen({navigation, route}) {
         <Card>
           <CardItem>
             <Left>
-              <Thumbnail source={Letsread} />
+              <Thumbnail square source={Letsread} />
               <Body>
                 <Text>Let's Read</Text>
                 <Text note>Learn and practice simple literacy-building strategies for reading aloud with your child.</Text>

@@ -59,13 +59,6 @@ export function VideoList({navigation, route}) {
 		<View>
 
       <Button
-        onClick={() => navigation.navigate('VideoWatch', {video: 'Welcome'})}
-        color="primary"
-        variant="contained"
-        className={classes.button}>
-        Welcome
-      </Button>
-      <Button
         onClick={() => navigation.navigate('VideoWatch', {video: 'READY'})}
         color="primary"
         variant="contained"
@@ -101,22 +94,6 @@ export function VideoList({navigation, route}) {
         Check Out the Pictures
       </Button>
            
-
-			<Button
-        onClick={() => console.log(JSON.stringify(userInfo))}
-        color="primary"
-        variant="contained"
-        disabled
-        style={{ marginTop: 16 }}>
-        Read Aloud with Floppy
-      </Button>
-      <Button
-        onClick={() => navigation.navigate('Menu', {name: 'Jane'})}
-        color="primary"
-        variant="contained"
-        style={{ marginTop: 16 }}>
-        READY Coaching App
-      </Button>
 		</View>
 	);
 }

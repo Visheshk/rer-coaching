@@ -1,38 +1,16 @@
 import React from 'react';
-import { Text, View, StyleSheet, TextInput, Alert } from 'react-native';
+import { View, StyleSheet, TextInput, Alert, Image, TouchableOpacity } from 'react-native';
 import { AsyncStorage } from 'react-native';
 import { styles } from '../style';
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+
+import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from 'native-base';
+
 import Videos from '../assets/videos.png'; 
 import Start from '../assets/start.png'; 
 import Letsread from '../assets/letsread.png'; 
 
-
-const useStyles = makeStyles({
-  root: {
-    maxWidth: "345px",
-    width: "42%",
-    height: "auto"
-  },
-
-  media: {
-    padding: "20px",
-    display: "block",
-    margin: "auto",
-    width: "60%"
-  }
-});
-
 export function MenuScreen({navigation, route}) {
 	// render() {
-    const classes = useStyles();
     const [userInfo, setUserInfo] = React.useState();
     var storeData = async (vals) => {
       try {
@@ -43,51 +21,43 @@ export function MenuScreen({navigation, route}) {
     };
     storeData();
 		return (
-      <View style={{ flexDirection: 'row', justifyContent: 'space-around'}}>
-			
-      <Card className={classes.root} variant="outlined">
-        <CardActionArea
-        onClick={() => navigation.navigate('VideoList')}>
-          <CardMedia
-            component="img"
-            alt="Go to introductory videos"
-            className={classes.media}
-            image={Videos}
-            title="Videos"
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
-              Videos
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              Tips for building young kids' literacy skills.
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-      </Card>
-   
-      <Card className={classes.root} variant="outlined">
-        <CardActionArea
-          onClick={() => navigation.navigate('BookList')}>
-          <CardMedia
-            component="img"
-            alt="Read through books and practice recording prompts"
-            className={classes.media}
-            image={Letsread}
-            title="Let's Read"
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
-              Let's Read
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              Learn and practice simple literacy-building strategies for reading aloud with your child.
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-      </Card>
+      <View style={{ flexDirection: 'column', justifyContent: 'space-around'}}>
+       <TouchableOpacity key="video" onPress={() => navigation.navigate("VideoList")}> 
+        <Card>
+          <CardItem>
+            <Left>
+              <Thumbnail source={Videos} />
+              <Body>
+                <Text>Videos</Text>
+                <Text note>Tips for building young kids' literacy skills.
+</Text>
+              </Body>
+            </Left>
+          </CardItem>
+          <CardItem cardBody>
+            <Image source={Videos} style={{height: null, width: null, flex: 1}}/>
+          </CardItem>
+        </Card>
+        </TouchableOpacity>
 
-    </View>
+        <TouchableOpacity key="letsread" onPress={() => navigation.navigate("BookList")}> 
+        <Card>
+          <CardItem>
+            <Left>
+              <Thumbnail source={Letsread} />
+              <Body>
+                <Text>Let's Read</Text>
+                <Text note>Learn and practice simple literacy-building strategies for reading aloud with your child.</Text>
+              </Body>
+            </Left>
+          </CardItem>
+          <CardItem cardBody>
+            <Image source={Videos} style={{height: null, width: "45%", flex: 1}}/>
+          </CardItem>
+        </Card>
+        </TouchableOpacity>
+
+      </View>
 		);
 	// }
 }

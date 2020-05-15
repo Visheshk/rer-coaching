@@ -1,5 +1,12 @@
 import React from 'react';
-import { View, Alert, AsyncStorage } from 'react-native';
+import { Dimensions, Image, Slider, StyleSheet, Text, TouchableHighlight, View, Alert, AsyncStorage } from 'react-native';
+
+import { Asset } from 'expo-asset';
+import { Audio } from 'expo-av';
+import * as FileSystem from 'expo-file-system';
+import * as Font from 'expo-font';
+import * as Permissions from 'expo-permissions';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -8,8 +15,8 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-
 import Typography from '@material-ui/core/Typography';
+
 import bearcover from '../assets/books/bear-cover.png';
 import bearPages from '../assets/books/bearList';
 // import ForwardRoundedIcon from '@material-ui/icons/ForwardRounded';
@@ -49,30 +56,23 @@ export function BookRead({navigation, route}) {
     }
     try {
       setBookPages(await AsyncStorage.getItem('bookPages'));
+      try {
+        if (Object.keys(JSON.parse(bookPages)).includes(bookName)){
+          if (!isNaN(parseInt(JSON.parse(bookPages)[bookName]))) {
+            setCurrentPage(JSON.parse(bookPages)[bookName]);
+            setImageName("p" + currentPage);    
+            console.log(currentPage);
+          }
+        }
+        
+      }
+      catch (err) {
+        // setImageName()
+        console.log(err);
+      }
     } catch (error) {
       console.log(error);
     }
-    var bp = {};
-    bp = JSON.parse(bookPages);
-
-    if (bookName in bp) {
-      console.log("found book in bp");
-      setCurrentPage(parseInt(bp[bookName]));
-      setImageName("p" + currentPage);
-      console.log(imageName);
-    }
-    else {
-      bp[bookName] = currentPage;
-      console.log(bp);
-      await AsyncStorage.setItem('bookPages', JSON.stringify(bp));
-      setImageName("p" + currentPage);
-    }
-        
-    // await AsyncStorage.setItem('bookPages', JSON.stringify(bp));
-    // }
-    // if (currentPage == 0) {
-    //   console.log("currentPage empty");
-    // }
   };
   storeData();
   async function changePage(dir) {
@@ -87,8 +87,10 @@ export function BookRead({navigation, route}) {
       var cp = currentPage + dir;
       setCurrentPage(cp);
       var bp = JSON.parse(bookPages);
+      console.log(bp);
       bp[bookName] = cp;
       setImageName("p" + cp);
+      console.log(imageName);
       console.log(bp);
       await AsyncStorage.setItem('bookPages', JSON.stringify(bp));
     }

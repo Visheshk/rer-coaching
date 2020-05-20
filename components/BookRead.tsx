@@ -1,11 +1,13 @@
 import React from 'react';
-import { Dimensions, Image, Slider, StyleSheet, Text, TouchableHighlight, View, Alert, AsyncStorage } from 'react-native';
+import { Dimensions, Slider, StyleSheet, Text, TouchableHighlight, View, Alert, AsyncStorage } from 'react-native';
 
 import { Asset } from 'expo-asset';
 import { Audio } from 'expo-av';
 import * as FileSystem from 'expo-file-system';
 import * as Font from 'expo-font';
 import * as Permissions from 'expo-permissions';
+import { Icon, Tile, Image } from 'react-native-elements'
+
 
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -43,38 +45,28 @@ const useStyles = makeStyles({
 export function BookRead({navigation, route}) {
   const classes = useStyles();
   const bookName = route.params["book"];
+  // const pageNumber = route.params["page"].bookPage;
   //****TODO: make this list dynamic in the future
   const [userInfo, setUserInfo] = React.useState();
-  const [bookPages, setBookPages] = React.useState("{}");
+  // const [bookPages, setBookPages] = React.useState("{}");
   const [currentPage, setCurrentPage] = React.useState(1);
   const [imageName, setImageName] = React.useState("p1");
   var storeData = async (vals) => {
     try {
       setUserInfo(await AsyncStorage.getItem('userInfo'));
+
     } catch (error) {
       console.log(error);
     }
     try {
-      setBookPages(await AsyncStorage.getItem('bookPages'));
-      try {
-        if (Object.keys(JSON.parse(bookPages)).includes(bookName)){
-          if (!isNaN(parseInt(JSON.parse(bookPages)[bookName]))) {
-            setCurrentPage(JSON.parse(bookPages)[bookName]);
-            setImageName("p" + currentPage);    
-            console.log(currentPage);
-          }
-        }
-        
-      }
-      catch (err) {
-        // setImageName()
-        console.log(err);
-      }
-    } catch (error) {
-      console.log(error);
-    }
+      setCurrentPage(await AsyncStorage.getItem('bookPage'));
+      console.log(currentPage);
+      setImageName("p" + currentPage);
+    } catch (error) { console.log(error); }
+
   };
   storeData();
+
   async function changePage(dir) {
     console.log(dir);
     if (currentPage == 1 && dir == -1) {
@@ -84,42 +76,39 @@ export function BookRead({navigation, route}) {
       console.log("last page!");
     }
     else {
-      var cp = currentPage + dir;
+      var cp = parseInt(currentPage) + dir;
+      console.log(cp);
+      await AsyncStorage.setItem('bookPage', cp);
       setCurrentPage(cp);
-      var bp = JSON.parse(bookPages);
-      console.log(bp);
-      bp[bookName] = cp;
-      setImageName("p" + cp);
-      console.log(imageName);
-      console.log(bp);
-      await AsyncStorage.setItem('bookPages', JSON.stringify(bp));
+      setImageName("p" + cp);      
     }
   };
   return (
-    <View style={{ flexDirection: 'row', justifyContent: 'space-around'}}>
+    <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignContent: "center"}}>
+  
+        <Icon
+          reverse
+          name='caret-left'
+          type='font-awesome'
+          color='#517fa4'
+          containerStyle={{ height: "100%", justifyContent: "center" }}
+          onPress={() => changePage(-1)} 
+        />
+      
+      <Image
+        source={bearPages[imageName]}
+        style={{ width: "80%" }}
+      >
+      </Image>
 
-     <IconButton 
-       color="primary" 
-       onClick={() => {changePage(-1)}}
-       variant="outlined" 
-       aria-label="Previous Page" 
-       component="span">
-        <ArrowBackRoundedIcon />
-      </IconButton>
-
-      <Card className={classes.root} variant="outlined">
-        <CardMedia
-          component="img"
-          alt="Book Page"
-          className={classes.media}
-          src={bearPages[imageName]}
-          title="Bears Fighting!"
-        />        
-      </Card>
-
-       <IconButton onClick={() => {changePage(1)}} color="primary" aria-label="Next Page" component="span">
-          <ArrowForwardRoundedIcon />
-        </IconButton>
+       <Icon
+        reverse
+        name='caret-right'
+        type='font-awesome'
+        color='#517fa4'
+        containerStyle={{ height: "100%", justifyContent: "center" }}
+        onPress={() => changePage(1)} 
+      />
 
     </View>
   );

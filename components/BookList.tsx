@@ -57,7 +57,7 @@ export function BookList({navigation, route}) {
       title="Start Reading"
       containerStyle={{ height: "100%"}}
       titleStyle = {{textAlign: "center"}}
-      imageProps={{resizeMode: "center"}}
+      imageProps={{resizeMode: "contain"}}
       onPress={() => navigation.navigate('BookRead', {book:"BearFight"})}
     >
     </Tile>

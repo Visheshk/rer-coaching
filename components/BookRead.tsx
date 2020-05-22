@@ -6,7 +6,8 @@ import { Audio } from 'expo-av';
 import * as FileSystem from 'expo-file-system';
 import * as Font from 'expo-font';
 import * as Permissions from 'expo-permissions';
-import { Icon, Tile, Image } from 'react-native-elements'
+import { Icon, Tile } from 'react-native-elements';
+import { Image } from 'react-native';
 
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -77,39 +78,84 @@ export function BookRead({navigation, route}) {
     }
     else {
       var cp = parseInt(currentPage) + dir;
-      console.log(cp);
+      if (isNaN(parseInt(cp))) {
+        cp = 1;
+      }
+      // console.log(cp);
       await AsyncStorage.setItem('bookPage', cp);
       setCurrentPage(cp);
       setImageName("p" + cp);      
+      // console.log(bearPages[imageName]);
     }
   };
   return (
-    <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignContent: "center"}}>
-  
-        <Icon
-          reverse
-          name='caret-left'
-          type='font-awesome'
-          color='#517fa4'
-          containerStyle={{ height: "100%", justifyContent: "center" }}
-          onPress={() => changePage(-1)} 
-        />
-      
-      <Image
-        source={bearPages[imageName]}
-        style={{ width: "80%" }}
-      >
-      </Image>
+    <View style={{
+      flexDirection: 'column',
+      height: "100%"
+    }}>
 
-       <Icon
-        reverse
-        name='caret-right'
-        type='font-awesome'
-        color='#517fa4'
-        containerStyle={{ height: "100%", justifyContent: "center" }}
-        onPress={() => changePage(1)} 
-      />
+      <View style={{
+        flexDirection: 'row',
+        flex: 4
+      }}>
+        <View style={{
+          flex: 1,
+          maxWidth: 70,
+          justifyContent: "center",
+          alignItems: "flex-start"
+          // flexGrow: 1,
+        }} >
+          <Icon
+            reverse
+            name='caret-left'
+            type='font-awesome'
+            color='#517fa4'
+            containerStyle={{  justifyContent: "center" }}
+            onPress={() => changePage(-1)} 
+          />
+
+        </View>
+          
+        <View style={{
+          flex: 1,
+          height: "100%"
+          // flexGrow: 1,
+        }} >
+          
+          <Image
+            source={{ uri: bearPages[imageName] }}
+            style={{ width: "100%", height: "100%", resizeMode: "contain" }}
+            
+          />
+
+        </View>
+
+            
+        <View style={{
+          flex: 1,
+          maxWidth: 70,
+          // flexGrow: 1,
+          justifyContent: "center",
+          alignItems: "flex-end"
+        }} >
+          <Icon
+            reverse
+            name='caret-right'
+            type='font-awesome'
+            color='#517fa4'
+            containerStyle={{  justifyContent: "center" }}
+            onPress={() => changePage(1)} 
+          />
+        </View>
 
     </View>
+    <View style={{
+        flexDirection: 'row',
+        flex: 1
+      }}>
+              <View style={{width: "100%", height: "100%", backgroundColor: 'skyblue'}} />
+    </View>
+  </View>
+    
   );
 }

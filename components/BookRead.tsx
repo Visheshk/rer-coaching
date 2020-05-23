@@ -21,7 +21,8 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 
 import bearcover from '../assets/books/bear-cover.png';
-import bearPages from '../assets/books/bearList';
+import bearpages from '../assets/books/';
+// import bearPages from '../assets/books/bearList';
 // import ForwardRoundedIcon from '@material-ui/icons/ForwardRounded';
 // import KeyboardBackspaceRoundedIcon from '@material-ui/icons/KeyboardBackspaceRounded';
 import ArrowForwardRoundedIcon from '@material-ui/icons/ArrowForwardRounded';
@@ -42,6 +43,7 @@ const useStyles = makeStyles({
   }
 });
 
+const gitImageUrl = "https://raw.githubusercontent.com/Visheshk/rer-coaching/master/assets/books/bearpages/bear-";
 
 export function BookRead({navigation, route}) {
   const classes = useStyles();
@@ -51,7 +53,9 @@ export function BookRead({navigation, route}) {
   const [userInfo, setUserInfo] = React.useState();
   // const [bookPages, setBookPages] = React.useState("{}");
   const [currentPage, setCurrentPage] = React.useState(1);
-  const [imageName, setImageName] = React.useState("p1");
+  const [imageName, setImageName] = React.useState("pg1");
+  const [imageURL, setImageURL] = React.useState("https://raw.githubusercontent.com/Visheshk/rer-coaching/master/assets/books/bearpages/bear-pg1.png");
+  // console.log(bearPages);
   var storeData = async (vals) => {
     try {
       setUserInfo(await AsyncStorage.getItem('userInfo'));
@@ -61,8 +65,13 @@ export function BookRead({navigation, route}) {
     }
     try {
       setCurrentPage(await AsyncStorage.getItem('bookPage'));
-      console.log(currentPage);
-      setImageName("p" + currentPage);
+      // if (isNaN(parseInt(currentPage))) {
+      //   setCurrentPage(1);
+      // }
+      setImageName("pg" + currentPage);
+      console.log("setting up current page " + currentPage + " " + imageName);
+      // console.log("bear pages " + bearPages[imageName]);
+      setImageURL(gitImageUrl + imageName + ".png");
     } catch (error) { console.log(error); }
 
   };
@@ -78,14 +87,18 @@ export function BookRead({navigation, route}) {
     }
     else {
       var cp = parseInt(currentPage) + dir;
-      if (isNaN(parseInt(cp))) {
+      if (isNaN(parseInt(cp)) == true || cp == null) {
         cp = 1;
       }
       // console.log(cp);
-      await AsyncStorage.setItem('bookPage', cp);
+      console.log("cp is " + cp);
+      await AsyncStorage.setItem('bookPage', cp.toString());
       setCurrentPage(cp);
-      setImageName("p" + cp);      
-      // console.log(bearPages[imageName]);
+      setImageName("pg" + cp);
+      setImageURL(gitImageUrl + "pg" + cp + ".png");
+      console.log(imageURL);
+      // console.log("bear pages " + bearPages[imageName]);
+
     }
   };
   return (
@@ -123,7 +136,7 @@ export function BookRead({navigation, route}) {
         }} >
           
           <Image
-            source={{ uri: bearPages[imageName] }}
+            source={{uri: imageURL }}
             style={{ width: "100%", height: "100%", resizeMode: "contain" }}
             
           />

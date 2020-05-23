@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "expo-t2",
-    "slug": "expo-t2",
+    "name": "rer-coach",
+    "slug": "rer-coach",
     "platforms": [
       "ios",
       "android",
@@ -23,6 +23,7 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": ""
   }
 }

@@ -26,6 +26,7 @@ export function WelcomeScreen({navigation, route}) {
     storeData();
 		return (
 			<View>
+
         <Text style={styles.title}>READY to Read {userInfo} </Text>
 
         <Button

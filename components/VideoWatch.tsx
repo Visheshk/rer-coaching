@@ -14,15 +14,22 @@ export function VideoWatch({navigation, route}) {
     const [userInfo, setUserInfo] = React.useState();
     console.log(route.params.video);
     const paramVid = route.params.video;
+    // navigation.setParams({ "title": paramVid });
+
     // const videoLinks = {
     //   "READY": "https://www.dropbox.com/s/48myczlan6btufk/loginvid.mp4?dl=0",
     //   "Reading Fun": "https://www.dropbox.com/s/qtnn10iru7v89xt/welcomevid.mp4?dl=0"
     // };
     const videoLinks = {
-      "READY": "../assets/loginvid.mp4",
-      "Reading Fun": "../assets/welcomevid.mp4"
+      "Picture": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/CheckOutThePictures.mp4?raw=true",
+      "Connections": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/MakingLifeConnections.mp4?raw=true",
+      "Reading Fun": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/MakingReadingFun.mp4?raw=true",
+      "READY": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/ReadyToRead.mp4?raw=true",
+      "Word": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/WhatsThatWord.mp4?raw=true"
+
     };
     const thisVid = videoLinks[paramVid];
+    console.log(thisVid);
     // const imageURI = Asset.fromModule(READY).uri;
 
     var storeData = async (vals) => {
@@ -34,7 +41,7 @@ export function VideoWatch({navigation, route}) {
 		return (
 			<View>
         <Video
-        source={READY}
+        source={{uri: thisVid }}
         rate={1.0}
         volume={1.0}
         isMuted={false}
@@ -42,7 +49,7 @@ export function VideoWatch({navigation, route}) {
         useNativeControls={true}
         shouldPlay={false}
         isLooping
-        style={{ maxHeight: 300 }}
+        style={{ height: 300 }}
       />
 				
 			</View>

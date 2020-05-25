@@ -68,6 +68,9 @@ export function BookRead({navigation, route}) {
       // if (isNaN(parseInt(currentPage))) {
       //   setCurrentPage(1);
       // }
+      if (currentPage == null) {
+        setCurrentPage(1);
+      }
       setImageName("pg" + currentPage);
       console.log("setting up current page " + currentPage + " " + imageName);
       // console.log("bear pages " + bearPages[imageName]);

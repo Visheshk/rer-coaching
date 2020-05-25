@@ -27,11 +27,10 @@ export function VideoList({navigation, route}) {
   storeData();
 	return (
 
-
 		<View>
 
     <Card>
-      <TouchableOpacity style={{alignItems: "stretch"}} onPress={() => navigation.navigate('VideoWatch', {video: 'READY'})}>
+      <TouchableOpacity style={{alignItems: "stretch"}} onPress={() => navigation.navigate('VideoWatch', {video: 'READY', "name": "READY To Read"})}>
       <CardItem bordered>
         <Icon active name="ios-book" />
         <Text>READY TO Read</Text>
@@ -41,7 +40,7 @@ export function VideoList({navigation, route}) {
        </CardItem>
        </TouchableOpacity>
 
-       <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {video: 'Connections'})}>
+       <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {video: 'Connections', "name": "Making Life Connections"})}>
         <CardItem bordered>
         <Icon active name="md-git-network" />
         <Text>Making Life Connections</Text>
@@ -51,7 +50,7 @@ export function VideoList({navigation, route}) {
        </CardItem>
        </TouchableOpacity>
 
-       <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {video: 'Reading Fun'})}>
+       <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {video: 'Reading Fun', "name": "Making Reading Fun"})}>
          <CardItem bordered>
           <Icon active name="md-rocket" />
           <Text>Making Reading Fun</Text>
@@ -61,7 +60,7 @@ export function VideoList({navigation, route}) {
          </CardItem>
        </TouchableOpacity>
   
-       <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {video: 'Word'})}>
+       <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {video: 'Word', "name": "What's That Word?"})}>
         <CardItem bordered>
         <Icon active name="md-search" />
         <Text>What's That Word?</Text>
@@ -71,7 +70,7 @@ export function VideoList({navigation, route}) {
        </CardItem>
        </TouchableOpacity>
 
-       <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {video: 'Picture'})}>
+       <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {video: 'Picture', "name": "Check Out the Pictures"})}>
         <CardItem bordered>
         <Icon active name="md-photos" />
         <Text>Check Out the Pictures</Text>

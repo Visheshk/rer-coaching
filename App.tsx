@@ -35,23 +35,31 @@ function LoginScreen ( {route, navigation} ) {
       // Error saving data
     }
   };
+  let playbackObject;
+
+  _handleVideoRef = component => {
+    playbackObject = component;
+  }
+  var pauseVideo = function () {
+    playbackObject.pauseAsync();
+  }
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>READY to Read</Text>
       
       <Video
-        source={{ uri: 'https://www.dropbox.com/s/qtnn10iru7v89xt/welcomevid.mp4?raw=1' }}
+        source={{ uri: 'http://18.215.149.31/wp-content/uploads/2020/05/loginvid.mp4' }}
         rate={1.0}
         volume={1.0}
         isMuted={false}
-        resizeMode="contain"
+        resizeMode="cover"
         useNativeControls={true}
         shouldPlay={false}
-        isLooping
-        style={{ maxHeight: 300 }}
+        isLooping={false}
+        style={{ height: 300 }}
+        ref={this._handleVideoRef}
       />
-
       <Text> {"\n"} </Text>
 
       <Formik
@@ -68,6 +76,7 @@ function LoginScreen ( {route, navigation} ) {
           // console.log(values);
           setTimeout(() => {
             Alert.alert(JSON.stringify(values));
+            pauseVideo();
             console.log(values);
             // Important: Make sure to setSubmitting to false so our loading indicator
             // goes away.
@@ -134,6 +143,7 @@ function LoginScreen ( {route, navigation} ) {
               style={{ marginTop: 16 }}>
               Submit
             </Button>
+            
           </View>
         )}
       </Formik>
@@ -252,7 +262,7 @@ export default function App(props) {
         <Stack.Screen
           name="VideoWatch"
           component={VideoWatch}
-          options={{title: 'Videos!'}}
+          options={({ route }) => ({ title: route.params.name })}
         />
 
       </Stack.Navigator>

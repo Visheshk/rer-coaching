@@ -6,46 +6,51 @@ import 'react-native-gesture-handler';
 import { Audio, Video } from 'expo-av';
 // import { AVPlaybackStatus, VideoProps } from 'expo-av/build/Video'
 import { styles } from '../style';
+import { useNavigation } from '@react-navigation/native';
 
-export function WelcomeScreen({navigation, route}) {
-	// render() {
-    const [userInfo, setUserInfo] = React.useState();
-    var storeData = async (vals) => {
-      try {
-        // console.log(vals);
-        await AsyncStorage.setItem('currentScreen', 'WelcomeScreen');
-      } catch (error) {
-        // Error saving data
-      }
-      try {
-        setUserInfo(await AsyncStorage.getItem('userInfo'));
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    storeData();
-		return (
-			<View>
+// export function WelcomeScreen({navigation, route}) {
+export class WelcomeScreen extends React.Component {
 
-        <Text style={styles.title}>READY to Read {userInfo} </Text>
+  constructor(props) {
+    super(props);    
+    this.state = {userInfo: {}};
+    AsyncStorage.getItem('userInfo').then(response =>  {
+      this.setState({
+        userInfo: response
+      });
+      console.log(response);
+    });
+  }
+  
+  render() {
+  const { navigation } = this.props;
+	return (
+		<View>
 
-        <Button
-          onPress={() => navigation.navigate('Menu', {name: 'Jane'})}
-          color="primary"
-          variant="contained"
-          style={{ marginTop: 16 }}
-          title="READY Coaching App">
-        </Button>
+      <Text style={styles.title}>READY to Read {JSON.stringify(this.state.userInfo)} </Text>
 
-        <Button
-          onPress={() => console.log(JSON.stringify(userInfo))}
-          color="primary"
-          variant="contained"
-          disabled={true}
-          style={{ marginTop: 16 }}
-          title="Read Aloud with Floppy">
-        </Button>
-			</View>
-		);
-	// }
+      <Button
+        onPress={() => navigation.navigate('Menu', {name: 'Jane'})}
+        color="primary"
+        variant="contained"
+        style={{ marginTop: 16 }}
+        title="READY Coaching App">
+      </Button>
+
+      <Button
+        onPress={() => console.log(JSON.stringify(this.state.userInfo))}
+        color="primary"
+        variant="contained"
+        disabled={true}
+        style={{ marginTop: 16 }}
+        title="Read Aloud with Floppy">
+      </Button>
+		</View>
+	);
+	}
+}
+
+export default function(props) {
+  const navigation = useNavigation();
+  return <MyBackButton {...props} navigation={navigation} />;
 }

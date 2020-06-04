@@ -57,6 +57,19 @@ export function MenuScreen({navigation, route}) {
         </Card>
         </TouchableOpacity>
 
+        <TouchableOpacity key="record" onPress={() => navigation.navigate("PageRecorder")}> 
+        <Card>
+          <CardItem>
+            <Left>
+              <Thumbnail square source={Letsread} />
+              <Body>
+                <Text>Recording Test</Text>
+              </Body>
+            </Left>
+          </CardItem>
+        </Card>
+        </TouchableOpacity>
+
       </View>
 		);
 	// }

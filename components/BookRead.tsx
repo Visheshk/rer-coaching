@@ -8,46 +8,54 @@ import * as Font from 'expo-font';
 import * as Permissions from 'expo-permissions';
 import { Icon, Tile } from 'react-native-elements';
 import { Image } from 'react-native';
-
-
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
+import { PageRecorder } from './PageRecorder';
 
 import bearcover from '../assets/books/bear-cover.png';
 import bearpages from '../assets/books/';
-// import bearPages from '../assets/books/bearList';
-// import ForwardRoundedIcon from '@material-ui/icons/ForwardRounded';
-// import KeyboardBackspaceRoundedIcon from '@material-ui/icons/KeyboardBackspaceRounded';
-import ArrowForwardRoundedIcon from '@material-ui/icons/ArrowForwardRounded';
-import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
 
-const useStyles = makeStyles({
-  root: {
-    maxWidth: "345px",
-    // width: "40%",
-    height: "auto"
-  },
+const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = Dimensions.get('window');
+const BACKGROUND_COLOR = '#FFF8ED';
+const LIVE_COLOR = '#FF0000';
+const DISABLED_OPACITY = 0.5;
+const RATE_SCALE = 3.0;
 
-  media: {
-    padding: "5px",
-    display: "block",
-    margin: "auto",
-    width: "100%"
-  }
-});
-
-const gitImageUrl = "https://raw.githubusercontent.com/Visheshk/rer-coaching/master/assets/books/bearpages/bear-";
+const  gitImageUrl = "https://raw.githubusercontent.com/Visheshk/rer-coaching/master/assets/books/bearpages/bear-";
+const pg1 = require("../assets/books/bearpages/bear-pg1.png");
+const pg2 = require("../assets/books/bearpages/bear-pg2.png");
+const pg3 = require("../assets/books/bearpages/bear-pg3.png");
+const pg4 = require("../assets/books/bearpages/bear-pg4.png");
+const pg5 = require("../assets/books/bearpages/bear-pg5.png");
+const pg6 = require("../assets/books/bearpages/bear-pg6.png");
+const pg7 = require("../assets/books/bearpages/bear-pg7.png");
+const pg8 = require("../assets/books/bearpages/bear-pg8.png");
+const pg9 = require("../assets/books/bearpages/bear-pg9.png");
+const pg10 = require("../assets/books/bearpages/bear-pg10.png");
+const pg11 = require("../assets/books/bearpages/bear-pg11.png");
+const pg12 = require("../assets/books/bearpages/bear-pg12.png");
+const pg13 = require("../assets/books/bearpages/bear-pg13.png");
+const pg14 = require("../assets/books/bearpages/bear-pg14.png");
+const pg15 = require("../assets/books/bearpages/bear-pg15.png");
+const pg16 = require("../assets/books/bearpages/bear-pg16.png");
+const pg17 = require("../assets/books/bearpages/bear-pg17.png");
+const pg18 = require("../assets/books/bearpages/bear-pg18.png");
+const pg19 = require("../assets/books/bearpages/bear-pg19.png");
+const pg20 = require("../assets/books/bearpages/bear-pg20.png");
+const pg21 = require("../assets/books/bearpages/bear-pg21.png");
+const pg22 = require("../assets/books/bearpages/bear-pg22.png");
+const pg23 = require("../assets/books/bearpages/bear-pg23.png");
+const pg24 = require("../assets/books/bearpages/bear-pg24.png");
+const pg25 = require("../assets/books/bearpages/bear-pg25.png");
+const pg26 = require("../assets/books/bearpages/bear-pg26.png");
+const pg27 = require("../assets/books/bearpages/bear-pg27.png");
+const pg28 = require("../assets/books/bearpages/bear-pg28.png");
+const pg29 = require("../assets/books/bearpages/bear-pg29.png");
+const pg30 = require("../assets/books/bearpages/bear-pg30.png");
 
 export function BookRead({navigation, route}) {
-  const classes = useStyles();
+
+  // const classes = useStyles();
   const bookName = route.params["book"];
+
   // const pageNumber = route.params["page"].bookPage;
   //****TODO: make this list dynamic in the future
   const [userInfo, setUserInfo] = React.useState();
@@ -70,6 +78,7 @@ export function BookRead({navigation, route}) {
       // }
       if (currentPage == null) {
         setCurrentPage(1);
+        await AsyncStorage.setItem('bookPage', "1");
       }
       setImageName("pg" + currentPage);
       console.log("setting up current page " + currentPage + " " + imageName);
@@ -85,7 +94,7 @@ export function BookRead({navigation, route}) {
     if (currentPage == 1 && dir == -1) {
       console.log("first page!");
     }
-    else if (currentPage == 30 && dir == 30) {
+    else if (currentPage == 30 && dir == 1) {
       console.log("last page!");
     }
     else {
@@ -145,7 +154,6 @@ export function BookRead({navigation, route}) {
           />
 
         </View>
-
             
         <View style={{
           flex: 1,
@@ -169,7 +177,7 @@ export function BookRead({navigation, route}) {
         flexDirection: 'row',
         flex: 1
       }}>
-              <View style={{width: "100%", height: "100%", backgroundColor: 'skyblue'}} />
+      <PageRecorder />
     </View>
   </View>
     

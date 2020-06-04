@@ -17,6 +17,7 @@ import { VideoList } from './components/VideoList';
 import { VideoWatch } from './components/VideoWatch';
 import { BookList } from './components/BookList';
 import { BookRead } from './components/BookRead';
+import { PageRecorder } from './components/PageRecorder';
 
 import { styles } from './style';
 import { LoginVideo } from './assets/loginvid.mp4';
@@ -37,7 +38,7 @@ function LoginScreen ( {route, navigation} ) {
   };
   let playbackObject;
 
-  _handleVideoRef = component => {
+  var _handleVideoRef = component => {
     playbackObject = component;
   }
   var pauseVideo = function () {
@@ -58,7 +59,7 @@ function LoginScreen ( {route, navigation} ) {
         shouldPlay={false}
         isLooping={false}
         style={{ height: 300 }}
-        ref={this._handleVideoRef}
+        ref={_handleVideoRef}
       />
       <Text> {"\n"} </Text>
 
@@ -253,6 +254,11 @@ export default function App(props) {
           name="BookRead"
           component={BookRead}
           options={{title: 'Read!'}}
+        />
+        <Stack.Screen
+          name="PageRecorder"
+          component={PageRecorder}
+          options={{title: 'Record'}}
         />
         <Stack.Screen
           name="VideoList"

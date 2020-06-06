@@ -81,7 +81,7 @@ export function BookRead({navigation, route}) {
         await AsyncStorage.setItem('bookPage', "1");
       }
       setImageName("pg" + currentPage);
-      console.log("setting up current page " + currentPage + " " + imageName);
+      // console.log("setting up current page " + currentPage + " " + imageName);
       // console.log("bear pages " + bearPages[imageName]);
       setImageURL(gitImageUrl + imageName + ".png");
     } catch (error) { console.log(error); }
@@ -177,9 +177,27 @@ export function BookRead({navigation, route}) {
         flexDirection: 'row',
         flex: 1
       }}>
-      <PageRecorder />
+      <PageRecorder page={currentPage}/>
     </View>
   </View>
     
   );
 }
+
+// const styles = StyleSheet.create({
+//   mainView: {
+//     flex: 1,
+//     flexDirection: 'column',
+//     height: "100%"
+//   },
+
+//   container: {
+//     height: "100%"
+//   },
+
+//   title: {
+//     textAlign: "center"
+//   }
+
+// });
+

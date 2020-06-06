@@ -54,10 +54,18 @@ export  class PageRecorder extends React.Component {
     this.sound = null;
     this.isSeeking = false;
     this.shouldPlayAtEndOfSeek = false;
+    if ("page" in props) {
+      this.page = props.page;  
+    }
+    else {
+      this.page = -1;
+    }
+    
     this.state = {
       haveRecordingPermissions: false,
       isLoading: false,
       isPlaybackAllowed: false,
+      currentPage: this.page,
       muted: false,
       soundPosition: null,
       soundDuration: null,
@@ -71,7 +79,7 @@ export  class PageRecorder extends React.Component {
       rate: 1.0,
       recordingURI: null
     };
-    this.recordingSettings = JSON.parse(JSON.stringify(Audio.RECORDING_OPTIONS_PRESET_LOW_QUALITY));
+    this.recordingSettings = JSON.parse(JSON.stringify(Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY));
 
     // // UNCOMMENT THIS TO TEST maxFileSize:
     // this.recordingSettings.android['maxFileSize'] = 12000;
@@ -85,28 +93,49 @@ export  class PageRecorder extends React.Component {
       this.setState({ fontLoaded: true });
     })();
     this._askForPermissions();
+    
+  }
 
-    (async () => {
-      this.setState({recordingURI: await AsyncStorage.getItem('bookRec')});
-      console.log(this.state.recordingURI);
-      if (this.state.recordingURI !== null) {
-        var soundObject = new Audio.Sound();
-        // soundObject.setOnPlaybackStatusUpdate(this._updateScreenForSoundStatus)
-        const { sound, status } = await Audio.Sound.createAsync({uri: this.state.recordingURI}, {}, this._updateScreenForSoundStatus);
-        if (sound == undefined) {
-          this.sound = null;
-        }
-        else {
-          console.log("not undefined");
-          this.sound = sound;
-          this.setState({
-            isLoading: false,
-          });
-        }
+  componentDidUpdate(props) {
+    // console.log(props);
+    if ("page" in props) {
+      if (this.state.currentPage != props.page){
+        this.setState({currentPage: parseInt(props.page)});
+        (async () => {
+          console.log("recorder for page " + parseInt(props.page));
+          this.setState({recordingURI: await AsyncStorage.getItem('bookRec' + props.page)});
+          // console.log(this.state.recordingURI);
+          if (this.state.recordingURI !== null) {
+            var soundObject = new Audio.Sound();
+            // soundObject.setOnPlaybackStatusUpdate(this._updateScreenForSoundStatus)
+            const { sound, status } = await Audio.Sound.createAsync({uri: this.state.recordingURI}, {}, this._updateScreenForSoundStatus);
+            if (sound == undefined) {
+              this.sound = null;
+            }
+            else {
+              console.log("sound obtained for page uri is defined");
+              this.sound = sound;
+              this.setState({
+                isLoading: false,
+              });
+            } 
+          }
+          else {
+            if (this.sound !== null){
+              await this.sound.unloadAsync();
+              this.sound.setOnPlaybackStatusUpdate(null);
+              this.sound = null;
+            }
+            this.setState({
+              soundDuration: null,
+              soundPosition: null,
+              isPlaybackAllowed: false,
+            });
+          }
+        })();
         
       }
-      // if (this.sound !== null)
-    })();
+    }
   }
 
   _askForPermissions = async () => {
@@ -117,7 +146,7 @@ export  class PageRecorder extends React.Component {
   };
 
   _updateScreenForSoundStatus = status => {
-    console.log(status);
+    // console.log(status);
     if (status.isLoaded) {
       this.setState({
         soundDuration: status.durationMillis,
@@ -225,7 +254,7 @@ export  class PageRecorder extends React.Component {
       this._updateScreenForSoundStatus
     );
     this.sound = sound;
-    await AsyncStorage.setItem('bookRec', info.uri);
+    await AsyncStorage.setItem(('bookRec' + this.state.currentPage), info.uri);
     this.setState({
       isLoading: false,
     });
@@ -511,7 +540,7 @@ const styles = StyleSheet.create({
   playbackTimestamp: {
     textAlign: 'right',
     alignSelf: 'stretch',
-    paddingRight: 20,
+    paddingRight: 50,
   },
   image: {
     backgroundColor: BACKGROUND_COLOR,
@@ -529,7 +558,7 @@ const styles = StyleSheet.create({
   buttonsContainerTopRow: {
     maxHeight: ICON_MUTED_BUTTON.height,
     alignSelf: 'stretch',
-    paddingRight: 20,
+    paddingRight: 50,
   },
   playStopContainer: {
     flex: 1,

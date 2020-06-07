@@ -408,10 +408,6 @@ export  class PageRecorder extends React.Component {
         <View
           style={[
             styles.halfScreenContainer,
-            {
-              opacity:
-                !this.state.isPlaybackAllowed || this.state.isLoading ? DISABLED_OPACITY : 1.0,
-            },
           ]}>
         
           <View style={[styles.buttonsContainerBase, styles.buttonsContainerTopRow]}>
@@ -419,7 +415,13 @@ export  class PageRecorder extends React.Component {
             <View style={styles.playStopContainer}>
               <TouchableHighlight
                 underlayColor={BACKGROUND_COLOR}
-                style={styles.wrapper}
+                style={[
+                  styles.wrapper, 
+                  {
+                    opacity:
+                      !this.state.isPlaybackAllowed || this.state.isLoading ? DISABLED_OPACITY : 1.0,
+                  },
+                ]}
                 onPress={this._onPlayPausePressed}
                 disabled={!this.state.isPlaybackAllowed || this.state.isLoading}>
                 <Image
@@ -429,7 +431,13 @@ export  class PageRecorder extends React.Component {
               </TouchableHighlight>
               <TouchableHighlight
                 underlayColor={BACKGROUND_COLOR}
-                style={styles.wrapper}
+                style={[
+                  styles.wrapper, 
+                  {
+                    opacity:
+                      !this.state.isPlaybackAllowed || this.state.isLoading ? DISABLED_OPACITY : 1.0,
+                  },
+                ]}
                 onPress={this._onStopPressed}
                 disabled={!this.state.isPlaybackAllowed || this.state.isLoading}>
                 <Image style={styles.image} source={ICON_STOP_BUTTON.module} />

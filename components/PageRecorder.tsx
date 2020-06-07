@@ -169,6 +169,10 @@ export  class PageRecorder extends React.Component {
         console.log(`FATAL PLAYER ERROR: ${status.error}`);
       }
     }
+
+    if (status.didJustFinish) {
+      this._onStopPressed();
+    }
   };
 
   _updateScreenForRecordingStatus = status => {

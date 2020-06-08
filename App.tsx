@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, View, StyleSheet, TextInput, Alert } from 'react-native';
+import { Text, View, StyleSheet, TextInput, Alert, ScrollView, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import {AsyncStorage} from 'react-native';
 import { Button } from 'react-native-paper';
 import { SplashScreen } from 'expo';
@@ -46,6 +46,9 @@ function LoginScreen ( {route, navigation} ) {
   }
 
   return (
+    <ScrollView contentContainerStyle={styles.contentContainer}>
+
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <View style={styles.container}>
       <Text style={styles.title}>READY to Read</Text>
       
@@ -62,7 +65,7 @@ function LoginScreen ( {route, navigation} ) {
         ref={_handleVideoRef}
       />
       <Text> {"\n"} </Text>
-
+      
       <Formik
         initialValues={{ name: '', age: '', studentId: '' }}
         validationSchema={Yup.object({
@@ -87,6 +90,11 @@ function LoginScreen ( {route, navigation} ) {
           }, 500);
         }}>
         {props => (
+          <KeyboardAvoidingView
+            behavior={Platform.OS == "ios" ? "padding" : "height"}
+            style={styles.container}
+          >
+          
           <View>
            <TextInput
               onChangeText={props.handleChange('name')}
@@ -98,7 +106,7 @@ function LoginScreen ( {route, navigation} ) {
               onSubmitEditing={() => {
                 // on certain forms, it is nice to move the user's focus
                 // to the next input when they press enter.
-                this.ageInput.focus()
+                // this.ageInput.focus()
               }}
             />
             {props.touched.name && props.errors.name ? (
@@ -114,7 +122,7 @@ function LoginScreen ( {route, navigation} ) {
               onSubmitEditing={() => {
                 // on certain forms, it is nice to move the user's focus
                 // to the next input when they press enter.
-                this.idInput.focus()
+                // this.idInput.focus()
               }}
               // ref={el => this.ageInput = el}
             />
@@ -146,9 +154,16 @@ function LoginScreen ( {route, navigation} ) {
             </Button>
             
           </View>
+          
+          </KeyboardAvoidingView>
         )}
       </Formik>
+      
     </View>
+    </TouchableWithoutFeedback>
+    
+    </ScrollView>
+
   );
 }
 

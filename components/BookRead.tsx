@@ -21,36 +21,38 @@ const DISABLED_OPACITY = 0.5;
 const RATE_SCALE = 3.0;
 
 const  gitImageUrl = "https://raw.githubusercontent.com/Visheshk/rer-coaching/master/assets/books/bearpages/bear-";
-const pg1 = require("../assets/books/bearpages/bear-pg1.png");
-const pg2 = require("../assets/books/bearpages/bear-pg2.png");
-const pg3 = require("../assets/books/bearpages/bear-pg3.png");
-const pg4 = require("../assets/books/bearpages/bear-pg4.png");
-const pg5 = require("../assets/books/bearpages/bear-pg5.png");
-const pg6 = require("../assets/books/bearpages/bear-pg6.png");
-const pg7 = require("../assets/books/bearpages/bear-pg7.png");
-const pg8 = require("../assets/books/bearpages/bear-pg8.png");
-const pg9 = require("../assets/books/bearpages/bear-pg9.png");
-const pg10 = require("../assets/books/bearpages/bear-pg10.png");
-const pg11 = require("../assets/books/bearpages/bear-pg11.png");
-const pg12 = require("../assets/books/bearpages/bear-pg12.png");
-const pg13 = require("../assets/books/bearpages/bear-pg13.png");
-const pg14 = require("../assets/books/bearpages/bear-pg14.png");
-const pg15 = require("../assets/books/bearpages/bear-pg15.png");
-const pg16 = require("../assets/books/bearpages/bear-pg16.png");
-const pg17 = require("../assets/books/bearpages/bear-pg17.png");
-const pg18 = require("../assets/books/bearpages/bear-pg18.png");
-const pg19 = require("../assets/books/bearpages/bear-pg19.png");
-const pg20 = require("../assets/books/bearpages/bear-pg20.png");
-const pg21 = require("../assets/books/bearpages/bear-pg21.png");
-const pg22 = require("../assets/books/bearpages/bear-pg22.png");
-const pg23 = require("../assets/books/bearpages/bear-pg23.png");
-const pg24 = require("../assets/books/bearpages/bear-pg24.png");
-const pg25 = require("../assets/books/bearpages/bear-pg25.png");
-const pg26 = require("../assets/books/bearpages/bear-pg26.png");
-const pg27 = require("../assets/books/bearpages/bear-pg27.png");
-const pg28 = require("../assets/books/bearpages/bear-pg28.png");
-const pg29 = require("../assets/books/bearpages/bear-pg29.png");
-const pg30 = require("../assets/books/bearpages/bear-pg30.png");
+const PAGES = [
+  require("../assets/books/bearpages/bear-pg1.png"),
+  require("../assets/books/bearpages/bear-pg2.png"),
+  require("../assets/books/bearpages/bear-pg3.png"),
+  require("../assets/books/bearpages/bear-pg4.png"),
+  require("../assets/books/bearpages/bear-pg5.png"),
+  require("../assets/books/bearpages/bear-pg6.png"),
+  require("../assets/books/bearpages/bear-pg7.png"),
+  require("../assets/books/bearpages/bear-pg8.png"),
+  require("../assets/books/bearpages/bear-pg9.png"),
+  require("../assets/books/bearpages/bear-pg10.png"),
+  require("../assets/books/bearpages/bear-pg11.png"),
+  require("../assets/books/bearpages/bear-pg12.png"),
+  require("../assets/books/bearpages/bear-pg13.png"),
+  require("../assets/books/bearpages/bear-pg14.png"),
+  require("../assets/books/bearpages/bear-pg15.png"),
+  require("../assets/books/bearpages/bear-pg16.png"),
+  require("../assets/books/bearpages/bear-pg17.png"),
+  require("../assets/books/bearpages/bear-pg18.png"),
+  require("../assets/books/bearpages/bear-pg19.png"),
+  require("../assets/books/bearpages/bear-pg20.png"),
+  require("../assets/books/bearpages/bear-pg21.png"),
+  require("../assets/books/bearpages/bear-pg22.png"),
+  require("../assets/books/bearpages/bear-pg23.png"),
+  require("../assets/books/bearpages/bear-pg24.png"),
+  require("../assets/books/bearpages/bear-pg25.png"),
+  require("../assets/books/bearpages/bear-pg26.png"),
+  require("../assets/books/bearpages/bear-pg27.png"),
+  require("../assets/books/bearpages/bear-pg28.png"),
+  require("../assets/books/bearpages/bear-pg29.png"),
+  require("../assets/books/bearpages/bear-pg30.png")
+]
 
 export function BookRead({navigation, route}) {
 
@@ -124,13 +126,7 @@ export function BookRead({navigation, route}) {
         flexDirection: 'row',
         flex: 4
       }}>
-        <View style={{
-          flex: 1,
-          maxWidth: 70,
-          justifyContent: "center",
-          alignItems: "flex-start"
-          // flexGrow: 1,
-        }} >
+        <View style= {[styles.buttonStyle, {alignItems: "flex-start"}]} >
           <Icon
             reverse
             name='caret-left'
@@ -148,20 +144,14 @@ export function BookRead({navigation, route}) {
         }} >
           
           <Image
-            source={{uri: imageURL }}
+            source={PAGES[(currentPage - 1)]}
             style={styles.pageImage}
             
           />
 
         </View>
             
-        <View style={{
-          flex: 1,
-          maxWidth: 50,
-          // flexGrow: 1,
-          justifyContent: "center",
-          alignItems: "flex-end"
-        }} >
+        <View style={[styles.buttonStyle, {alignItems: "flex-end"}]} >
           <Icon
             reverse
             name='caret-right'
@@ -202,6 +192,11 @@ const styles = StyleSheet.create({
     width: "100%", 
     height: "100%", 
     resizeMode: "contain"
+  },
+  buttonStyle: {
+    flex: 1,
+    maxWidth: 60,
+    justifyContent: "center",
   }
 
 });

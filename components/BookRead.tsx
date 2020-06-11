@@ -115,6 +115,7 @@ export function BookRead({navigation, route}) {
       // console.log("bear pages " + bearPages[imageName]);
 
     }
+    navigation.setOptions({ "title": 'Read!      Page ' + currentPage});
   };
   return (
     <View style={{
@@ -163,7 +164,7 @@ export function BookRead({navigation, route}) {
 
     </View>
     <View style={{
-        flexDirection: 'row',
+        
         flex: 1
       }}>
       

@@ -81,7 +81,7 @@ const PRERECORDINGURIS = [
 ]
 
 const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = Dimensions.get('window');
-const BACKGROUND_COLOR = '#FFF8ED';
+const BACKGROUND_COLOR = '#FFF';
 const LIVE_COLOR = '#FF0000';
 const DISABLED_OPACITY = 0.5;
 const RATE_SCALE = 3.0;
@@ -148,20 +148,20 @@ export class PR2 extends React.Component {
         
         (async () => {
           var noRec = true;
-          if (thisPage < PRERECORDINGS.length) {
-            if (PRERECORDINGS[thisPage] != 0 || PRERECORDINGS[thisPage]) {
+          if (thisPage < PRERECORDINGURIS.length) {
+            if (PRERECORDINGURIS[thisPage] != 0 && PRERECORDINGURIS[thisPage]) {
               noRec = false;
-              // console.log("test sound object ")
+              console.log("test sound object ")
               // const soundObj = new Audio.Sound();
               // soundObj.setOnPlaybackStatusUpdate(_updateScreenForExpertStatus);
               // console.log(PRERECORDINGURIS[thisPage]);
               const { sound, status} = await Audio.Sound.createAsync(PRERECORDINGURIS[thisPage], {}, this._updateScreenForExpertStatus);
               if (sound == undefined) {
-                // console.log("expert rec not found");
+                console.log("expert rec not found");
                 this.expertRec = null;
               }
               else {
-                // console.log("expert rec found");
+                console.log("expert rec found");
                 this.expertRec = sound;
                 this.setState({"expertRecExists": true}) ;
               }
@@ -574,19 +574,20 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    paddingTop: 30,
+    // paddingTop: 30,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'stretch',
     alignSelf: 'center',
-    backgroundColor: BACKGROUND_COLOR,
+    // backgroundColor: BACKGROUND_COLOR,
   },
   buttonsContainer: {
     width: ICON_RECORD_BUTTON.width,
     height: ICON_RECORD_BUTTON.height,
     alignItems: 'center',
-    padding: 20,
-    backgroundColor: BACKGROUND_COLOR
+    paddingLeft: 30,
+    paddingRight: 30,
+    // backgroundColor: BACKGROUND_COLOR
   },
 
   noPermissionsText: {
@@ -644,7 +645,8 @@ const styles = StyleSheet.create({
     paddingRight: 50,
   },
   image: {
-    backgroundColor: BACKGROUND_COLOR,
+    // backgroundColor: BACKGROUND_COLOR,
+    paddingLeft: 40,
   },
   textButton: {
     backgroundColor: BACKGROUND_COLOR,

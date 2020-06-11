@@ -9,6 +9,7 @@ import * as Permissions from 'expo-permissions';
 import { Icon, Tile } from 'react-native-elements';
 import { Image } from 'react-native';
 import { PageRecorder } from './PageRecorder';
+import { PR2 } from './pr2';
 
 import bearcover from '../assets/books/bear-cover.png';
 import bearpages from '../assets/books/';
@@ -135,7 +136,6 @@ export function BookRead({navigation, route}) {
             name='caret-left'
             type='font-awesome'
             color='#517fa4'
-            containerStyle={{  justifyContent: "center" }}
             onPress={() => changePage(-1)} 
           />
 
@@ -149,7 +149,7 @@ export function BookRead({navigation, route}) {
           
           <Image
             source={{uri: imageURL }}
-            style={{ width: "100%", height: "100%", resizeMode: "contain" }}
+            style={styles.pageImage}
             
           />
 
@@ -157,7 +157,7 @@ export function BookRead({navigation, route}) {
             
         <View style={{
           flex: 1,
-          maxWidth: 70,
+          maxWidth: 50,
           // flexGrow: 1,
           justifyContent: "center",
           alignItems: "flex-end"
@@ -167,7 +167,6 @@ export function BookRead({navigation, route}) {
             name='caret-right'
             type='font-awesome'
             color='#517fa4'
-            containerStyle={{  justifyContent: "center" }}
             onPress={() => changePage(1)} 
           />
         </View>
@@ -177,27 +176,33 @@ export function BookRead({navigation, route}) {
         flexDirection: 'row',
         flex: 1
       }}>
-      <PageRecorder page={currentPage}/>
+      
+      <PR2 page={currentPage}/>
     </View>
   </View>
     
   );
 }
 
-// const styles = StyleSheet.create({
-//   mainView: {
-//     flex: 1,
-//     flexDirection: 'column',
-//     height: "100%"
-//   },
+const styles = StyleSheet.create({
+  mainView: {
+    flex: 1,
+    flexDirection: 'column',
+    height: "100%"
+  },
 
-//   container: {
-//     height: "100%"
-//   },
+  container: {
+    height: "100%"
+  },
 
-//   title: {
-//     textAlign: "center"
-//   }
+  title: {
+    textAlign: "center"
+  },
+  pageImage: {
+    width: "100%", 
+    height: "100%", 
+    resizeMode: "contain"
+  }
 
-// });
+});
 

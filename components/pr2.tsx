@@ -27,19 +27,58 @@ class Icon {
   }
 }
 
-const ICON_RECORD_BUTTON = new Icon(require('../assets/images/record_button.png'), 70, 119);
-const ICON_RECORDING = new Icon(require('../assets/images/record_icon.png'), 20, 14);
+class PreRecording {
+  constructor(module) {
+    this.module = module;
+    Asset.fromModule(this.module).downloadAsync();
+    // try {  this.soundObject.loadAsync(this.module);  }
+  }
+}
 
+const ICON_RECORD_BUTTON = new Icon(require('../assets/images/record_button.png'), 41, 70);
+const ICON_RECORDING = new Icon(require('../assets/images/record_icon.png'), 20, 14);
+const ICON_RECORDING_ACTIVE = new Icon(require('../assets/images/record_active_button.png'), 41, 70);
+
+const ICON_EXPERT_PLAY = new Icon(require('../assets/images/expert_play_button.png'), 34, 51);
 const ICON_PLAY_BUTTON = new Icon(require('../assets/images/play_button.png'), 34, 51);
 const ICON_PAUSE_BUTTON = new Icon(require('../assets/images/pause_button.png'), 34, 51);
 const ICON_STOP_BUTTON = new Icon(require('../assets/images/stop_button.png'), 22, 22);
 
-const ICON_MUTED_BUTTON = new Icon(require('../assets/images/muted_button.png'), 67, 58);
-const ICON_UNMUTED_BUTTON = new Icon(require('../assets/images/unmuted_button.png'), 67, 58);
+const PRERECORDINGS = [
+  0, 
+  new PreRecording(require('../assets/prerecordings/media1.m4a')),  
+  new PreRecording(require('../assets/prerecordings/media2.m4a')),
+  new PreRecording(require('../assets/prerecordings/media3.m4a'))
+]
 
-const ICON_TRACK_1 = new Icon(require('../assets/images/track_1.png'), 166, 5);
-const ICON_THUMB_1 = new Icon(require('../assets/images/thumb_1.png'), 18, 19);
-const ICON_THUMB_2 = new Icon(require('../assets/images/thumb_2.png'), 15, 19);
+const PRERECORDINGURIS = [
+  0, 
+  require('../assets/prerecordings/media1.m4a'),
+  require('../assets/prerecordings/media2.m4a'),
+  require('../assets/prerecordings/media3.m4a'),
+  require('../assets/prerecordings/media4.m4a'),
+  require('../assets/prerecordings/media5.m4a'),
+  require('../assets/prerecordings/media6.m4a'),
+  require('../assets/prerecordings/media7.m4a'),
+  require('../assets/prerecordings/media8.m4a'),
+  require('../assets/prerecordings/media9.m4a'),
+  require('../assets/prerecordings/media10.m4a'),
+  require('../assets/prerecordings/media11.m4a'),
+  require('../assets/prerecordings/media12.m4a'),
+  require('../assets/prerecordings/media13.m4a'),
+  require('../assets/prerecordings/media14.m4a'),
+  require('../assets/prerecordings/media15.m4a'),
+  require('../assets/prerecordings/media16.m4a'),
+  require('../assets/prerecordings/media17.m4a'),
+  require('../assets/prerecordings/media18.m4a'),
+  require('../assets/prerecordings/media19.m4a'),
+  require('../assets/prerecordings/media20.m4a'),
+  require('../assets/prerecordings/media21.m4a'),
+  require('../assets/prerecordings/media22.m4a'),
+  require('../assets/prerecordings/media23.m4a'),
+  require('../assets/prerecordings/media24.m4a'),
+  require('../assets/prerecordings/media25.m4a')
+]
 
 const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = Dimensions.get('window');
 const BACKGROUND_COLOR = '#FFF8ED';
@@ -47,22 +86,26 @@ const LIVE_COLOR = '#FF0000';
 const DISABLED_OPACITY = 0.5;
 const RATE_SCALE = 3.0;
 
-export  class PageRecorder extends React.Component {
+export class PR2 extends React.Component {
   constructor(props) {
     super(props);
     this.recording = null;
     this.sound = null;
+    this.expertRec = null
     this.isSeeking = false;
     this.shouldPlayAtEndOfSeek = false;
-    if ("page" in props) {
-      this.page = props.page;  
-    }
-    else {
+    // if ("page" in props) {
+    //   this.page = parseInt(props.page);  
+    // }
+    // else {
       this.page = -1;
-    }
+    // }
     
+    // console.log(PRERECORDINGS[1].module);
     this.state = {
       haveRecordingPermissions: false,
+      expertRecExists: false,
+      isRecPlaying: false,
       isLoading: false,
       isPlaybackAllowed: false,
       currentPage: this.page,
@@ -97,16 +140,46 @@ export  class PageRecorder extends React.Component {
   }
 
   componentDidUpdate(props) {
-    // console.log(props);
     if ("page" in props) {
       if (this.state.currentPage != props.page){
-        this.setState({currentPage: parseInt(props.page)});
+        var thisPage = parseInt(props.page);
+        this.setState({currentPage: thisPage});
+        // console.log(thisPage);
+        
         (async () => {
+          var noRec = true;
+          if (thisPage < PRERECORDINGS.length) {
+            if (PRERECORDINGS[thisPage] != 0 || PRERECORDINGS[thisPage]) {
+              noRec = false;
+              // console.log("test sound object ")
+              // const soundObj = new Audio.Sound();
+              // soundObj.setOnPlaybackStatusUpdate(_updateScreenForExpertStatus);
+              // console.log(PRERECORDINGURIS[thisPage]);
+              const { sound, status} = await Audio.Sound.createAsync(PRERECORDINGURIS[thisPage], {}, this._updateScreenForExpertStatus);
+              if (sound == undefined) {
+                // console.log("expert rec not found");
+                this.expertRec = null;
+              }
+              else {
+                // console.log("expert rec found");
+                this.expertRec = sound;
+                this.setState({"expertRecExists": true}) ;
+              }
+              
+            }
+          }
+          if (noRec == true) {
+            this.expertRec = null;
+            this.setState({"expertRecExists": false}) ;
+
+          }
+
+
           console.log("recorder for page " + parseInt(props.page));
           this.setState({recordingURI: await AsyncStorage.getItem('bookRec' + props.page)});
           // console.log(this.state.recordingURI);
           if (this.state.recordingURI !== null) {
-            var soundObject = new Audio.Sound();
+            // var soundObject = new Audio.Sound();
             // soundObject.setOnPlaybackStatusUpdate(this._updateScreenForSoundStatus)
             const { sound, status } = await Audio.Sound.createAsync({uri: this.state.recordingURI}, {}, this._updateScreenForSoundStatus);
             if (sound == undefined) {
@@ -143,6 +216,23 @@ export  class PageRecorder extends React.Component {
     this.setState({
       haveRecordingPermissions: response.status === 'granted',
     });
+  };
+
+  _updateScreenForExpertStatus = expertStatus => {
+    // console.log(expertStatus);
+    if (expertStatus.isLoaded) {
+      this.setState({
+        isRecPlaying: expertStatus.isPlaying,
+      });
+    } else {
+      if (expertStatus.error) {
+        console.log(`FATAL PLAYER ERROR: ${expertStatus.error}`);
+      }
+    }
+
+    if (expertStatus.didJustFinish) {
+      this._onExpertStopPressed();
+    }
   };
 
   _updateScreenForSoundStatus = status => {
@@ -264,6 +354,23 @@ export  class PageRecorder extends React.Component {
     });
   }
 
+  _expertPlayStop = () => {
+    if (this.state.expertRecExists == true) {
+      // console.log(this.expertRec);
+      if (this.state.isRecPlaying) {
+        this.expertRec.stopAsync();
+      } else {
+        this.expertRec.playAsync();
+      }
+    }
+  };
+
+  _onExpertStopPressed = () => {
+    if (this.state.expertRecExists == true) {
+      this.expertRec.stopAsync();
+    }
+  }
+
   _onRecordPressed = () => {
     if (this.state.isRecording) {
       this._stopRecordingAndEnablePlayback();
@@ -275,7 +382,8 @@ export  class PageRecorder extends React.Component {
   _onPlayPausePressed = () => {
     if (this.sound != null) {
       if (this.state.isPlaying) {
-        this.sound.pauseAsync();
+        // this.sound.pauseAsync();
+        this._onStopPressed();
       } else {
         this.sound.playAsync();
       }
@@ -404,101 +512,56 @@ export  class PageRecorder extends React.Component {
     }
 
     return (
+      
+
       <View style={styles.container}>
-        <View
-          style={[
-            styles.halfScreenContainer,
-          ]}>
-        
-          <View style={[styles.buttonsContainerBase, styles.buttonsContainerTopRow]}>
-           
-            <View style={styles.playStopContainer}>
-              <TouchableHighlight
-                underlayColor={BACKGROUND_COLOR}
-                style={[
-                  styles.wrapper, 
-                  {
-                    opacity:
-                      !this.state.isPlaybackAllowed || this.state.isLoading ? DISABLED_OPACITY : 1.0,
-                  },
-                ]}
-                onPress={this._onPlayPausePressed}
-                disabled={!this.state.isPlaybackAllowed || this.state.isLoading}>
-                <Image
-                  style={styles.image}
-                  source={this.state.isPlaying ? ICON_PAUSE_BUTTON.module : ICON_PLAY_BUTTON.module}
-                />
-              </TouchableHighlight>
-              <TouchableHighlight
-                underlayColor={BACKGROUND_COLOR}
-                style={[
-                  styles.wrapper, 
-                  {
-                    opacity:
-                      !this.state.isPlaybackAllowed || this.state.isLoading ? DISABLED_OPACITY : 1.0,
-                  },
-                ]}
-                onPress={this._onStopPressed}
-                disabled={!this.state.isPlaybackAllowed || this.state.isLoading}>
-                <Image style={styles.image} source={ICON_STOP_BUTTON.module} />
-              </TouchableHighlight>
-              
-              <TouchableHighlight
-                underlayColor={BACKGROUND_COLOR}
-                style={styles.wrapper}
-                onPress={this._onRecordPressed}
-                disabled={this.state.isLoading}>
-                <Image style={styles.image} source={ICON_RECORD_BUTTON.module} />
-              </TouchableHighlight>
-
-               <View style={styles.recordingDataContainer}>
-                <View />
-                <Text style={[styles.liveText, { fontFamily: 'cutive-mono-regular' }]}>
-                  {this.state.isRecording ? 'LIVE' : ''}
-                </Text>
-                <View style={styles.recordingDataRowContainer}>
-                  <Image
-                    style={[styles.image, { opacity: this.state.isRecording ? 1.0 : 0.0 }]}
-                    source={ICON_RECORDING.module}
-                  />
-                  <Text style={[styles.recordingTimestamp, { fontFamily: 'cutive-mono-regular' }]}>
-                    {this._getRecordingTimestamp()}
-                  </Text>
-                </View>
-              </View>
-
-            </View>
-            <Text style={[styles.playbackTimestamp, { fontFamily: 'cutive-mono-regular' }]}>
-              {this._getPlaybackTimestamp()}
-            </Text>
+          <View style={styles.buttonsContainer}>
+            <TouchableHighlight
+              underlayColor={BACKGROUND_COLOR}
+              style={[
+                styles.wrapper, 
+                {
+                  opacity:
+                    !this.state.isPlaybackAllowed || this.state.isLoading ? DISABLED_OPACITY : 1.0,
+                },
+              ]}
+              onPress={this._onPlayPausePressed}
+              disabled={!this.state.isPlaybackAllowed || this.state.isLoading}>
+              <Image
+                style={styles.image}
+                source={this.state.isPlaying ? ICON_STOP_BUTTON.module : ICON_PLAY_BUTTON.module}
+              />
+            </TouchableHighlight>
           </View>
-          <View />
-        </View>
-        <View style={styles.halfScreenContainer}>
-
-          <View style={[styles.buttonsContainerBase, styles.buttonsContainerTopRow]}>
-           
-            <View style={styles.expertPlayContainer}>
-
-              <TouchableHighlight
-                    underlayColor={BACKGROUND_COLOR}
-                    style={[
-                      styles.wrapper, 
-                      {
-                        opacity:
-                          !this.state.isPlaybackAllowed || this.state.isLoading ? DISABLED_OPACITY : 1.0,
-                      },
-                    ]}
-                    onPress={this._onPlayPausePressed}
-                    disabled={!this.state.isPlaybackAllowed || this.state.isLoading}>
-                <Image
-                  style={styles.image}
-                  source={this.state.isPlaying ? ICON_PAUSE_BUTTON.module : ICON_PLAY_BUTTON.module}
-                />
-              </TouchableHighlight>
-            </View>
+          <View style={styles.buttonsContainer}>
+            <TouchableHighlight
+              underlayColor={BACKGROUND_COLOR}
+              style={styles.wrapper}
+              onPress={this._onRecordPressed}
+              disabled={this.state.isLoading}>
+              <Image 
+                style={styles.image} 
+                source={this.state.isRecording ? ICON_RECORDING_ACTIVE.module : ICON_RECORD_BUTTON.module} />
+            </TouchableHighlight>
           </View>
-        </View>
+          <View style={styles.buttonsContainer}>
+            <TouchableHighlight
+              underlayColor={BACKGROUND_COLOR}
+              style={[
+                styles.wrapper, 
+                {
+                  opacity:
+                    !this.state.expertRecExists || this.state.isLoading ? DISABLED_OPACITY : 1.0,
+                },
+              ]}
+              onPress={this._expertPlayStop}
+              disabled={this.state.isLoading || !this.state.expertRecExists}>
+              <Image
+                style={styles.image}
+                source={this.state.isRecPlaying ? ICON_STOP_BUTTON.module : ICON_EXPERT_PLAY.module}
+              />
+            </TouchableHighlight>
+          </View>
       </View>
     );
   }
@@ -514,10 +577,18 @@ const styles = StyleSheet.create({
     paddingTop: 30,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    alignSelf: 'stretch',
+    alignItems: 'stretch',
+    alignSelf: 'center',
     backgroundColor: BACKGROUND_COLOR,
   },
+  buttonsContainer: {
+    width: ICON_RECORD_BUTTON.width,
+    height: ICON_RECORD_BUTTON.height,
+    alignItems: 'center',
+    padding: 20,
+    backgroundColor: BACKGROUND_COLOR
+  },
+
   noPermissionsText: {
     textAlign: 'center',
   },
@@ -557,15 +628,7 @@ const styles = StyleSheet.create({
     minHeight: ICON_RECORDING.height,
     maxHeight: ICON_RECORDING.height,
   },
-  playbackContainer: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    alignSelf: 'stretch',
-    minHeight: ICON_THUMB_1.height * 2.0,
-    maxHeight: ICON_THUMB_1.height * 2.0,
-  },
+
   playbackSlider: {
     alignSelf: 'stretch',
   },
@@ -623,15 +686,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     minWidth: DEVICE_WIDTH / 2.0,
     maxWidth: DEVICE_WIDTH / 2.0,
-  },
-  volumeSlider: {
-    width: DEVICE_WIDTH / 2.0 - ICON_MUTED_BUTTON.width,
-  },
-  buttonsContainerBottomRow: {
-    maxHeight: ICON_THUMB_1.height,
-    alignSelf: 'stretch',
-    paddingRight: 20,
-    paddingLeft: 20,
   },
   rateSlider: {
     width: DEVICE_WIDTH / 2.0,

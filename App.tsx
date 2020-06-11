@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, View, StyleSheet, TextInput, Alert, ScrollView, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { Text, View, StyleSheet, TextInput, Alert, ScrollView, Platform, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import {AsyncStorage} from 'react-native';
 import { Button } from 'react-native-paper';
 import { SplashScreen } from 'expo';
@@ -18,6 +18,7 @@ import { VideoWatch } from './components/VideoWatch';
 import { BookList } from './components/BookList';
 import { BookRead } from './components/BookRead';
 import { PageRecorder } from './components/PageRecorder';
+import { PR2 } from './components/pr2';
 
 import { styles } from './style';
 import { LoginVideo } from './assets/loginvid.mp4';
@@ -149,7 +150,7 @@ function LoginScreen ( {route, navigation} ) {
               mode="contained"
               loading={props.isSubmitting}
               disabled={props.isSubmitting}
-              style={{ marginTop: 16 }}>
+              style={{ marginVertical: 16 }}>
               Submit
             </Button>
             
@@ -161,7 +162,7 @@ function LoginScreen ( {route, navigation} ) {
       
     </View>
     </TouchableWithoutFeedback>
-    
+
     </ScrollView>
 
   );
@@ -274,6 +275,11 @@ export default function App(props) {
           name="PageRecorder"
           component={PageRecorder}
           options={{title: 'Record'}}
+        />
+        <Stack.Screen
+          name="pr2"
+          component={PR2}
+          options={{title: 'Record tester'}}
         />
         <Stack.Screen
           name="VideoList"

@@ -57,7 +57,7 @@ export function MenuScreen({navigation, route}) {
         </Card>
         </TouchableOpacity>
 
-        <TouchableOpacity key="record" onPress={() => navigation.navigate("PageRecorder")}> 
+        <TouchableOpacity key="record" onPress={() => navigation.navigate("PR2", {page: "1"})}> 
         <Card>
           <CardItem>
             <Left>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, Slider, StyleSheet, Text, TouchableHighlight, View, Alert, AsyncStorage } from 'react-native';
+import { Dimensions, Slider, StyleSheet, Text, TouchableHighlight, View, Alert, AsyncStorage, Image } from 'react-native';
 
 import { Asset } from 'expo-asset';
 import { Audio } from 'expo-av';
@@ -7,9 +7,11 @@ import * as FileSystem from 'expo-file-system';
 import * as Font from 'expo-font';
 import * as Permissions from 'expo-permissions';
 import { Icon, Tile } from 'react-native-elements';
-import { Image } from 'react-native';
+import ImageZoom from 'react-native-image-pan-zoom';
+
 import { PageRecorder } from './PageRecorder';
 import { PR2 } from './pr2';
+
 
 import bearcover from '../assets/books/bear-cover.png';
 import bearpages from '../assets/books/';
@@ -125,7 +127,7 @@ export function BookRead({navigation, route}) {
 
       <View style={{
         flexDirection: 'row',
-        flex: 4
+        flex: 7
       }}>
         <View style= {[styles.buttonStyle, {alignItems: "flex-start"}]} >
           <Icon
@@ -143,12 +145,18 @@ export function BookRead({navigation, route}) {
           height: "100%"
           // flexGrow: 1,
         }} >
+          <ImageZoom cropWidth={Dimensions.get('window').width*0.75}
+                     cropHeight={Dimensions.get('window').height*0.75}
+                     imageWidth={400}
+                     imageHeight={700}>
           
           <Image
             source={PAGES[(currentPage - 1)]}
             style={styles.pageImage}
             
           />
+
+          </ImageZoom>
 
         </View>
             

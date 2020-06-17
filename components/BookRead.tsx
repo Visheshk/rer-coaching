@@ -89,6 +89,7 @@ export function BookRead({navigation, route}) {
       // console.log("setting up current page " + currentPage + " " + imageName);
       // console.log("bear pages " + bearPages[imageName]);
       setImageURL(gitImageUrl + imageName + ".png");
+      navigation.setOptions({ "title": 'Read!      Page ' + currentPage});
     } catch (error) { console.log(error); }
 
   };
@@ -114,10 +115,11 @@ export function BookRead({navigation, route}) {
       setImageName("pg" + cp);
       setImageURL(gitImageUrl + "pg" + cp + ".png");
       console.log(imageURL);
+      navigation.setOptions({ "title": 'Read!      Page ' + currentPage});
       // console.log("bear pages " + bearPages[imageName]);
 
     }
-    navigation.setOptions({ "title": 'Read!      Page ' + currentPage});
+    
   };
   return (
     <View style={{

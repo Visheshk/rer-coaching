@@ -12,10 +12,6 @@ import ImageZoom from 'react-native-image-pan-zoom';
 import { PageRecorder } from './PageRecorder';
 import { PR2 } from './pr2';
 
-
-import bearcover from '../assets/books/bear-cover.png';
-import bearpages from '../assets/books/';
-
 const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = Dimensions.get('window');
 const BACKGROUND_COLOR = '#FFF8ED';
 const LIVE_COLOR = '#FF0000';

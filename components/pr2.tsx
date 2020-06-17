@@ -18,14 +18,14 @@ import * as FileSystem from 'expo-file-system';
 import * as Font from 'expo-font';
 import * as Permissions from 'expo-permissions';
 
-class Icon {
-  constructor(module, width, height) {
-    this.module = module;
-    this.width = width;
-    this.height = height;
-    Asset.fromModule(this.module).downloadAsync();
-  }
-}
+// class Icon {
+//   constructor(module, width, height) {
+//     this.module = module;
+//     this.width = width;
+//     this.height = height;
+//     Asset.fromModule(this.module).downloadAsync();
+//   }
+// }
 
 class PreRecording {
   constructor(module) {
@@ -35,14 +35,16 @@ class PreRecording {
   }
 }
 
-const ICON_RECORD_BUTTON = new Icon(require('../assets/images/record_button.png'), 41, 70);
-const ICON_RECORDING = new Icon(require('../assets/images/record_icon.png'), 20, 14);
-const ICON_RECORDING_ACTIVE = new Icon(require('../assets/images/record_active_button.png'), 41, 70);
+const irbWidth = 41;
+const irbHeight = 70;
+// const ICON_RECORD_BUTTON = new Icon(require('../assets/images/record_button.png'), 41, 70);
+// const ICON_RECORDING = new Icon(require('../assets/images/record_icon.png'), 20, 14);
+// const ICON_RECORDING_ACTIVE = new Icon(require('../assets/images/record_active_button.png'), 41, 70);
 
-const ICON_EXPERT_PLAY = new Icon(require('../assets/images/expert_play_button.png'), 34, 51);
-const ICON_PLAY_BUTTON = new Icon(require('../assets/images/play_button.png'), 34, 51);
-const ICON_PAUSE_BUTTON = new Icon(require('../assets/images/pause_button.png'), 34, 51);
-const ICON_STOP_BUTTON = new Icon(require('../assets/images/stop_button.png'), 22, 22);
+// const ICON_EXPERT_PLAY = new Icon(require('../assets/images/expert_play_button.png'), 34, 51);
+// const ICON_PLAY_BUTTON = new Icon(require('../assets/images/play_button.png'), 34, 51);
+// const ICON_PAUSE_BUTTON = new Icon(require('../assets/images/pause_button.png'), 34, 51);
+// const ICON_STOP_BUTTON = new Icon(require('../assets/images/stop_button.png'), 22, 22);
 
 const PRERECORDINGS = [
   0, 
@@ -144,7 +146,7 @@ export class PR2 extends React.Component {
       if (this.state.currentPage != props.page){
         var thisPage = parseInt(props.page);
         this.setState({currentPage: thisPage});
-        // console.log(thisPage);
+        console.log(thisPage);
         
         (async () => {
           var noRec = true;
@@ -529,7 +531,7 @@ export class PR2 extends React.Component {
               disabled={!this.state.isPlaybackAllowed || this.state.isLoading}>
               <Image
                 style={styles.image}
-                source={this.state.isPlaying ? ICON_STOP_BUTTON.module : ICON_PLAY_BUTTON.module}
+                source={this.state.isPlaying ? require('../assets/images/stop_button.png') : require('../assets/images/play_button.png')}
               />
             </TouchableHighlight>
           </View>
@@ -541,7 +543,7 @@ export class PR2 extends React.Component {
               disabled={this.state.isLoading}>
               <Image 
                 style={styles.image} 
-                source={this.state.isRecording ? ICON_RECORDING_ACTIVE.module : ICON_RECORD_BUTTON.module} />
+                source={this.state.isRecording ? require('../assets/images/record_active_button.png') : require('../assets/images/record_button.png')} />
             </TouchableHighlight>
           </View>
           <View style={styles.buttonsContainer}>
@@ -558,7 +560,7 @@ export class PR2 extends React.Component {
               disabled={this.state.isLoading || !this.state.expertRecExists}>
               <Image
                 style={styles.image}
-                source={this.state.isRecPlaying ? ICON_STOP_BUTTON.module : ICON_EXPERT_PLAY.module}
+                source={this.state.isRecPlaying ? require('../assets/images/stop_button.png') : require('../assets/images/expert_play_button.png')}
               />
             </TouchableHighlight>
           </View>
@@ -582,8 +584,8 @@ const styles = StyleSheet.create({
     // backgroundColor: BACKGROUND_COLOR,
   },
   buttonsContainer: {
-    width: ICON_RECORD_BUTTON.width,
-    height: ICON_RECORD_BUTTON.height,
+    width: irbWidth,
+    height: irbHeight,
     alignItems: 'center',
     paddingLeft: 30,
     paddingRight: 30,
@@ -594,102 +596,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   wrapper: {},
-  halfScreenContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    alignSelf: 'stretch',
-    width: "50%"
-  },
-  recordingContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    alignSelf: 'stretch',
-    minHeight: ICON_RECORD_BUTTON.height,
-    maxHeight: ICON_RECORD_BUTTON.height,
-  },
-  recordingDataContainer: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    minHeight: ICON_RECORD_BUTTON.height,
-    maxHeight: ICON_RECORD_BUTTON.height,
-    minWidth: ICON_RECORD_BUTTON.width * 3.0,
-    maxWidth: ICON_RECORD_BUTTON.width * 3.0,
-  },
-  recordingDataRowContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    minHeight: ICON_RECORDING.height,
-    maxHeight: ICON_RECORDING.height,
-  },
-
-  playbackSlider: {
-    alignSelf: 'stretch',
-  },
-  liveText: {
-    color: LIVE_COLOR,
-  },
-  recordingTimestamp: {
-    paddingLeft: 20,
-  },
-  playbackTimestamp: {
-    textAlign: 'right',
-    alignSelf: 'stretch',
-    paddingRight: 50,
-  },
   image: {
     // backgroundColor: BACKGROUND_COLOR,
     paddingLeft: 40,
-  },
-  textButton: {
-    backgroundColor: BACKGROUND_COLOR,
-    padding: 10,
-  },
-  buttonsContainerBase: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  buttonsContainerTopRow: {
-    maxHeight: ICON_RECORD_BUTTON.height,
-    alignSelf: 'stretch',
-    paddingRight: 50,
-  },
-  playStopContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingLeft: 20,
-    minWidth: "30%",
-    maxWidth: "40%",
-  },
-  expertPlayContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    justifyContent: 'flex-end',
-    paddingLeft: 20,
-    minWidth: "30%",
-    maxWidth: "40%",
-  },
-  volumeContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    minWidth: DEVICE_WIDTH / 2.0,
-    maxWidth: DEVICE_WIDTH / 2.0,
-  },
-  rateSlider: {
-    width: DEVICE_WIDTH / 2.0,
   },
 });

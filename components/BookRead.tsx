@@ -122,6 +122,20 @@ export function BookRead({navigation, route}) {
       flexDirection: 'column',
       height: "100%"
     }}>
+    <ImageZoom cropWidth={Dimensions.get('window').width*0.9}
+               cropHeight={Dimensions.get('window').height*0.75}
+               imageWidth={Dimensions.get('window').width*0.9}
+               imageHeight={Dimensions.get('window').height*0.75}
+               style={{alignSelf: "center", position: 'absolute'}}
+               >
+      
+      <Image
+        source={PAGES[(currentPage - 1)]}
+        style={styles.pageImage}
+        
+      />
+
+      </ImageZoom>
 
       <View style={{
         flexDirection: 'row',
@@ -140,21 +154,10 @@ export function BookRead({navigation, route}) {
           
         <View style={{
           flex: 1,
-          height: "100%"
+          height: "100%",
+          width: 400
           // flexGrow: 1,
         }} >
-          <ImageZoom cropWidth={Dimensions.get('window').width*0.75}
-                     cropHeight={Dimensions.get('window').height*0.75}
-                     imageWidth={400}
-                     imageHeight={700}>
-          
-          <Image
-            source={PAGES[(currentPage - 1)]}
-            style={styles.pageImage}
-            
-          />
-
-          </ImageZoom>
 
         </View>
             
@@ -168,6 +171,7 @@ export function BookRead({navigation, route}) {
           />
         </View>
 
+
     </View>
     <View style={{
         
@@ -176,6 +180,7 @@ export function BookRead({navigation, route}) {
       
       <PR2 page={currentPage}/>
     </View>
+    
   </View>
     
   );
@@ -198,12 +203,14 @@ const styles = StyleSheet.create({
   pageImage: {
     width: "100%", 
     height: "100%", 
+    position: "absolute",
     resizeMode: "contain"
   },
   buttonStyle: {
     flex: 1,
     maxWidth: 60,
     justifyContent: "center",
+    alignSelf: "center"
   }
 
 });

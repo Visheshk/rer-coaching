@@ -18,14 +18,14 @@ import * as FileSystem from 'expo-file-system';
 import * as Font from 'expo-font';
 import * as Permissions from 'expo-permissions';
 
-// class Icon {
-//   constructor(module, width, height) {
-//     this.module = module;
-//     this.width = width;
-//     this.height = height;
-//     Asset.fromModule(this.module).downloadAsync();
-//   }
-// }
+class Icon {
+  constructor(module, width, height) {
+    this.module = module;
+    this.width = width;
+    this.height = height;
+    Asset.fromModule(this.module).downloadAsync();
+  }
+}
 
 class PreRecording {
   constructor(module) {
@@ -37,14 +37,14 @@ class PreRecording {
 
 const irbWidth = 41;
 const irbHeight = 70;
-// const ICON_RECORD_BUTTON = new Icon(require('../assets/images/record_button.png'), 41, 70);
-// const ICON_RECORDING = new Icon(require('../assets/images/record_icon.png'), 20, 14);
-// const ICON_RECORDING_ACTIVE = new Icon(require('../assets/images/record_active_button.png'), 41, 70);
+const ICON_RECORD_BUTTON = new Icon(require('../assets/images/record_button.png'), 41, 70);
+const ICON_RECORDING = new Icon(require('../assets/images/record_icon.png'), 20, 14);
+const ICON_RECORDING_ACTIVE = new Icon(require('../assets/images/record_active_button.png'), 41, 70);
 
-// const ICON_EXPERT_PLAY = new Icon(require('../assets/images/expert_play_button.png'), 34, 51);
-// const ICON_PLAY_BUTTON = new Icon(require('../assets/images/play_button.png'), 34, 51);
-// const ICON_PAUSE_BUTTON = new Icon(require('../assets/images/pause_button.png'), 34, 51);
-// const ICON_STOP_BUTTON = new Icon(require('../assets/images/stop_button.png'), 22, 22);
+const ICON_EXPERT_PLAY = new Icon(require('../assets/images/expert_play_button.png'), 34, 51);
+const ICON_PLAY_BUTTON = new Icon(require('../assets/images/play_button.png'), 34, 51);
+const ICON_PAUSE_BUTTON = new Icon(require('../assets/images/pause_button.png'), 34, 51);
+const ICON_STOP_BUTTON = new Icon(require('../assets/images/stop_button.png'), 22, 22);
 
 const PRERECORDINGS = [
   0, 
@@ -54,36 +54,41 @@ const PRERECORDINGS = [
 ]
 
 const PRERECORDINGURIS = [
-  0, 
-  require('../assets/prerecordings/media1.m4a'),
-  require('../assets/prerecordings/media2.m4a'),
-  require('../assets/prerecordings/media3.m4a'),
-  require('../assets/prerecordings/media4.m4a'),
-  require('../assets/prerecordings/media5.m4a'),
-  require('../assets/prerecordings/media6.m4a'),
-  require('../assets/prerecordings/media7.m4a'),
-  require('../assets/prerecordings/media8.m4a'),
-  require('../assets/prerecordings/media9.m4a'),
-  require('../assets/prerecordings/media10.m4a'),
-  require('../assets/prerecordings/media11.m4a'),
-  require('../assets/prerecordings/media12.m4a'),
-  require('../assets/prerecordings/media13.m4a'),
-  require('../assets/prerecordings/media14.m4a'),
-  require('../assets/prerecordings/media15.m4a'),
-  require('../assets/prerecordings/media16.m4a'),
-  require('../assets/prerecordings/media17.m4a'),
-  require('../assets/prerecordings/media18.m4a'),
-  require('../assets/prerecordings/media19.m4a'),
-  require('../assets/prerecordings/media20.m4a'),
-  require('../assets/prerecordings/media21.m4a'),
-  require('../assets/prerecordings/media22.m4a'),
-  require('../assets/prerecordings/media23.m4a'),
-  require('../assets/prerecordings/media24.m4a'),
-  require('../assets/prerecordings/media25.m4a')
+  0,
+  0,
+  require('../assets/prerecordings/media1.m4a'),  //do you remember the last time
+  require('../assets/prerecordings/media2.m4a'),  //what do you think they dig for?
+  require('../assets/prerecordings/media3.m4a'),  //what does a ferocious - p4
+  require('../assets/prerecordings/media4.m4a'),  //what do you think that giant panda is eating
+  require('../assets/prerecordings/media5.m4a'),  //can you point to something nearby
+  require('../assets/prerecordings/media6.m4a'),  //if you became a grizzly bear tomorrow
+  require('../assets/prerecordings/media7.m4a'),  //how tall are you
+  0,    // - p9 - slide 62
+  require('../assets/prerecordings/media8.m4a'),  //which footprint - s66, p10
+  require('../assets/prerecordings/media9.m4a'),  //why do you think they have such - s72, p11
+  require('../assets/prerecordings/media10.m4a'),  //which food do you think - s78, p12
+  require('../assets/prerecordings/media11.m4a'),  //do you think a polar bear or - s84, p13
+  require('../assets/prerecordings/media12.m4a'),  //where are the polar bears - s90, p14
+  require('../assets/prerecordings/media13.m4a'),  //why do you think their strong - s96, p15
+  0,    // s102 - p16
+  0,    // s106 p -17
+  require('../assets/prerecordings/media14.m4a'),  //how many limbs do you have - s110, p18
+  require('../assets/prerecordings/media15.m4a'),  //how do you think polar bears and  - s116, p19
+  require('../assets/prerecordings/media16.m4a'),  //do you know what solitary - s122, p20
+  require('../assets/prerecordings/media17.m4a'),  //dyk any other animals - s128, p21
+  require('../assets/prerecordings/media18.m4a'),  //what would you miss most - s134, p22
+  require('../assets/prerecordings/media19.m4a'),  //what type of food do you - s140, p23
+  require('../assets/prerecordings/media20.m4a'),  //what do you think the polar bears thought - s146, p24
+  require('../assets/prerecordings/media21.m4a'),  //how do you think he felt - s152, p25
+  require('../assets/prerecordings/media22.m4a'),  //what do you think is going to happen - s158, p26
+  require('../assets/prerecordings/media23.m4a'),  //who do you think will win - s164, p27
+  require('../assets/prerecordings/media24.m4a'),  //what do you think the polar bear will do - s170, p28
+  require('../assets/prerecordings/media25.m4a'),  //if the bears meet again - s176, p29
+  0
 ]
 
 const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = Dimensions.get('window');
-const BACKGROUND_COLOR = '#FFF';
+const BACKGROUND_COLOR = '#000';
 const LIVE_COLOR = '#FF0000';
 const DISABLED_OPACITY = 0.5;
 const RATE_SCALE = 3.0;
@@ -146,7 +151,7 @@ export class PR2 extends React.Component {
       if (this.state.currentPage != props.page){
         var thisPage = parseInt(props.page);
         this.setState({currentPage: thisPage});
-        console.log(thisPage);
+        // console.log(thisPage);
         
         (async () => {
           var noRec = true;
@@ -531,7 +536,7 @@ export class PR2 extends React.Component {
               disabled={!this.state.isPlaybackAllowed || this.state.isLoading}>
               <Image
                 style={styles.image}
-                source={this.state.isPlaying ? require('../assets/images/stop_button.png') : require('../assets/images/play_button.png')}
+                source={this.state.isPlaying ? ICON_STOP_BUTTON.module : ICON_PLAY_BUTTON.module}
               />
             </TouchableHighlight>
           </View>
@@ -543,7 +548,7 @@ export class PR2 extends React.Component {
               disabled={this.state.isLoading}>
               <Image 
                 style={styles.image} 
-                source={this.state.isRecording ? require('../assets/images/record_active_button.png') : require('../assets/images/record_button.png')} />
+                source={this.state.isRecording ? ICON_RECORDING_ACTIVE.module : require('../assets/images/record_button.png')} />
             </TouchableHighlight>
           </View>
           <View style={styles.buttonsContainer}>
@@ -560,7 +565,7 @@ export class PR2 extends React.Component {
               disabled={this.state.isLoading || !this.state.expertRecExists}>
               <Image
                 style={styles.image}
-                source={this.state.isRecPlaying ? require('../assets/images/stop_button.png') : require('../assets/images/expert_play_button.png')}
+                source={this.state.isRecPlaying ? ICON_STOP_BUTTON.module : ICON_EXPERT_PLAY.module}
               />
             </TouchableHighlight>
           </View>

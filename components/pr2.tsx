@@ -35,16 +35,16 @@ class PreRecording {
   }
 }
 
-const irbWidth = 41;
-const irbHeight = 70;
-const ICON_RECORD_BUTTON = new Icon(require('../assets/images/record_button.png'), 41, 70);
-const ICON_RECORDING = new Icon(require('../assets/images/record_icon.png'), 20, 14);
-const ICON_RECORDING_ACTIVE = new Icon(require('../assets/images/record_active_button.png'), 41, 70);
+const irbWidth = 80;
+const irbHeight = 80;
+const ICON_RECORD_BUTTON = new Icon(require('../assets/images/record-blue.png'), 200, 200);
+// const ICON_RECORDING = new Icon(require('../assets/images/record_icon.png'), 200, 200);
+const ICON_RECORDING_ACTIVE = new Icon(require('../assets/images/record-red.png'), 200, 200);
 
-const ICON_EXPERT_PLAY = new Icon(require('../assets/images/expert_play_button.png'), 34, 51);
-const ICON_PLAY_BUTTON = new Icon(require('../assets/images/play_button.png'), 34, 51);
-const ICON_PAUSE_BUTTON = new Icon(require('../assets/images/pause_button.png'), 34, 51);
-const ICON_STOP_BUTTON = new Icon(require('../assets/images/stop_button.png'), 22, 22);
+const ICON_EXPERT_PLAY = new Icon(require('../assets/images/bulb-yellow.png'), 200, 200);
+const ICON_PLAY_BUTTON = new Icon(require('../assets/images/play-green.png'), 200, 200);
+const ICON_PAUSE_BUTTON = new Icon(require('../assets/images/stop-red.png'), 200, 200);
+const ICON_STOP_BUTTON = new Icon(require('../assets/images/stop-red.png'), 200, 200);
 
 const PRERECORDINGS = [
   0, 
@@ -88,9 +88,9 @@ const PRERECORDINGURIS = [
 ]
 
 const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = Dimensions.get('window');
-const BACKGROUND_COLOR = '#000';
+const BACKGROUND_COLOR = '#DDD';
 const LIVE_COLOR = '#FF0000';
-const DISABLED_OPACITY = 0.5;
+const DISABLED_OPACITY = 0.2;
 const RATE_SCALE = 3.0;
 
 export class PR2 extends React.Component {
@@ -548,7 +548,7 @@ export class PR2 extends React.Component {
               disabled={this.state.isLoading}>
               <Image 
                 style={styles.image} 
-                source={this.state.isRecording ? ICON_RECORDING_ACTIVE.module : require('../assets/images/record_button.png')} />
+                source={this.state.isRecording ? ICON_RECORDING_ACTIVE.module : ICON_RECORD_BUTTON.module} />
             </TouchableHighlight>
           </View>
           <View style={styles.buttonsContainer}>

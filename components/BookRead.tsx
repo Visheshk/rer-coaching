@@ -122,10 +122,10 @@ export function BookRead({navigation, route}) {
       flexDirection: 'column',
       height: "100%"
     }}>
-    <ImageZoom cropWidth={Dimensions.get('window').width*0.9}
+    <ImageZoom cropWidth={Dimensions.get('window').height*1.28}
                cropHeight={Dimensions.get('window').height*0.8}
                imageWidth={Dimensions.get('window').height*1.28}
-               imageHeight={Dimensions.get('window').height*0.7}
+               imageHeight={Dimensions.get('window').height*0.8}
                style={{alignSelf: "center", position: 'absolute'}}
                >
       

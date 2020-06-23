@@ -600,9 +600,14 @@ const styles = StyleSheet.create({
   noPermissionsText: {
     textAlign: 'center',
   },
-  wrapper: {},
+  wrapper: {
+    width: irbWidth,
+    height: irbHeight
+  },
   image: {
     // backgroundColor: BACKGROUND_COLOR,
     paddingLeft: 40,
+    width: irbWidth,
+    height: irbHeight
   },
 });

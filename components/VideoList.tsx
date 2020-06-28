@@ -5,7 +5,7 @@ import {AsyncStorage} from 'react-native';
 // import { AVPlaybackStatus, VideoProps } from 'expo-av/build/Video'
 import { styles } from '../style';
 
-import { Container, Header, Content, Card, CardItem, Text, Icon, Right } from 'native-base';
+import { Container, Header, Content, Card, CardItem, Text, Icon, Left, Right } from 'native-base';
 
 export function VideoList({navigation, route}) {
 	// render() {
@@ -27,14 +27,16 @@ export function VideoList({navigation, route}) {
   storeData();
 	return (
 
-		<View>
-
-    <Card>
-      <TouchableOpacity style={{alignItems: "stretch"}} onPress={() => navigation.navigate('VideoWatch', {video: 'READY', "name": "READY To Read"})}>
+		<Container>
+    <Content>
+    <Card style={{flex: 0}}>
+      <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {video: 'READY', "name": "READY To Read"})}>
       <CardItem bordered>
-        <Icon active name="ios-book" />
+        <Left>
+        <Icon  name="movie" type="MaterialIcons"/>
         <Text>READY TO Read</Text>
-        <Right style={{alignSelf: "stretch"}}>
+        </Left>
+        <Right style={{alignSelf: "flex-end"}}>
           <Icon name="arrow-forward" />
         </Right>
        </CardItem>
@@ -42,28 +44,21 @@ export function VideoList({navigation, route}) {
 
        <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {video: 'Connections', "name": "Making Life Connections"})}>
         <CardItem bordered>
-        <Icon active name="md-git-network" />
+        <Icon  name="movie" type="MaterialIcons"/>
         <Text>Making Life Connections</Text>
-        <Right>
+        <Left />
+        <Right style={{alignSelf: "flex-end"}}>
           <Icon name="arrow-forward" />
         </Right>
        </CardItem>
        </TouchableOpacity>
-
-       <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {video: 'Reading Fun', "name": "Making Reading Fun"})}>
-         <CardItem bordered>
-          <Icon active name="md-rocket" />
-          <Text>Making Reading Fun</Text>
-          <Right>
-            <Icon name="arrow-forward" />
-          </Right>
-         </CardItem>
-       </TouchableOpacity>
   
        <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {video: 'Word', "name": "What's That Word?"})}>
         <CardItem bordered>
-        <Icon active name="md-search" />
+        <Left>
+        <Icon  name="movie" type="MaterialIcons"/>
         <Text>What's That Word?</Text>
+        </Left>
         <Right>
           <Icon name="arrow-forward" />
         </Right>
@@ -72,8 +67,10 @@ export function VideoList({navigation, route}) {
 
        <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {video: 'Picture', "name": "Check Out the Pictures"})}>
         <CardItem bordered>
-        <Icon active name="md-photos" />
+        <Left>
+        <Icon  name="movie" type="MaterialIcons"/>
         <Text>Check Out the Pictures</Text>
+        </Left>
         <Right>
           <Icon name="arrow-forward" />
         </Right>
@@ -81,7 +78,7 @@ export function VideoList({navigation, route}) {
        </TouchableOpacity>       
          
      </Card>
-           
-		</View>
+     </Content>
+		</Container>
 	);
 }

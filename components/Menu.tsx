@@ -57,18 +57,6 @@ export function MenuScreen({navigation, route}) {
         </Card>
         </TouchableOpacity>
 
-        <TouchableOpacity key="record" onPress={() => navigation.navigate("PR2", {page: "1"})}> 
-        <Card>
-          <CardItem>
-            <Left>
-              <Thumbnail square source={Letsread} />
-              <Body>
-                <Text>Recording Test</Text>
-              </Body>
-            </Left>
-          </CardItem>
-        </Card>
-        </TouchableOpacity>
 
       </View>
 		);

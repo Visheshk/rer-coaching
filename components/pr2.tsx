@@ -525,6 +525,17 @@ export class PR2 extends React.Component {
           <View style={styles.buttonsContainer}>
             <TouchableHighlight
               underlayColor={BACKGROUND_COLOR}
+              style={styles.wrapper}
+              onPress={this._onRecordPressed}
+              disabled={this.state.isLoading}>
+              <Image 
+                style={styles.image} 
+                source={this.state.isRecording ? ICON_RECORDING_ACTIVE.module : ICON_RECORD_BUTTON.module} />
+            </TouchableHighlight>
+          </View>
+          <View style={styles.buttonsContainer}>
+            <TouchableHighlight
+              underlayColor={BACKGROUND_COLOR}
               style={[
                 styles.wrapper, 
                 {
@@ -540,17 +551,7 @@ export class PR2 extends React.Component {
               />
             </TouchableHighlight>
           </View>
-          <View style={styles.buttonsContainer}>
-            <TouchableHighlight
-              underlayColor={BACKGROUND_COLOR}
-              style={styles.wrapper}
-              onPress={this._onRecordPressed}
-              disabled={this.state.isLoading}>
-              <Image 
-                style={styles.image} 
-                source={this.state.isRecording ? ICON_RECORDING_ACTIVE.module : ICON_RECORD_BUTTON.module} />
-            </TouchableHighlight>
-          </View>
+          
           <View style={styles.buttonsContainer}>
             <TouchableHighlight
               underlayColor={BACKGROUND_COLOR}

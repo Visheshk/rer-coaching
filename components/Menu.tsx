@@ -4,6 +4,7 @@ import { AsyncStorage } from 'react-native';
 import { styles } from '../style';
 
 import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from 'native-base';
+import { Audio, Video } from 'expo-av';
 
 import Videos from '../assets/videos.png'; 
 import Start from '../assets/start.png'; 
@@ -22,6 +23,17 @@ export function MenuScreen({navigation, route}) {
     storeData();
 		return (
       <View style={{ flexDirection: 'column', justifyContent: 'space-around'}}>
+        <Video
+          source={{ uri: 'http://18.215.149.31/wp-content/uploads/2020/05/loginvid.mp4' }}
+          rate={1.0}
+          volume={1.0}
+          isMuted={false}
+          resizeMode="contain"
+          useNativeControls={true}
+          shouldPlay={false}
+          isLooping={false}
+          style={{ height: 300 }}
+        />
        <TouchableOpacity key="video" onPress={() => navigation.navigate("VideoList")}> 
         <Card>
           <CardItem>

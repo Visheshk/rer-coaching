@@ -58,7 +58,7 @@ function LoginScreen ( {route, navigation} ) {
         rate={1.0}
         volume={1.0}
         isMuted={false}
-        resizeMode="cover"
+        resizeMode="contain"
         useNativeControls={true}
         shouldPlay={false}
         isLooping={false}

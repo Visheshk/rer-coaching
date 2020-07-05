@@ -85,7 +85,7 @@ export function BookRead({navigation, route}) {
       // console.log("setting up current page " + currentPage + " " + imageName);
       // console.log("bear pages " + bearPages[imageName]);
       setImageURL(gitImageUrl + imageName + ".png");
-      navigation.setOptions({ "title": 'Read!      Page ' + currentPage});
+      navigation.setOptions({ "title": 'Read! \t Page ' + (parseInt(currentPage) + 2)});
     } catch (error) { console.log(error); }
 
   };

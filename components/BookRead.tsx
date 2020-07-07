@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, Slider, StyleSheet, Text, TouchableHighlight, View, Alert, AsyncStorage, Image } from 'react-native';
+import { Dimensions, Slider, StyleSheet, Text, TouchableOpacity, TouchableHighlight, View, Alert, AsyncStorage, Image } from 'react-native';
 
 import { Asset } from 'expo-asset';
 import { Audio } from 'expo-av';
@@ -11,6 +11,8 @@ import ImageZoom from 'react-native-image-pan-zoom';
 
 import { PageRecorder } from './PageRecorder';
 import { PR2 } from './pr2';
+import rtArrow from '../assets/icons/rtArrow.png'; 
+import ltArrow from '../assets/icons/ltArrow.png'; 
 
 const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = Dimensions.get('window');
 const BACKGROUND_COLOR = '#FFF8ED';
@@ -122,9 +124,9 @@ export function BookRead({navigation, route}) {
       flexDirection: 'column',
       height: "100%"
     }}>
-    <ImageZoom cropWidth={Dimensions.get('window').height*1.28}
+    <ImageZoom cropWidth={Dimensions.get('window').height*0.6}
                cropHeight={Dimensions.get('window').height*0.8}
-               imageWidth={Dimensions.get('window').height*1.28}
+               imageWidth={Dimensions.get('window').height*0.6}
                imageHeight={Dimensions.get('window').height*0.8}
                style={{alignSelf: "center", position: 'absolute'}}
                >
@@ -141,15 +143,10 @@ export function BookRead({navigation, route}) {
         flexDirection: 'row',
         flex: 7
       }}>
-        <View style= {[styles.buttonStyle, {alignItems: "flex-start"}]} >
-          <Icon
-            reverse
-            name='caret-left'
-            type='font-awesome'
-            color='#517fa4'
-            onPress={() => changePage(-1)} 
-          />
-
+        <View style={[styles.buttonStyle, {alignItems: "flex-start"}]} >
+          <TouchableOpacity onPress={() => changePage(-1)} style={styles.touchStyle}>
+            <Image source={ltArrow} style={{height: 50, width: 50}}/>
+          </TouchableOpacity>
         </View>
           
         <View style={{
@@ -162,19 +159,14 @@ export function BookRead({navigation, route}) {
         </View>
             
         <View style={[styles.buttonStyle, {alignItems: "flex-end"}]} >
-          <Icon
-            reverse
-            name='caret-right'
-            type='font-awesome'
-            color='#517fa4'
-            onPress={() => changePage(1)} 
-          />
+          <TouchableOpacity onPress={() => changePage(1)} style={styles.touchStyle}>
+            <Image source={rtArrow} style={{height: 50, width: 50}}/>
+          </TouchableOpacity>
         </View>
 
 
     </View>
     <View style={{
-        
         flex: 1
       }}>
       
@@ -209,6 +201,13 @@ const styles = StyleSheet.create({
   buttonStyle: {
     flex: 1,
     maxWidth: 60,
+    height: Dimensions.get('window').height*0.8,
+    justifyContent: "center",
+    alignSelf: "center"
+  },
+  touchStyle: {
+    flex: 1, 
+    width: "100%", 
     justifyContent: "center",
     alignSelf: "center"
   }

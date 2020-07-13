@@ -24,11 +24,16 @@ import { styles } from './style';
 import { LoginVideo } from './assets/loginvid.mp4';
 
 function LoginScreen ( {route, navigation} ) {
+  const [isReady, setIsReady] = React.useState(false);
+  const [userInfo, setUserInfo] = React.useState();
+  const [name, setName] = React.useState("");
+  const [age, setAge] = React.useState("");
+  const [studId, setStudId] = React.useState("");
+
   var storeData = async (vals) => {
     try {
       // console.log(vals);
       await AsyncStorage.setItem('bookPages', JSON.stringify({}));
-
       await AsyncStorage.setItem('userInfo', JSON.stringify(vals));
       await AsyncStorage.setItem('age', vals["age"]);
       await AsyncStorage.setItem('studentId', vals["studentId"]);
@@ -44,6 +49,27 @@ function LoginScreen ( {route, navigation} ) {
   }
   var pauseVideo = function () {
     playbackObject.pauseAsync();
+  }
+
+  React.useEffect(() => {
+    (async() => {
+      try {
+        const uinf = await AsyncStorage.getItem('userInfo');
+        setUserInfo(JSON.parse(uinf));
+        console.log(userInfo);
+        if (userInfo !== undefined && userInfo !== null) {
+          setName(userInfo.name);
+          setAge(userInfo.age)
+          setStudId(userInfo.studentId);
+        }
+      } finally {
+        setIsReady(true);
+      }
+    })();
+  }, [isReady]);
+
+  if (!isReady) {
+    return null;
   }
 
   return (
@@ -68,7 +94,8 @@ function LoginScreen ( {route, navigation} ) {
       <Text> {"\n"} </Text>
       
       <Formik
-        initialValues={{ name: '', age: '', studentId: '' }}
+        initialValues={userInfo}
+        enableReinitialize = {true}
         validationSchema={Yup.object({
           name: Yup.string()              
             .required('Required'),
@@ -185,9 +212,14 @@ export default function App(props) {
       try {
         const savedStateString = await AsyncStorage.getItem(PERSISTENCE_KEY);
         const state = JSON.parse(savedStateString);
-        setUserInfo(await AsyncStorage.getItem('userInfo'));
-
+        const uInfo = await AsyncStorage.getItem('userInfo');
+        const parseduInfo = JSON.parse(uInfo);
+        setUserInfo(parseduInfo);
+        if (uInfo === null) {
+          state = "Login";
+        }
         setInitialState(state);
+
       } finally {
         setIsReady(true);
       }

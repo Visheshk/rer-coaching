@@ -20,6 +20,15 @@ const LIVE_COLOR = '#FF0000';
 const DISABLED_OPACITY = 0.5;
 const RATE_SCALE = 3.0;
 
+class Page {
+  constructor(module, width, height) {
+    this.module = module;
+    this.width = width;
+    this.height = height;
+    Asset.fromModule(this.module).downloadAsync();
+  }
+}
+
 const  gitImageUrl = "https://raw.githubusercontent.com/Visheshk/rer-coaching/master/assets/books/bearpages/bear-";
 const PAGES = [
   require("../assets/books/bearpages/bear-pg1.png"),
@@ -87,7 +96,7 @@ export function BookRead({navigation, route}) {
       // console.log("setting up current page " + currentPage + " " + imageName);
       // console.log("bear pages " + bearPages[imageName]);
       setImageURL(gitImageUrl + imageName + ".png");
-      navigation.setOptions({ "title": 'Read! \t Page ' + (parseInt(currentPage) + 2)});
+      navigation.setOptions({ "title": 'Read! \t Page ' + (parseInt(currentPage))});
     } catch (error) { console.log(error); }
 
   };

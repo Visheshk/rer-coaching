@@ -17,6 +17,7 @@ import { VideoList } from './components/VideoList';
 import { VideoWatch } from './components/VideoWatch';
 import { BookList } from './components/BookList';
 import { BookRead } from './components/BookRead';
+import { SpeakerView } from './components/SpeakerView';
 import { PageRecorder } from './components/PageRecorder';
 import { PR2 } from './components/pr2';
 
@@ -287,6 +288,11 @@ export default function App(props) {
           name="Welcome"
           component={WelcomeScreen}
           options={{title: 'Welcome'}}
+        />
+        <Stack.Screen
+          name="Speaker"
+          component={SpeakerView}
+          options={{title: 'Read With Floppy'}}
         />
         <Stack.Screen
           name="Menu"

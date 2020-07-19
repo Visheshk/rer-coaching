@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, View, StyleSheet, TextInput, Alert } from 'react-native';
+import { Button } from 'react-native-elements';
 
 import 'react-native-gesture-handler';
 import {AsyncStorage} from 'react-native';
@@ -12,8 +13,18 @@ import { styles } from '../style';
 export function VideoWatch({navigation, route}) {
 	// render() {
     const [userInfo, setUserInfo] = React.useState();
-    console.log(route.params.video);
-    const paramVid = route.params.video;
+    const [title, setTitle] = React.useState("");
+    const [thisPage, setPage] = React.useState();
+    const [thisVid, setThisVid] = React.useState();
+    const [vidUri, setVidUri] = React.useState("");
+    const [before, setBefore] = React.useState();
+    const [after, setAfter] = React.useState();
+    const [befState, setBefState] = React.useState(false);
+    const [aftState, setAftState] = React.useState(false);
+    // console.log(route.params.video);
+    // const 
+    // setPage(route.params.page);
+
     // navigation.setParams({ "title": paramVid });
 
     // const videoLinks = {
@@ -26,33 +37,112 @@ export function VideoWatch({navigation, route}) {
       "Reading Fun": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/MakingReadingFun.mp4?raw=true",
       "READY": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/ReadyToRead.mp4?raw=true",
       "Word": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/WhatsThatWord.mp4?raw=true"
-
     };
-    const thisVid = videoLinks[paramVid];
-    console.log(thisVid);
-    // const imageURI = Asset.fromModule(READY).uri;
+    // const thisVid = videoLinks[paramVid];
+    // console.log(thisVid);
+
+    // const videoOrder = {
+    //   "Picture": {"before": false, "next": "Connections"},
+    //   "Connections": {"before": "Picture", "next": "Reading Fun"},
+    //   "Reading Fun": {"before": "Connections", "next": "READY"},
+    //   "READY": {"before": "Reading Fun", "next": "READY"},
+    //   "Word": {"before": "READY", "next": false} 
+    // };
+
+    // const videoOrder = {
+    //   "READY": {"before": false, "next": "Connections"},
+    //   "Connections": {"before": "READY", "next": "Word"},
+    //   "Word": {"before": "Connections", "next": "Picture"},
+    //   "Picture": {"before": "Word", "next": false},
+    // };
+
+    const pageTitles = {
+      "READY": "READY To Read",
+      "Connections": "Making Life Connections",
+      "Word": "What's That Word?",
+      "Picture": "Check Out the Pictures",
+    };
+
+    const pageList = Object.keys(pageTitles);
 
     var storeData = async (vals) => {
       try {
         setUserInfo(await AsyncStorage.getItem('userInfo'));
       } catch (error) { console.log(error); }
+
     };
     storeData();
+
+    function changeVideo(dir) {
+      let newPage = thisPage + dir;
+      if (newPage > 3) {  newPage = 3;   }
+      else if (newPage < 0) {  newPage = 0;  }
+      setPage(newPage);
+    }
+
+    React.useEffect(() => {
+      // Update the document title using the browser API
+      // setThisVid()
+      // setPage(route.params.page);
+      // console.log(thisPage);
+      if (thisPage == null || thisPage == undefined) {
+        setPage(route.params.page);
+      }
+      setThisVid(pageList[thisPage]);
+      setTitle(pageTitles[thisVid]);
+      // document.title = title;
+      navigation.setOptions({ "title": title});
+      setVidUri(videoLinks[thisVid]);
+      setBefState(true);
+      setAftState(true);
+      if (thisPage == 0) {
+        setBefState(false);
+      }
+      // console.log(vidUri);
+      if (thisPage == 3) {
+        console.log("last page");
+        setAftState(false);
+      }
+    });
+
 		return (
-			<View>
-        <Video
-        source={{uri: thisVid }}
-        rate={1.0}
-        volume={1.0}
-        isMuted={false}
-        resizeMode="contain"
-        useNativeControls={true}
-        shouldPlay={false}
-        isLooping
-        style={{ height: 300 }}
-      />
-				
+			<View style={{flex: 1, flexDirection: "column"}}>
+        <View>
+          <Video
+          source={{ uri: vidUri }}
+          rate={1.0}
+          volume={1.0}
+          isMuted={false}
+          resizeMode="contain"
+          useNativeControls={true}
+          shouldPlay={false}
+          isLooping
+          style={{ height: 300 }}
+        />
+        </View>
+
+        <View style={{ flex: 1, flexDirection: "row", width: "100%" }}>          
+          <View style={{ flex: 1, alignItems: "flex-start", margin: 20}}>
+            <Button 
+              onPress={() => changeVideo(-1)}
+              title="Previous"
+              disabled={!befState}
+            >
+            </Button>
+          </View>
+
+          <View style={{ flex: 1, alignItems: "flex-end", margin: 20}}>
+            <Button title="Next"
+              onPress={() => changeVideo(1)}
+              disabled={!aftState}
+            >
+            </Button>
+          </View>
+        </View>
+
+
 			</View>
+
 		);
 	// }
 }

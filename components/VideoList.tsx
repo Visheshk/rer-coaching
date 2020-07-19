@@ -30,7 +30,7 @@ export function VideoList({navigation, route}) {
 		<Container>
     <Content>
     <Card style={{flex: 0}}>
-      <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {video: 'READY', "name": "READY To Read"})}>
+      <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 0, video: 'READY', "name": "READY To Read"})}>
       <CardItem bordered>
         <Left>
         <Icon  name="movie" type="MaterialIcons"/>
@@ -42,7 +42,7 @@ export function VideoList({navigation, route}) {
        </CardItem>
        </TouchableOpacity>
 
-       <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {video: 'Connections', "name": "Making Life Connections"})}>
+       <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 1, video: 'Connections', "name": "Making Life Connections"})}>
         <CardItem bordered>
         <Icon  name="movie" type="MaterialIcons"/>
         <Text>Making Life Connections</Text>
@@ -53,7 +53,7 @@ export function VideoList({navigation, route}) {
        </CardItem>
        </TouchableOpacity>
   
-       <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {video: 'Word', "name": "What's That Word?"})}>
+       <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 2, video: 'Word', "name": "What's That Word?"})}>
         <CardItem bordered>
         <Left>
         <Icon  name="movie" type="MaterialIcons"/>
@@ -65,7 +65,7 @@ export function VideoList({navigation, route}) {
        </CardItem>
        </TouchableOpacity>
 
-       <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {video: 'Picture', "name": "Check Out the Pictures"})}>
+       <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 3, video: 'Picture', "name": "Check Out the Pictures"})}>
         <CardItem bordered>
         <Left>
         <Icon  name="movie" type="MaterialIcons"/>

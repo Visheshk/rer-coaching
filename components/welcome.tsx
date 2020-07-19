@@ -70,20 +70,21 @@ export class WelcomeScreen extends React.Component {
 
       <Text style={styles.title}>READY to Read! Hi {this.state.name} </Text>
 
-      <Button
-        onPress={() => navigation.navigate('Menu', {name: this.state.name})}
-        color="primary"
-        variant="contained"
-        style={{ marginTop: 16 }}
-        title="READY Coaching App">
-      </Button>
+      
+        <Button
+          onPress={() => navigation.navigate('Menu', {name: this.state.name})}
+          color="primary"
+          variant="contained"
+          buttonStyle={{ marginTop: 16 }}
+          title="READY Coaching App">
+        </Button>
 
       <Button
-        onPress={() => Linking.openURL(this.state.speakerAppURL)}
+        onPress={() =>  navigation.navigate('Speaker', {name: this.state.name})}
         color="primary"
         variant="contained"
         disabled={this.state.isLoading}
-        style={{ marginTop: 16 }}
+        buttonStyle={{ marginTop: 16 }}
         title="Read Aloud with Floppy">
       </Button>
 		</View>

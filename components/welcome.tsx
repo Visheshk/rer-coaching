@@ -13,6 +13,7 @@ export class WelcomeScreen extends React.Component {
 
   constructor(props) {
     super(props);    
+    const { navigation } = this.props;
     this.state = {userInfo: {}, name: "", age: "", studyId: "", isLoading: true, speakerAppURL: ""};
 
     AsyncStorage.getItem('userInfo').then(response =>  {
@@ -54,7 +55,7 @@ export class WelcomeScreen extends React.Component {
         })();
       }
       else {
-        navigation.navigate('Welcome');
+        navigation.navigate('Login');
       }
       console.log(response);
     });

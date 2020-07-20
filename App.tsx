@@ -56,13 +56,19 @@ function LoginScreen ( {route, navigation} ) {
     (async() => {
       try {
         const uinf = await AsyncStorage.getItem('userInfo');
-        setUserInfo(JSON.parse(uinf));
-        console.log(userInfo);
-        if (userInfo !== undefined && userInfo !== null) {
-          setName(userInfo.name);
-          setAge(userInfo.age)
-          setStudId(userInfo.studentId);
+        console.log(uinf);
+        if (uinf !== null){
+          setUserInfo(JSON.parse(uinf));
         }
+        else {
+          setUserInfo({"name": "", "age": "", "studentId": ""});
+        }
+        console.log(userInfo);
+        // if (userInfo !== undefined && userInfo !== null) {
+        //   setName(userInfo.name);
+        //   setAge(userInfo.age)
+        //   setStudId(userInfo.studentId);
+        // }
       } finally {
         setIsReady(true);
       }
@@ -212,13 +218,15 @@ export default function App(props) {
     const restoreState = async () => {
       try {
         const savedStateString = await AsyncStorage.getItem(PERSISTENCE_KEY);
+        console.log(savedStateString);
         const state = JSON.parse(savedStateString);
         const uInfo = await AsyncStorage.getItem('userInfo');
         const parseduInfo = JSON.parse(uInfo);
         setUserInfo(parseduInfo);
-        if (uInfo === null) {
-          state = "Login";
-        }
+        // if (uInfo === null || state == null) {
+        //   state = "Login";
+        // }
+        console.log(state);
         setInitialState(state);
 
       } finally {

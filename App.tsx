@@ -310,7 +310,7 @@ export default function App(props) {
         <Stack.Screen
           name="BookList"
           component={BookList}
-          options={{title: 'Pick a book'}}
+          options={{title: "Let's Read!"}}
         />
         <Stack.Screen
           name="BookRead"

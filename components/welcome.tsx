@@ -1,12 +1,16 @@
 import React from 'react';
-import { Text, View, StyleSheet, TextInput, Alert, AsyncStorage, Linking } from 'react-native';
+import { Text, View, StyleSheet, TextInput, Alert, AsyncStorage, Linking, Image } from 'react-native';
 import { Button } from 'react-native-elements';
 // import Button from '@material-ui/core/Button';
+import { Tile } from 'react-native-elements';
 import 'react-native-gesture-handler';
 import { Audio, Video } from 'expo-av';
 // import { AVPlaybackStatus, VideoProps } from 'expo-av/build/Video'
 import { styles } from '../style';
 import { useNavigation } from '@react-navigation/native';
+
+import {logo} from '../assets/images/ready-logo.png';
+import {bunnyReading} from '../assets/images/bunny-reading.png';
 
 // export function WelcomeScreen({navigation, route}) {
 export class WelcomeScreen extends React.Component {
@@ -67,11 +71,14 @@ export class WelcomeScreen extends React.Component {
   render() {
   const { navigation } = this.props;
 	return (
-		<View>
+		<View style={{flexDirection: "column"}}>
+      <View style={{flex: 1, height: 200, width: "100%", alignItems: "center" }}>
+        <Image source={require('../assets/images/ready-logo.png')} style={{width: "100%", height: 200, resizeMode: 'contain'}}/>
+      </View>
 
-      <Text style={styles.title}>READY to Read! Hi {this.state.name} </Text>
+      <View style={{flex: 1}}>
+        <Text style={styles.title}> Hi {this.state.name} </Text>
 
-      
         <Button
           onPress={() => navigation.navigate('Menu', {name: this.state.name})}
           color="primary"
@@ -80,14 +87,43 @@ export class WelcomeScreen extends React.Component {
           title="READY Coaching App">
         </Button>
 
-      <Button
-        onPress={() =>  navigation.navigate('Speaker', {name: this.state.name})}
-        color="primary"
-        variant="contained"
-        disabled={this.state.isLoading}
-        buttonStyle={{ marginTop: 16 }}
-        title="Read Aloud with Floppy">
-      </Button>
+        <Button
+          onPress={() => Linking.openURL(this.state.speakerAppURL) }
+          color="primary"
+          variant="contained"
+          disabled={this.state.isLoading}
+          buttonStyle={{ marginTop: 16 }}
+          title="Read Aloud with Floppy">
+        </Button>
+      </View>
+      <View style={{flex: 1, flexDirection: 'row'}}>
+        <View style={{flex: 1}}>
+          <Tile
+            imageSrc={bunnyReading}
+            title="Read Aloud with Floppy"
+            containerStyle={styles.container}
+            
+            imageProps={{resizeMode: "contain"}}
+            onPress={() => Linking.openURL(this.state.speakerAppURL) }
+          >
+          </Tile>
+          
+        </View>
+        <View style={{flex: 1}}>
+          <Tile
+            imageSrc={bunnyReading}
+            title="READY Coaching App"
+            containerStyle={styles.container}
+            
+            imageProps={{resizeMode: "contain"}}
+            onPress={() => navigation.navigate('Menu', {name: this.state.name}) }
+          >
+          </Tile>
+          
+        </View>
+      </View>
+
+
 		</View>
 	);
 	}

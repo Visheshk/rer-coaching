@@ -6,9 +6,9 @@ import { styles } from '../style';
 import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from 'native-base';
 import { Audio, Video } from 'expo-av';
 
-import Videos from '../assets/videos.png'; 
+import Videos from '../assets/images/videos2.png'; 
 import Start from '../assets/start.png'; 
-import Letsread from '../assets/letsread.png'; 
+import Letsread from '../assets/images/letsread2.png'; 
 
 export function MenuScreen({navigation, route}) {
 	// render() {
@@ -38,11 +38,10 @@ export function MenuScreen({navigation, route}) {
         <Card>
           <CardItem>
             <Left>
-              <Thumbnail square source={Videos} />
+              <Thumbnail square source={Videos} style={{resizeMode: "contain"}}/>
               <Body>
                 <Text>Videos</Text>
-                <Text note>Tips for building young kids' literacy skills.
-</Text>
+                <Text note>Tips for building young kids' literacy skills.</Text>
               </Body>
             </Left>
           </CardItem>
@@ -56,7 +55,7 @@ export function MenuScreen({navigation, route}) {
         <Card>
           <CardItem>
             <Left>
-              <Thumbnail square source={Letsread} />
+              <Thumbnail square source={Letsread} style={{resizeMode: "contain"}}/>
               <Body>
                 <Text>Let's Read</Text>
                 <Text note>Learn and practice simple literacy-building strategies for reading aloud with your child.</Text>

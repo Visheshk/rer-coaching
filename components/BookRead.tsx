@@ -75,6 +75,9 @@ export function BookRead({navigation, route}) {
   const [currentPage, setCurrentPage] = React.useState(1);
   const [imageName, setImageName] = React.useState("pg1");
   const [imageURL, setImageURL] = React.useState("https://raw.githubusercontent.com/Visheshk/rer-coaching/master/assets/books/bearpages/bear-pg1.png");
+  const [leftState, setLeftState] = React.useState(true);
+  const [rightState, setRightState] = React.useState(true);
+  const DISABLED_OPACITY = 0.5;
   // console.log(bearPages);
   var storeData = async (vals) => {
     try {
@@ -96,11 +99,28 @@ export function BookRead({navigation, route}) {
       // console.log("setting up current page " + currentPage + " " + imageName);
       // console.log("bear pages " + bearPages[imageName]);
       setImageURL(gitImageUrl + imageName + ".png");
+      // setButtonStates();
       navigation.setOptions({ "title": 'Read! \t Page ' + (parseInt(currentPage))});
     } catch (error) { console.log(error); }
 
   };
-  storeData();
+  
+
+  React.useEffect(() => {
+    setButtonStates();
+    storeData();
+  }); 
+
+  function setButtonStates() {
+    setLeftState(true);
+    setRightState(true);
+    if (currentPage == 1) {
+      setLeftState(false);
+    }
+    else if (currentPage == 30) {
+      setRightState(false);
+    }
+  }
 
   async function changePage(dir) {
     console.log(dir);
@@ -124,8 +144,8 @@ export function BookRead({navigation, route}) {
       console.log(imageURL);
       navigation.setOptions({ "title": 'Read!      Page ' + currentPage});
       // console.log("bear pages " + bearPages[imageName]);
-
     }
+    setButtonStates();
     
   };
   return (
@@ -153,7 +173,10 @@ export function BookRead({navigation, route}) {
         flex: 7
       }}>
         <View style={[styles.buttonStyle, {alignItems: "flex-start"}]} >
-          <TouchableOpacity onPress={() => changePage(-1)} style={styles.touchStyle}>
+          <TouchableOpacity 
+            onPress={() => changePage(-1)} 
+            style={[styles.touchStyle, {opacity: leftState ? 1.0: DISABLED_OPACITY}]} 
+            disabled={!leftState}>
             <Image source={ltArrow} style={{height: 50, width: 50}}/>
           </TouchableOpacity>
         </View>
@@ -168,7 +191,10 @@ export function BookRead({navigation, route}) {
         </View>
             
         <View style={[styles.buttonStyle, {alignItems: "flex-end"}]} >
-          <TouchableOpacity onPress={() => changePage(1)} style={styles.touchStyle}>
+          <TouchableOpacity 
+            onPress={() => changePage(1)} 
+            style={[styles.touchStyle, {opacity: rightState ? 1.0: DISABLED_OPACITY}]} 
+            disabled={!rightState}>
             <Image source={rtArrow} style={{height: 50, width: 50}}/>
           </TouchableOpacity>
         </View>

@@ -77,30 +77,33 @@ export class WelcomeScreen extends React.Component {
       </View>
        <Text style={styles.title}> Hi {this.state.name} </Text>
        <View style={{flex: 1, flexDirection: 'row'}}>
+         
+         <View style={styles.tileView}>
+          <Tile
+            imageSrc={bunnyReading}
+            title="READY Coaching App"
+            
+            containerStyle={styles.tileContainer}
+            imageProps={{resizeMode: "contain"}}
+            onPress={() => {navigation.navigate('Menu', {name: this.state.name})}}
+          >
+          </Tile>
+          
+        </View>
+
         <View style={styles.tileView}>
           <Tile
             imageSrc={bunnyReading}
             title="Read Aloud with Floppy"
-            containerStyle={styles.tileContainer}
-            
-            imageProps={{resizeMode: "contain"}}
-            onPress={() => Linking.openURL(this.state.speakerAppURL) }
-          >
-          </Tile>
-          
-        </View>
-        <View style={styles.tileView}>
-          <Tile
-            imageSrc={bunnyReading}
-            title="READY Coaching App"
-            disabled={this.state.isLoading}
             containerStyle={[styles.tileContainer, {opacity: this.state.isLoading ? 0.3: 1.0}]}
+            disabled={this.state.isLoading}
             imageProps={{resizeMode: "contain"}}
-            onPress={() => {if (!this.state.isLoading){ navigation.navigate('Menu', {name: this.state.name})} }}
+            onPress={() => {if (!this.state.isLoading){ Linking.openURL(this.state.speakerAppURL) } }}
           >
           </Tile>
           
         </View>
+       
       </View>
 
 

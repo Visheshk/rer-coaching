@@ -13,10 +13,10 @@ import { styles } from '../style';
 export function VideoWatch({navigation, route}) {
 	// render() {
   const [userInfo, setUserInfo] = React.useState();
-  const [title, setTitle] = React.useState("");
+  const [pageTitle, setTitle] = React.useState("");
   const [thisPage, setPage] = React.useState();
   const [thisVid, setThisVid] = React.useState();
-  const [vidUri, setVidUri] = React.useState("");
+  const [vidUri, setVidUri] = React.useState("https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/ReadyToRead.mp4?raw=true");
   const [before, setBefore] = React.useState();
   const [after, setAfter] = React.useState();
   const [befState, setBefState] = React.useState(false);
@@ -97,10 +97,13 @@ export function VideoWatch({navigation, route}) {
       } catch (error) {console.log(error);}
     })();
     setThisVid(pageList[thisPage]);
+    console.log(thisVid);
     setTitle(pageTitles[thisVid]);
+    console.log(pageTitles[thisVid]);
     // document.title = title;
-    navigation.setOptions({ "title": title});
+    navigation.setOptions({ "title": pageTitle});
     setVidUri(videoLinks[thisVid]);
+    console.log(vidUri);
     setBefState(true);
     setAftState(true);
     if (thisPage == 0) {
@@ -117,16 +120,16 @@ export function VideoWatch({navigation, route}) {
 		<View style={{flex: 1, flexDirection: "column"}}>
       <View>
         <Video
-        source={{ uri: vidUri }}
-        rate={1.0}
-        volume={1.0}
-        isMuted={false}
-        resizeMode="contain"
-        useNativeControls={true}
-        shouldPlay={false}
-        isLooping
-        style={{ height: 300 }}
-      />
+          source={{ uri: vidUri }}
+          rate={1.0}
+          volume={1.0}
+          isMuted={false}
+          resizeMode="contain"
+          useNativeControls={true}
+          shouldPlay={false}
+          isLooping
+          style={{ height: 300 }}
+        />
       </View>
 
       <View style={{ flex: 1, flexDirection: "row", width: "100%" }}>          

@@ -300,7 +300,7 @@ export default function App(props) {
         <Stack.Screen
           name="Speaker"
           component={SpeakerView}
-          options={{title: 'Read With Floppy'}}
+          options={{title: 'Back to Coaching App'}}
         />
         <Stack.Screen
           name="Menu"

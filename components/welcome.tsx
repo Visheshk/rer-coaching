@@ -10,6 +10,7 @@ import { Audio, Video } from 'expo-av';
 import { useNavigation } from '@react-navigation/native';
 
 import {logo} from '../assets/images/ready-logo.png';
+import coachApp from '../assets/icons/coaching-app.png';
 import bunnyReading from '../assets/images/bunny-reading.png';
 
 // export function WelcomeScreen({navigation, route}) {
@@ -50,6 +51,7 @@ export class WelcomeScreen extends React.Component {
             console.log(t);
             this.setState({isLoading: false});
             this.setState({speakerAppURL: "https://talkwithme.herokuapp.com/talk/booklist.html?session=" + t});
+            // this.setState({speakerAppURL: "http://192.168.1.222:8000/bl2.html"});
             console.log(this.state.speakerAppURL);
             // return json;
           } catch (error) {
@@ -80,7 +82,7 @@ export class WelcomeScreen extends React.Component {
          
          <View style={styles.tileView}>
           <Tile
-            imageSrc={bunnyReading}
+            imageSrc={coachApp}
             title="READY Coaching App"
             
             containerStyle={styles.tileContainer}
@@ -98,7 +100,12 @@ export class WelcomeScreen extends React.Component {
             containerStyle={[styles.tileContainer, {opacity: this.state.isLoading ? 0.3: 1.0}]}
             disabled={this.state.isLoading}
             imageProps={{resizeMode: "contain"}}
-            onPress={() => {if (!this.state.isLoading){ Linking.openURL(this.state.speakerAppURL) } }}
+            onPress={() => {
+              if (!this.state.isLoading){ 
+                // Linking.openURL(this.state.speakerAppURL); 
+                navigation.navigate('Speaker', {'speakerurl': this.state.speakerAppURL}) ;
+              } 
+            }}
           >
           </Tile>
           

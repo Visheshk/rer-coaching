@@ -1,5 +1,6 @@
 import React from 'react';
-import { Dimensions, Slider, StyleSheet, Text, TouchableOpacity, TouchableHighlight, View, Alert, AsyncStorage, Image } from 'react-native';
+import { Dimensions, Slider, StyleSheet, Text, Button, TouchableOpacity, TouchableHighlight, View, Alert, AsyncStorage, Image, Picker } from 'react-native';
+import { Root, ActionSheet } from "native-base";
 
 import { Asset } from 'expo-asset';
 import { Audio } from 'expo-av';
@@ -100,7 +101,7 @@ export function BookRead({navigation, route}) {
       // console.log("bear pages " + bearPages[imageName]);
       setImageURL(gitImageUrl + imageName + ".png");
       // setButtonStates();
-      navigation.setOptions({ "title": 'Read! \t Page ' + (parseInt(currentPage))});
+      navigation.setOptions({ "title": 'Read!'});
     } catch (error) { console.log(error); }
 
   };
@@ -110,6 +111,36 @@ export function BookRead({navigation, route}) {
     setButtonStates();
     storeData();
   }); 
+  // const [selectedValue, setSelectedValue] = useState("java");
+  const BUTTONS = [
+    "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", 
+    "11", "12", "13", "14", "15", "16", "17", "18", "19",
+    "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"
+  ];
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <View style={{marginRight: 10}}>
+
+        <Button 
+          color = "#777777"
+          onPress={() => ActionSheet.show(
+            {
+              options: BUTTONS,
+              cancelButtonIndex: 0,
+              title: "Go to Page"
+            },
+            buttonIndex => {
+              setPage(parseInt(BUTTONS[buttonIndex]));
+              // console.log(buttonIndex)
+            }
+          )}
+          title={`Page ${currentPage}`}/>
+        </View>
+      ),
+    });
+  }, [navigation, currentPage, setCurrentPage, ActionSheet]);
+
 
   function setButtonStates() {
     setLeftState(true);
@@ -120,6 +151,14 @@ export function BookRead({navigation, route}) {
     else if (currentPage == 30) {
       setRightState(false);
     }
+  }
+
+  async function setPage(cp) {
+    await AsyncStorage.setItem('bookPage', cp.toString());
+    setCurrentPage(cp);
+    setImageName("pg" + cp);
+    setImageURL(gitImageUrl + "pg" + cp + ".png");
+    console.log(imageURL);
   }
 
   async function changePage(dir) {
@@ -137,22 +176,20 @@ export function BookRead({navigation, route}) {
       }
       // console.log(cp);
       console.log("cp is " + cp);
-      await AsyncStorage.setItem('bookPage', cp.toString());
-      setCurrentPage(cp);
-      setImageName("pg" + cp);
-      setImageURL(gitImageUrl + "pg" + cp + ".png");
-      console.log(imageURL);
-      navigation.setOptions({ "title": 'Read!      Page ' + currentPage});
+      setPage(cp);
+      
       // console.log("bear pages " + bearPages[imageName]);
     }
     setButtonStates();
     
   };
   return (
+    <Root>
     <View style={{
       flexDirection: 'column',
       height: "100%"
     }}>
+
     <ImageZoom cropWidth={Dimensions.get('window').height*0.6}
                cropHeight={Dimensions.get('window').height*0.8}
                imageWidth={Dimensions.get('window').height*0.6}
@@ -201,14 +238,18 @@ export function BookRead({navigation, route}) {
 
 
     </View>
+
     <View style={{
         flex: 1
       }}>
-      
-      <PR2 page={currentPage}/>
+
+      <View style={{flex: 5}}>
+        <PR2 page={currentPage}/>
+      </View>
     </View>
     
   </View>
+  </Root>
     
   );
 }

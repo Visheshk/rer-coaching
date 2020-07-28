@@ -79,6 +79,8 @@ export function BookRead({navigation, route}) {
   const [leftState, setLeftState] = React.useState(true);
   const [rightState, setRightState] = React.useState(true);
   const DISABLED_OPACITY = 0.5;
+  const imageW = Dimensions.get('window').height*0.6;
+    const imageH = Dimensions.get('window').height*0.8;
   // console.log(bearPages);
   var storeData = async (vals) => {
     try {
@@ -181,6 +183,8 @@ export function BookRead({navigation, route}) {
       // console.log("bear pages " + bearPages[imageName]);
     }
     setButtonStates();
+
+    
     
   };
   return (
@@ -190,10 +194,10 @@ export function BookRead({navigation, route}) {
       height: "100%"
     }}>
 
-    <ImageZoom cropWidth={Dimensions.get('window').height*0.6}
-               cropHeight={Dimensions.get('window').height*0.8}
-               imageWidth={Dimensions.get('window').height*0.6}
-               imageHeight={Dimensions.get('window').height*0.8}
+    <ImageZoom cropWidth={imageW}
+               cropHeight={imageH}
+               imageWidth={imageW}
+               imageHeight={imageH}
                style={{alignSelf: "center", position: 'absolute'}}
                >
       
@@ -207,7 +211,6 @@ export function BookRead({navigation, route}) {
 
       <View style={{
         flexDirection: 'row',
-        flex: 7
       }}>
         <View style={[styles.buttonStyle, {alignItems: "flex-start"}]} >
           <TouchableOpacity 

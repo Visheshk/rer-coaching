@@ -1,5 +1,5 @@
-import React, { Suspense } from 'react';
-import { Modal, Dimensions, Slider, StyleSheet, Text, Button, TouchableOpacity, TouchableHighlight, View, Alert, AsyncStorage, Image, Picker } from 'react-native';
+import React from 'react';
+import { Dimensions, Slider, StyleSheet, Text, Button, TouchableOpacity, TouchableHighlight, View, Alert, AsyncStorage, Image, Picker } from 'react-native';
 import { Root, ActionSheet } from "native-base";
 
 import { Asset } from 'expo-asset';
@@ -9,7 +9,6 @@ import * as Font from 'expo-font';
 import * as Permissions from 'expo-permissions';
 import { Icon, Tile } from 'react-native-elements';
 import ImageZoom from 'react-native-image-pan-zoom';
-import ImageViewer from 'react-native-image-zoom-viewer';
 
 import { PageRecorder } from './PageRecorder';
 import { PR2 } from './pr2';
@@ -33,69 +32,37 @@ class Page {
 
 const  gitImageUrl = "https://raw.githubusercontent.com/Visheshk/rer-coaching/master/assets/books/bearpages/bear-";
 const PAGES = [
-  { url: '', height: 1652, width: 1052, props: {source: require("../assets/books/bearpages/bear-pg1.png")} },
-  { url: '', height: 1652, width: 1052, props: {source: require("../assets/books/bearpages/bear-pg2.png")} },
-  { url: '', height: 1652, width: 1052, props: {source: require("../assets/books/bearpages/bear-pg3.png")} },
-  { url: '', height: 1652, width: 1052, props: {source: require("../assets/books/bearpages/bear-pg4.png")} },
-  { url: '', height: 1652, width: 1052, props: {source: require("../assets/books/bearpages/bear-pg5.png")} },
-  { url: '', height: 1652, width: 1052, props: {source: require("../assets/books/bearpages/bear-pg6.png")} },
-  { url: '', height: 1652, width: 1052, props: {source: require("../assets/books/bearpages/bear-pg7.png")} },
-  { url: '', height: 1652, width: 1052, props: {source: require("../assets/books/bearpages/bear-pg8.png")} },
-  { url: '', height: 1652, width: 1052, props: {source: require("../assets/books/bearpages/bear-pg9.png")} },
-  { url: '', height: 1652, width: 1052, props: {source: require("../assets/books/bearpages/bear-pg10.png")} },
-  { url: '', height: 1652, width: 1052, props: {source: require("../assets/books/bearpages/bear-pg11.png")} },
-  { url: '', height: 1652, width: 1052, props: {source: require("../assets/books/bearpages/bear-pg12.png")} },
-  { url: '', height: 1652, width: 1052, props: {source: require("../assets/books/bearpages/bear-pg13.png")} },
-  { url: '', height: 1652, width: 1052, props: {source: require("../assets/books/bearpages/bear-pg14.png")} },
-  { url: '', height: 1652, width: 1052, props: {source: require("../assets/books/bearpages/bear-pg15.png")} },
-  { url: '', height: 1652, width: 1052, props: {source: require("../assets/books/bearpages/bear-pg16.png")} },
-  { url: '', height: 1652, width: 1052, props: {source: require("../assets/books/bearpages/bear-pg17.png")} },
-  { url: '', height: 1652, width: 1052, props: {source: require("../assets/books/bearpages/bear-pg18.png")} },
-  { url: '', height: 1652, width: 1052, props: {source: require("../assets/books/bearpages/bear-pg19.png")} },
-  { url: '', height: 1652, width: 1052, props: {source: require("../assets/books/bearpages/bear-pg20.png")} },
-  { url: '', height: 1652, width: 1052, props: {source: require("../assets/books/bearpages/bear-pg21.png")} },
-  { url: '', height: 1652, width: 1052, props: {source: require("../assets/books/bearpages/bear-pg22.png")} },
-  { url: '', height: 1652, width: 1052, props: {source: require("../assets/books/bearpages/bear-pg23.png")} },
-  { url: '', height: 1652, width: 1052, props: {source: require("../assets/books/bearpages/bear-pg24.png")} },
-  { url: '', height: 1652, width: 1052, props: {source: require("../assets/books/bearpages/bear-pg25.png")} },
-  { url: '', height: 1652, width: 1052, props: {source: require("../assets/books/bearpages/bear-pg26.png")} },
-  { url: '', height: 1652, width: 1052, props: {source: require("../assets/books/bearpages/bear-pg27.png")} },
-  { url: '', height: 1652, width: 1052, props: {source: require("../assets/books/bearpages/bear-pg28.png")} },
-  { url: '', height: 1652, width: 1052, props: {source: require("../assets/books/bearpages/bear-pg29.png")} },
-  { url: '', height: 1652, width: 1052, props: {source: require("../assets/books/bearpages/bear-pg30.png")} }
-];
-// const PAGES = [
-//   require("../assets/books/bearpages/bear-pg1.png"),
-//   require("../assets/books/bearpages/bear-pg2.png"),
-//   require("../assets/books/bearpages/bear-pg3.png"),
-//   require("../assets/books/bearpages/bear-pg4.png"),
-//   require("../assets/books/bearpages/bear-pg5.png"),
-//   require("../assets/books/bearpages/bear-pg6.png"),
-//   require("../assets/books/bearpages/bear-pg7.png"),
-//   require("../assets/books/bearpages/bear-pg8.png"),
-//   require("../assets/books/bearpages/bear-pg9.png"),
-//   require("../assets/books/bearpages/bear-pg10.png"),
-//   require("../assets/books/bearpages/bear-pg11.png"),
-//   require("../assets/books/bearpages/bear-pg12.png"),
-//   require("../assets/books/bearpages/bear-pg13.png"),
-//   require("../assets/books/bearpages/bear-pg14.png"),
-//   require("../assets/books/bearpages/bear-pg15.png"),
-//   require("../assets/books/bearpages/bear-pg16.png"),
-//   require("../assets/books/bearpages/bear-pg17.png"),
-//   require("../assets/books/bearpages/bear-pg18.png"),
-//   require("../assets/books/bearpages/bear-pg19.png"),
-//   require("../assets/books/bearpages/bear-pg20.png"),
-//   require("../assets/books/bearpages/bear-pg21.png"),
-//   require("../assets/books/bearpages/bear-pg22.png"),
-//   require("../assets/books/bearpages/bear-pg23.png"),
-//   require("../assets/books/bearpages/bear-pg24.png"),
-//   require("../assets/books/bearpages/bear-pg25.png"),
-//   require("../assets/books/bearpages/bear-pg26.png"),
-//   require("../assets/books/bearpages/bear-pg27.png"),
-//   require("../assets/books/bearpages/bear-pg28.png"),
-//   require("../assets/books/bearpages/bear-pg29.png"),
-//   require("../assets/books/bearpages/bear-pg30.png")
-// ]
+  require("../assets/books/bearpages/bear-pg1.png"),
+  require("../assets/books/bearpages/bear-pg2.png"),
+  require("../assets/books/bearpages/bear-pg3.png"),
+  require("../assets/books/bearpages/bear-pg4.png"),
+  require("../assets/books/bearpages/bear-pg5.png"),
+  require("../assets/books/bearpages/bear-pg6.png"),
+  require("../assets/books/bearpages/bear-pg7.png"),
+  require("../assets/books/bearpages/bear-pg8.png"),
+  require("../assets/books/bearpages/bear-pg9.png"),
+  require("../assets/books/bearpages/bear-pg10.png"),
+  require("../assets/books/bearpages/bear-pg11.png"),
+  require("../assets/books/bearpages/bear-pg12.png"),
+  require("../assets/books/bearpages/bear-pg13.png"),
+  require("../assets/books/bearpages/bear-pg14.png"),
+  require("../assets/books/bearpages/bear-pg15.png"),
+  require("../assets/books/bearpages/bear-pg16.png"),
+  require("../assets/books/bearpages/bear-pg17.png"),
+  require("../assets/books/bearpages/bear-pg18.png"),
+  require("../assets/books/bearpages/bear-pg19.png"),
+  require("../assets/books/bearpages/bear-pg20.png"),
+  require("../assets/books/bearpages/bear-pg21.png"),
+  require("../assets/books/bearpages/bear-pg22.png"),
+  require("../assets/books/bearpages/bear-pg23.png"),
+  require("../assets/books/bearpages/bear-pg24.png"),
+  require("../assets/books/bearpages/bear-pg25.png"),
+  require("../assets/books/bearpages/bear-pg26.png"),
+  require("../assets/books/bearpages/bear-pg27.png"),
+  require("../assets/books/bearpages/bear-pg28.png"),
+  require("../assets/books/bearpages/bear-pg29.png"),
+  require("../assets/books/bearpages/bear-pg30.png")
+]
 
 export function BookRead({navigation, route}) {
 
@@ -113,7 +80,7 @@ export function BookRead({navigation, route}) {
   const [rightState, setRightState] = React.useState(true);
   const DISABLED_OPACITY = 0.5;
   const imageW = Dimensions.get('window').height*0.6;
-  const imageH = Dimensions.get('window').height*0.8;
+    const imageH = Dimensions.get('window').height*0.8;
   // console.log(bearPages);
   var storeData = async (vals) => {
     try {
@@ -150,7 +117,7 @@ export function BookRead({navigation, route}) {
   const BUTTONS = [
     "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", 
     "11", "12", "13", "14", "15", "16", "17", "18", "19",
-    "20", "21", "22", "23", "24", "25", "26", "27", "28", "29"
+    "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"
   ];
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -217,7 +184,7 @@ export function BookRead({navigation, route}) {
     }
     setButtonStates();
 
-    // const PRComp = React.lazy(() => import('./OtherComponent'));    
+    
     
   };
   return (
@@ -226,27 +193,53 @@ export function BookRead({navigation, route}) {
       flexDirection: 'column',
       height: "100%"
     }}>
-    <View style={{
-      flex: 8,
-      backgroundColor: 'white'
-    }}>
 
-      <ImageViewer 
-        imageUrls={PAGES}
-        backgroundColor="white"
-        index={parseInt(currentPage)}
-        pageAnimateTime={250}
-        saveToLocaByLongPress={{false}}
-        onChange={(ind) => {setPage(ind);}}
-        renderIndicator={(ci, as) => {<Text>""</Text>}}
-        renderArrowLeft={() => {
-          <View style={[styles.buttonStyle, {alignItems: "flex-start"}]} >
-            <Image source={ltArrow} style={{height: 50, width: 50}}/>
-          </View>
-        }}
-        renderArrowRight={() => {<Image source={rtArrow} style={{height: 50, width: 50}}/>}}
-      />
+    <ImageZoom cropWidth={imageW}
+               cropHeight={imageH}
+               imageWidth={imageW}
+               imageHeight={imageH}
+               style={{alignSelf: "center", position: 'absolute'}}
+               >
+      
+      <Image
+        source={PAGES[(currentPage - 1)]}
+        style={styles.pageImage}
         
+      />
+
+      </ImageZoom>
+
+      <View style={{
+        flexDirection: 'row',
+      }}>
+        <View style={[styles.buttonStyle, {alignItems: "flex-start"}]} >
+          <TouchableOpacity 
+            onPress={() => changePage(-1)} 
+            style={[styles.touchStyle, {opacity: leftState ? 1.0: DISABLED_OPACITY}]} 
+            disabled={!leftState}>
+            <Image source={ltArrow} style={{height: 50, width: 50}}/>
+          </TouchableOpacity>
+        </View>
+          
+        <View style={{
+          flex: 1,
+          height: "100%",
+          width: 400
+          // flexGrow: 1,
+        }} >
+
+        </View>
+            
+        <View style={[styles.buttonStyle, {alignItems: "flex-end"}]} >
+          <TouchableOpacity 
+            onPress={() => changePage(1)} 
+            style={[styles.touchStyle, {opacity: rightState ? 1.0: DISABLED_OPACITY}]} 
+            disabled={!rightState}>
+            <Image source={rtArrow} style={{height: 50, width: 50}}/>
+          </TouchableOpacity>
+        </View>
+
+
     </View>
 
     <View style={{

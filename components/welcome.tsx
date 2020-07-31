@@ -102,8 +102,8 @@ export class WelcomeScreen extends React.Component {
             imageProps={{resizeMode: "contain"}}
             onPress={() => {
               if (!this.state.isLoading){ 
-                // Linking.openURL(this.state.speakerAppURL); 
-                navigation.navigate('Speaker', {'speakerurl': this.state.speakerAppURL}) ;
+                Linking.openURL(this.state.speakerAppURL); 
+                // navigation.navigate('Speaker', {'speakerurl': this.state.speakerAppURL}) ;
               } 
             }}
           >

@@ -18,5 +18,5 @@ web-report/
 # Expo Web
 /web-build/*
 # electron-webpack
-/dist
+# /dist
 # @end @expo/electron-adapter

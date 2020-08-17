@@ -18,9 +18,6 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    // "assetBundlePatterns": [
-    //   "assets/*"
-    // ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.step.rercoach",
@@ -28,9 +25,7 @@
     },
     "android": {
       "package": "com.step.rercoach",
-      "versionCode": 2,
-      // "publishBundlePath": "android/app/src/main/assets/shell-app.bundle",
-      // "publishManifestPath": "android/app/src/main/assets/shell-app-manifest.json"
+      "versionCode": 2
     },
     "description": "",
     "githubUrl": "https://github.com/Visheshk/rer-coaching/"

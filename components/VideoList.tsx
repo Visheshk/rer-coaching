@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, TextInput, Alert, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TextInput, Alert, TouchableOpacity, Keyboard } from 'react-native';
 import 'react-native-gesture-handler';
 import {AsyncStorage} from 'react-native';
 // import { AVPlaybackStatus, VideoProps } from 'expo-av/build/Video'
@@ -27,24 +27,25 @@ export function VideoList({navigation, route}) {
   };
   storeData();
   React.useEffect(() => {
-  const unsubscribe = navigation.addListener('focus', () => {
-    // The screen is focused
-    // Call any action
-    (async() => {
-      try {
-        let v0 = await AsyncStorage.getItem('video0seen');      setVid0Seen("true" == v0);  
-        console.log(vid0Seen);
-      } catch (err) { console.log (err); }
-      
-      let v1 = await AsyncStorage.getItem('video1seen');      setVid1Seen("true" == v1);
-      let v2 = await AsyncStorage.getItem('video2seen');      setVid2Seen("true" == v2);
-      let v3 = await AsyncStorage.getItem('video3seen');      setVid3Seen("true" == v3);
-      
-      console.log(vid1Seen);
-      console.log(vid2Seen);
-      console.log(vid3Seen);
-    })();
-  });
+    Keyboard.dismiss();
+    const unsubscribe = navigation.addListener('focus', () => {
+      // The screen is focused
+      // Call any action
+      (async() => {
+        try {
+          let v0 = await AsyncStorage.getItem('video0seen');      setVid0Seen("true" == v0);  
+          console.log(vid0Seen);
+        } catch (err) { console.log (err); }
+        
+        let v1 = await AsyncStorage.getItem('video1seen');      setVid1Seen("true" == v1);
+        let v2 = await AsyncStorage.getItem('video2seen');      setVid2Seen("true" == v2);
+        let v3 = await AsyncStorage.getItem('video3seen');      setVid3Seen("true" == v3);
+        
+        console.log(vid1Seen);
+        console.log(vid2Seen);
+        console.log(vid3Seen);
+      })();
+    });
 
     // Return the function to unsubscribe from the event so it gets removed on unmount
     return unsubscribe;

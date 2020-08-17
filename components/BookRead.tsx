@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, Slider, StyleSheet, Text, Button, TouchableOpacity, TouchableHighlight, View, Alert, AsyncStorage, Image, Picker } from 'react-native';
+import { Keyboard, Dimensions, Slider, StyleSheet, Text, Button, TouchableOpacity, TouchableHighlight, View, Alert, AsyncStorage, Image, Picker } from 'react-native';
 import { Root, ActionSheet } from "native-base";
 
 import { Asset } from 'expo-asset';
@@ -110,6 +110,7 @@ export function BookRead({navigation, route}) {
   
 
   React.useEffect(() => {
+    Keyboard.dismiss();
     setButtonStates();
     storeData();
   }); 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, TextInput, Alert, Image, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TextInput, Alert, Image, TouchableOpacity, Keyboard } from 'react-native';
 import { AsyncStorage } from 'react-native';
 import { styles } from '../style';
 
@@ -20,6 +20,11 @@ export function MenuScreen({navigation, route}) {
         console.log(error);
       }
     };
+
+    React.useEffect(() => {
+      Keyboard.dismiss();
+    });
+    
     storeData();
 		return (
       <View style={{ flexDirection: 'column', justifyContent: 'space-around'}}>

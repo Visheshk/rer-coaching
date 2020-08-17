@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, TextInput, Alert } from 'react-native';
+import { Text, View, StyleSheet, TextInput, Alert, Keyboard } from 'react-native';
 import { Button } from 'react-native-elements';
 
 import 'react-native-gesture-handler';
@@ -81,6 +81,7 @@ export function VideoWatch({navigation, route}) {
   }
 
   React.useEffect(() => {
+    Keyboard.dismiss();
     // Update the document title using the browser API
     // setThisVid()
     // setPage(route.params.page);

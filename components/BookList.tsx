@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Alert, AsyncStorage, StyleSheet } from 'react-native';
+import { View, Text, Alert, AsyncStorage, StyleSheet, Keyboard } from 'react-native';
 import { Card, ListItem, Button, Icon, Tile } from 'react-native-elements'
 
 import bearcover from '../assets/books/bear-cover.png';
@@ -23,6 +23,11 @@ export function BookList({navigation, route}) {
     //   Alert.alert("user information not found! Go home and enter details again?");
     // }
   };
+
+  React.useEffect(() => {
+    Keyboard.dismiss();
+  });
+  
   storeData();
   return (
     <View style={styles.mainView}>

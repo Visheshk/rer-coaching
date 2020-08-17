@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, TextInput, Alert, AsyncStorage, Linking, Image } from 'react-native';
+import { Text, View, StyleSheet, TextInput, Alert, AsyncStorage, Linking, Image, Keyboard } from 'react-native';
 import { Button } from 'react-native-elements';
 // import Button from '@material-ui/core/Button';
 import { Tile } from 'react-native-elements';
@@ -65,11 +65,12 @@ export class WelcomeScreen extends React.Component {
       }
       console.log(response);
     });
-
-    
-
   }
   
+  componentDidMount() {
+    Keyboard.dismiss();
+  }
+
   render() {
   const { navigation } = this.props;
 	return (

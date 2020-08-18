@@ -31,7 +31,7 @@ function LoginScreen ( {route, navigation} ) {
   const [age, setAge] = React.useState("");
   const [studId, setStudId] = React.useState("");
 
-  var storeData = async (vals) => {
+  var storeData = async (vals, forward=true) => {
     try {
       // console.log(vals);
       await AsyncStorage.setItem('bookPages', JSON.stringify({}));
@@ -39,6 +39,11 @@ function LoginScreen ( {route, navigation} ) {
       await AsyncStorage.setItem('age', vals["age"]);
       await AsyncStorage.setItem('studentId', vals["studentId"]);
       await AsyncStorage.setItem('name', vals["name"]);
+      // console.log(forward);
+      // if (forward) {
+        // console.log("trying to navigate");
+        // navigation.navigate("Welcome", {"user": values});
+      // }
     } catch (error) {
       // Error saving data
     }
@@ -114,14 +119,19 @@ function LoginScreen ( {route, navigation} ) {
         onSubmit={(values, formikActions) => {
           // console.log(values);
           setTimeout(() => {
-            Alert.alert(JSON.stringify(values));
+            
             pauseVideo();
             console.log(values);
             // Important: Make sure to setSubmitting to false so our loading indicator
             // goes away.
             formikActions.setSubmitting(false);
-            navigation.navigate("Welcome", {"user": values});
-            storeData(values);
+            storeData(values, true);
+            // Alert.alert(JSON.stringify(values));
+            setTimeout(() => {
+              navigation.navigate("Welcome", {"user": values});  
+            }, 200);
+            
+            
           }, 500);
         }}>
         {props => (

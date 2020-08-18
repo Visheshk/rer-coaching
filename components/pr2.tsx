@@ -9,7 +9,7 @@ import {
   Slider,
   StyleSheet,
   Text,
-  TouchableHighlight,
+  TouchableHighlight, Keyboard,
   View, AsyncStorage,
 } from 'react-native';
 import { Asset } from 'expo-asset';
@@ -143,15 +143,16 @@ export class PR2 extends React.Component {
       this.setState({ fontLoaded: true });
     })();
     this._askForPermissions();
-    
+    // Keyboard.dismiss();
   }
 
   componentDidUpdate(props) {
     if ("page" in props) {
-      if (this.state.currentPage != props.page){
+      if (this.state.currentPage != parseInt(props.page) && props.page != null){
+        console.log("page props: " + props.page);
         var thisPage = parseInt(props.page);
+        console.log(thisPage);
         this.setState({currentPage: thisPage});
-        // console.log(thisPage);
         
         (async () => {
           var noRec = true;
@@ -506,30 +507,22 @@ export class PR2 extends React.Component {
         )
     }
 
-    if (!this.state.haveRecordingPermissions){
-        return (
-            <View style={styles.container}>
-                <View />
-                <Text style={[styles.noPermissionsText, { fontFamily: 'cutive-mono-regular' }]}>
-                  You must enable audio recording permissions in order to use this app.
-                </Text>
-                <View />
-            </View>
-        )
-    }
-
     return (
       
-
       <View style={styles.container}>
           <View style={styles.buttonsContainer}>
             <TouchableHighlight
               underlayColor={BACKGROUND_COLOR}
               style={styles.wrapper}
               onPress={this._onRecordPressed}
-              disabled={this.state.isLoading}>
+              disabled={this.state.isLoading || !this.state.haveRecordingPermissions}>
               <Image 
-                style={styles.image} 
+                style={[
+                styles.image, 
+                {
+                  opacity:
+                    (this.state.isLoading || !this.state.haveRecordingPermissions) ? DISABLED_OPACITY : 1.0,
+                }]}
                 source={this.state.isRecording ? ICON_RECORDING_ACTIVE.module : ICON_RECORD_BUTTON.module} />
             </TouchableHighlight>
           </View>

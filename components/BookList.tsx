@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, Alert, AsyncStorage, StyleSheet, Keyboard } from 'react-native';
 import { Card, ListItem, Button, Icon, Tile } from 'react-native-elements'
+import * as Permissions from 'expo-permissions';
 
 import bearcover from '../assets/books/bear-cover.png';
 
@@ -8,6 +9,7 @@ export function BookList({navigation, route}) {
   //****TODO: make this list dynamic in the future
   const [userInfo, setUserInfo] = React.useState();
   const [bookPage, setBookPage] = React.useState(1);
+  const [recPermissions, setRecPermissions] = React.useState(false);
   var storeData = async (vals) => {
     try {
       setUserInfo(await AsyncStorage.getItem('userInfo'));
@@ -26,8 +28,13 @@ export function BookList({navigation, route}) {
 
   React.useEffect(() => {
     Keyboard.dismiss();
+    (async () => {
+      const response = await Permissions.askAsync(Permissions.AUDIO_RECORDING);
+      setRecPermissions(response.status === 'granted');
+    })();
+    
   });
-  
+
   storeData();
   return (
     <View style={styles.mainView}>

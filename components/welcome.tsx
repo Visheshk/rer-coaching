@@ -84,7 +84,7 @@ export class WelcomeScreen extends React.Component {
          <View style={styles.tileView}>
           <Tile
             imageSrc={coachApp}
-            title="READY Coaching App"
+            title="Coaching Experience"
             
             containerStyle={styles.tileContainer}
             imageProps={{resizeMode: "contain"}}

@@ -22,9 +22,12 @@ export function MenuScreen({navigation, route}) {
     };
 
     React.useEffect(() => {
-      Keyboard.dismiss();
+      setTimeout(() => {
+        Keyboard.dismiss();      
+      }, 1000);
+      
     });
-    
+
     storeData();
 		return (
       <View style={{ flexDirection: 'column', justifyContent: 'space-around'}}>

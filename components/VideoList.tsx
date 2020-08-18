@@ -27,7 +27,9 @@ export function VideoList({navigation, route}) {
   };
   storeData();
   React.useEffect(() => {
-    Keyboard.dismiss();
+    setTimeout(() => {
+      Keyboard.dismiss();      
+    }, 1000);
     const unsubscribe = navigation.addListener('focus', () => {
       // The screen is focused
       // Call any action

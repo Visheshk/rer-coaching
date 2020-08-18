@@ -27,7 +27,9 @@ export function BookList({navigation, route}) {
   };
 
   React.useEffect(() => {
-    Keyboard.dismiss();
+    setTimeout(() => {
+      Keyboard.dismiss();      
+    }, 1000);
     (async () => {
       const response = await Permissions.askAsync(Permissions.AUDIO_RECORDING);
       setRecPermissions(response.status === 'granted');

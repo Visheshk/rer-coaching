@@ -81,7 +81,9 @@ export function VideoWatch({navigation, route}) {
   }
 
   React.useEffect(() => {
-    Keyboard.dismiss();
+    setTimeout(() => {
+      Keyboard.dismiss();      
+    }, 1000);
     // Update the document title using the browser API
     // setThisVid()
     // setPage(route.params.page);

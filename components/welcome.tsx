@@ -80,25 +80,25 @@ export class WelcomeScreen extends React.Component {
       </View>
        <Text style={styles.title}> Hi {this.state.name} </Text>
        <View style={{flex: 1, flexDirection: 'row'}}>
-         
          <View style={styles.tileView}>
-          <Tile
+           <Tile
             imageSrc={coachApp}
             title="Coaching Experience"
-            
-            containerStyle={styles.tileContainer}
+            imageContainerStyle={{borderWidth: 2}}
+            containerStyle={[styles.tileContainer, {borderWidth: 0}]}
             imageProps={{resizeMode: "contain"}}
             onPress={() => {navigation.navigate('Menu', {name: this.state.name})}}
           >
           </Tile>
-          
-        </View>
+         </View>
+        
 
         <View style={styles.tileView}>
           <Tile
             imageSrc={bunnyReading}
             title="Read Aloud with Floppy"
-            containerStyle={[styles.tileContainer, {opacity: this.state.isLoading ? 0.3: 1.0}]}
+            imageContainerStyle={{borderWidth: 2}}
+            containerStyle={[styles.tileContainer, {borderWidth: 0, opacity: this.state.isLoading ? 0.3: 1.0}]}
             disabled={this.state.isLoading}
             imageProps={{resizeMode: "contain"}}
             onPress={() => {
@@ -111,11 +111,7 @@ export class WelcomeScreen extends React.Component {
           </Tile>
           
         </View>
-       
       </View>
-
-
-
 		</View>
 	);
 	}

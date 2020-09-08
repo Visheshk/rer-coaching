@@ -89,7 +89,7 @@ function LoginScreen ( {route, navigation} ) {
 
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <View style={styles.container}>
-      <Text style={styles.title}>READY to Read</Text>
+      <Text style={styles.title}>READY to Read  v1.2</Text>
       
       <Video
         source={{ uri: 'http://18.215.149.31/wp-content/uploads/2020/05/loginvid.mp4' }}

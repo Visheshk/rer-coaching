@@ -89,7 +89,7 @@ function LoginScreen ( {route, navigation} ) {
 
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <View style={styles.container}>
-      <Text style={styles.title}>READY to Read  v1.2</Text>
+      <Text style={styles.title}>R.E.A.D.Y. to Read  v1.2</Text>
       
       <Video
         source={{ uri: 'http://18.215.149.31/wp-content/uploads/2020/05/loginvid.mp4' }}
@@ -325,7 +325,7 @@ export default function App(props) {
         <Stack.Screen
           name="BookRead"
           component={BookRead}
-          options={{title: 'Read!'}}
+          options={{title: "Let's Read!"}}
         />
         <Stack.Screen
           name="PageRecorder"
@@ -340,12 +340,16 @@ export default function App(props) {
         <Stack.Screen
           name="VideoList"
           component={VideoList}
-          options={{title: 'Videos!'}}
+          options={{title: 'Videos'}}
         />
         <Stack.Screen
           name="VideoWatch"
           component={VideoWatch}
-          options={({ route }) => ({ title: route.params.name })}
+          options={
+            {headerTitleStyle: {textAlign: 'center'}}, 
+            ({ route }) => ({ title: route.params.name }) 
+          }
+
         />
 
       </Stack.Navigator>

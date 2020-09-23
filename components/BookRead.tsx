@@ -103,7 +103,7 @@ export function BookRead({navigation, route}) {
       // console.log("bear pages " + bearPages[imageName]);
       setImageURL(gitImageUrl + imageName + ".png");
       // setButtonStates();
-      navigation.setOptions({ "title": 'Read!'});
+      navigation.setOptions({ "title": "Let's Read!"});
     } catch (error) { console.log(error); }
 
   };
@@ -123,22 +123,29 @@ export function BookRead({navigation, route}) {
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <View style={{marginRight: 10}}>
-
-        <Button 
-          color = "#777777"
-          onPress={() => ActionSheet.show(
-            {
-              options: BUTTONS,
-              cancelButtonIndex: 0,
-              title: "Go to Page"
-            },
-            buttonIndex => {
-              setPage(parseInt(BUTTONS[buttonIndex]));
-              // console.log(buttonIndex)
-            }
-          )}
-          title={`Page ${currentPage}`}/>
+        <View style={{alignItems: 'flex-end', flexDirection: 'row', marginRight: 10}}>
+          <View style={{flex:1, paddingRight: 10}}>
+            <Button 
+              color = "#777777"
+              onPress={() => navigation.navigate("Welcome")}
+              title={"Home"}/>
+          </View>
+          <View style={{flex:1}}>
+            <Button 
+              color = "#777777"
+              onPress={() => ActionSheet.show(
+                {
+                  options: BUTTONS,
+                  cancelButtonIndex: 0,
+                  title: "Go to Page"
+                },
+                buttonIndex => {
+                  setPage(parseInt(BUTTONS[buttonIndex]));
+                  // console.log(buttonIndex)
+                }
+              )}
+              title={`Page ${currentPage}`}/>
+            </View>
         </View>
       ),
     });
@@ -195,23 +202,23 @@ export function BookRead({navigation, route}) {
       height: "100%"
     }}>
 
-    <ImageZoom cropWidth={imageW}
+
+      <ImageZoom cropWidth={imageW}
                cropHeight={imageH}
                imageWidth={imageW}
                imageHeight={imageH}
-               style={{alignSelf: "center", position: 'absolute'}}
-               >
+               style={{alignSelf: "center", position: 'absolute'}}>
       
-      <Image
-        source={PAGES[(currentPage - 1)]}
-        style={styles.pageImage}
-        
-      />
+        <Image
+          source={PAGES[(currentPage - 1)]}
+          style={styles.pageImage}
+        />
 
       </ImageZoom>
 
       <View style={{
         flexDirection: 'row',
+        flex: 6
       }}>
         <View style={[styles.buttonStyle, {alignItems: "flex-start"}]} >
           <TouchableOpacity 
@@ -244,8 +251,8 @@ export function BookRead({navigation, route}) {
     </View>
 
     <View style={{
-        flex: 1
-      }}>
+      flex: 1
+    }}>
 
       <View style={{flex: 5}}>
         <PR2 page={currentPage}/>

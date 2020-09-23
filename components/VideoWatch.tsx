@@ -57,7 +57,7 @@ export function VideoWatch({navigation, route}) {
   // };
 
   const pageTitles = {
-    "READY": "READY To Read",
+    "READY": "R.E.A.D.Y. to Read",
     "Connections": "Making Life Connections",
     "Word": "What's That Word?",
     "Picture": "Check Out the Pictures",
@@ -79,6 +79,12 @@ export function VideoWatch({navigation, route}) {
     else if (newPage < 0) {  newPage = 0;  }
     setPage(newPage);
   }
+
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTitleStyle: {textAlign: 'center'}
+    });
+  });
 
   React.useEffect(() => {
     setTimeout(() => {

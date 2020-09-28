@@ -89,7 +89,7 @@ function LoginScreen ( {route, navigation} ) {
 
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <View style={styles.container}>
-      <Text style={styles.title}>R.E.A.D.Y. to Read  v1.2</Text>
+      <Text style={styles.title}>R.E.A.D.Y. to Read</Text>
       
       <Video
         source={{ uri: 'http://18.215.149.31/wp-content/uploads/2020/05/loginvid.mp4' }}
@@ -206,6 +206,9 @@ function LoginScreen ( {route, navigation} ) {
       
     </View>
     </TouchableWithoutFeedback>
+    <View style={{position: 'absolute', bottom: 0}}>
+      <Text style={{textAlign: "right", padding: 10, opacity: 0.7}}> v1.2.2 </Text>
+    </View>
 
     </ScrollView>
 

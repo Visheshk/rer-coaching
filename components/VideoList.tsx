@@ -1,11 +1,13 @@
 import React from 'react';
-import { View, StyleSheet, TextInput, Alert, TouchableOpacity, Keyboard } from 'react-native';
+import { View, StyleSheet, TextInput, Alert, TouchableOpacity, TouchableHighlight, Keyboard, Image } from 'react-native';
 import 'react-native-gesture-handler';
 import {AsyncStorage} from 'react-native';
 // import { AVPlaybackStatus, VideoProps } from 'expo-av/build/Video'
 import { styles } from '../style';
 
-import { Container, Header, Content, Card, CardItem, Text, Icon, Left, Right } from 'native-base';
+import Letsread from '../assets/images/letsread2.png'; 
+import Videos from '../assets/images/videos2.png'; 
+import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Icon, Left, Right, Body } from 'native-base';
 
 export function VideoList({navigation, route}) {
 	// render() {
@@ -61,57 +63,80 @@ export function VideoList({navigation, route}) {
 	return (
 
 		<Container>
-    <Content>
-    <Card style={{flex: 0}}>
-      <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 0, video: 'READY', "name": "READY To Read"})}>
-      <CardItem bordered style = {{opacity: vid0Seen ? SEEN_OPACITY: 1.0}}>
-        <Left>
-        <Icon  name="movie" type="MaterialIcons"/>
-        <Text>READY TO Read</Text>
-        </Left>
-        <Right style={{alignSelf: "flex-end"}}>
-          <Icon name="arrow-forward" />
-        </Right>
-       </CardItem>
-       </TouchableOpacity>
+      <Content>
+        <Card style={{flex: 0}}>
+        <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 0, video: 'READY', "name": "READY To Read"})}>
+        <CardItem bordered style = {{opacity: vid0Seen ? SEEN_OPACITY: 1.0}}>
+          <Left>
+          <Icon  name="movie" type="MaterialIcons"/>
+          <Text>READY TO Read</Text>
+          </Left>
+          <Right style={{alignSelf: "flex-end"}}>
+            <Icon name="arrow-forward" />
+          </Right>
+         </CardItem>
+         </TouchableOpacity>
 
-       <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 1, video: 'Connections', "name": "Making Life Connections"})}>
-        <CardItem bordered style = {{opacity: vid1Seen ? SEEN_OPACITY: 1.0}}>
-        <Icon  name="movie" type="MaterialIcons"/>
-        <Text>Making Life Connections</Text>
-        <Left />
-        <Right style={{alignSelf: "flex-end"}}>
-          <Icon name="arrow-forward" />
-        </Right>
-       </CardItem>
-       </TouchableOpacity>
-  
-       <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 2, video: 'Word', "name": "What's That Word?"})}>
-        <CardItem bordered style = {{opacity: vid2Seen ? SEEN_OPACITY: 1.0}}>
-        <Left>
-        <Icon  name="movie" type="MaterialIcons"/>
-        <Text>What's That Word?</Text>
-        </Left>
-        <Right>
-          <Icon name="arrow-forward" />
-        </Right>
-       </CardItem>
-       </TouchableOpacity>
+         <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 1, video: 'Connections', "name": "Making Life Connections"})}>
+          <CardItem bordered style = {{opacity: vid1Seen ? SEEN_OPACITY: 1.0}}>
+          <Icon  name="movie" type="MaterialIcons"/>
+          <Text>Making Life Connections</Text>
+          <Left />
+          <Right style={{alignSelf: "flex-end"}}>
+            <Icon name="arrow-forward" />
+          </Right>
+         </CardItem>
+         </TouchableOpacity>
+    
+         <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 2, video: 'Word', "name": "What's That Word?"})}>
+          <CardItem bordered style = {{opacity: vid2Seen ? SEEN_OPACITY: 1.0}}>
+          <Left>
+          <Icon  name="movie" type="MaterialIcons"/>
+          <Text>What's That Word?</Text>
+          </Left>
+          <Right>
+            <Icon name="arrow-forward" />
+          </Right>
+         </CardItem>
+         </TouchableOpacity>
 
-       <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 3, video: 'Picture', "name": "Check Out the Pictures"})}>
-        <CardItem bordered style = {{opacity: vid3Seen ? SEEN_OPACITY: 1.0}}>
-        <Left>
-        <Icon  name="movie" type="MaterialIcons"/>
-        <Text>Check Out the Pictures</Text>
-        </Left>
-        <Right>
-          <Icon name="arrow-forward" />
-        </Right>
-       </CardItem>
-       </TouchableOpacity>       
+         <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 3, video: 'Picture', "name": "Check Out the Pictures"})}>
+          <CardItem bordered style = {{opacity: vid3Seen ? SEEN_OPACITY: 1.0}}>
+          <Left>
+          <Icon  name="movie" type="MaterialIcons"/>
+          <Text>Check Out the Pictures</Text>
+          </Left>
+          <Right>
+            <Icon name="arrow-forward" />
+          </Right>
+         </CardItem>
+         </TouchableOpacity>       
          
-     </Card>
-     </Content>
+        </Card>
+      </Content>
+      
+      <View style={{flex:1, padding: 50, opactity: 0, justifyContent: 'space-around'}}>
+
+        <Text style={{backgroundColor: "#eee", padding: 15, borderRadius: 10}}>
+          Done watching the videos? Click 'Let's Read' to practice your literacy-building strategies!
+        </Text>
+       
+        <TouchableOpacity style={{flex:0.7}} key="letsread" onPress={() => navigation.navigate("BookList")}> 
+          <Card>
+            <CardItem>
+              <Left>
+                <Thumbnail square source={Letsread} style={{resizeMode: "contain"}}/>
+                <Body>
+                  <Text>Let's Read</Text>
+                
+                </Body>
+              </Left>
+            </CardItem>
+          
+          </Card>
+        </TouchableOpacity>
+
+      </View>
 		</Container>
 	);
 }

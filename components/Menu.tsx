@@ -53,9 +53,7 @@ export function MenuScreen({navigation, route}) {
               </Body>
             </Left>
           </CardItem>
-          <CardItem cardBody>
-            <Image source={Videos} style={{height: null, width: null, flex: 1}}/>
-          </CardItem>
+          
         </Card>
         </TouchableOpacity>
 
@@ -70,9 +68,7 @@ export function MenuScreen({navigation, route}) {
               </Body>
             </Left>
           </CardItem>
-          <CardItem cardBody>
-            <Image source={Videos} style={{height: null, width: "45%", flex: 1}}/>
-          </CardItem>
+        
         </Card>
         </TouchableOpacity>
 

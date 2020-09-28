@@ -14,6 +14,7 @@ import { PageRecorder } from './PageRecorder';
 import { PR2 } from './pr2';
 import rtArrow from '../assets/icons/rtArrow.png'; 
 import ltArrow from '../assets/icons/ltArrow.png'; 
+import homeIcon from '../assets/icons/home.png'; 
 
 const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = Dimensions.get('window');
 const BACKGROUND_COLOR = '#FFF8ED';
@@ -90,13 +91,16 @@ export function BookRead({navigation, route}) {
       console.log(error);
     }
     try {
-      setCurrentPage(await AsyncStorage.getItem('bookPage'));
+      let cp = await AsyncStorage.getItem('bookPage');
       // if (isNaN(parseInt(currentPage))) {
       //   setCurrentPage(1);
       // }
-      if (currentPage == null) {
+      if (cp == null) {
         setCurrentPage(1);
         await AsyncStorage.setItem('bookPage', "1");
+      }
+      else {
+        setCurrentPage(cp);
       }
       setImageName("pg" + currentPage);
       // console.log("setting up current page " + currentPage + " " + imageName);
@@ -124,28 +128,29 @@ export function BookRead({navigation, route}) {
     navigation.setOptions({
       headerRight: () => (
         <View style={{alignItems: 'flex-end', flexDirection: 'row', marginRight: 10}}>
-          <View style={{flex:1, paddingRight: 10}}>
-            <Button 
-              color = "#777777"
-              onPress={() => navigation.navigate("Welcome")}
-              title={"Home"}/>
+        <View style={{flex: 1, paddingRight: 10}}>
+            <TouchableOpacity 
+                onPress={() => navigation.navigate("Welcome")}>
+                <Image source={homeIcon} style={{height: 40, width: 40}}/>
+              </TouchableOpacity>
+        </View>
+          
+        <View style={{flex:1}}>
+          <Button 
+            color = "#777777"
+            onPress={() => ActionSheet.show(
+              {
+                options: BUTTONS,
+                cancelButtonIndex: 0,
+                title: "Go to Page"
+              },
+              buttonIndex => {
+                setPage(parseInt(BUTTONS[buttonIndex]));
+                // console.log(buttonIndex)
+              }
+            )}
+            title={`Page ${currentPage}`}/>
           </View>
-          <View style={{flex:1}}>
-            <Button 
-              color = "#777777"
-              onPress={() => ActionSheet.show(
-                {
-                  options: BUTTONS,
-                  cancelButtonIndex: 0,
-                  title: "Go to Page"
-                },
-                buttonIndex => {
-                  setPage(parseInt(BUTTONS[buttonIndex]));
-                  // console.log(buttonIndex)
-                }
-              )}
-              title={`Page ${currentPage}`}/>
-            </View>
         </View>
       ),
     });

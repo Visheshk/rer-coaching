@@ -17,6 +17,8 @@ export function VideoList({navigation, route}) {
   const [vid1Seen, setVid1Seen] = React.useState(false);
   const [vid2Seen, setVid2Seen] = React.useState(false);
   const [vid3Seen, setVid3Seen] = React.useState(false);
+  
+  const [readCount, setReadCount] = React.useState(0);
   const SEEN_OPACITY = 0.6;
 
   var storeData = async (vals) => {
@@ -35,26 +37,44 @@ export function VideoList({navigation, route}) {
     const unsubscribe = navigation.addListener('focus', () => {
       // The screen is focused
       // Call any action
-      (async() => {
-        try {
-          let v0 = await AsyncStorage.getItem('video0seen');      setVid0Seen("true" == v0);  
-          console.log(vid0Seen);
-        } catch (err) { console.log (err); }
-        
-        let v1 = await AsyncStorage.getItem('video1seen');      setVid1Seen("true" == v1);
-        let v2 = await AsyncStorage.getItem('video2seen');      setVid2Seen("true" == v2);
-        let v3 = await AsyncStorage.getItem('video3seen');      setVid3Seen("true" == v3);
-        
-        console.log(vid1Seen);
-        console.log(vid2Seen);
-        console.log(vid3Seen);
-      })();
+      setSeenStates();
+      
     });
 
     // Return the function to unsubscribe from the event so it gets removed on unmount
     return unsubscribe;
   }, [navigation]);
 
+  async function setSeenStates () {
+    let v0 = await AsyncStorage.getItem('video0seen');      setVid0Seen("true" == v0);  
+    let v1 = await AsyncStorage.getItem('video1seen');      setVid1Seen("true" == v1);
+    let v2 = await AsyncStorage.getItem('video2seen');      setVid2Seen("true" == v2);
+    let v3 = await AsyncStorage.getItem('video3seen');      setVid3Seen("true" == v3);
+    
+    setReadCount((vid0Seen? 0: 1) + (vid1Seen? 0: 1) + (vid2Seen? 0: 1) + (vid3Seen? 0: 1));
+    console.log(readCount);
+
+  }
+
+  function seenIcon(seenState) {
+    if (seenState == true) {
+      return "checkmark-circle";
+    }
+    else {
+      return "checkmark-circle-outline";
+    }
+  }
+
+  async function changeReadState(vidName, seenState) {
+    // console.log(vidName);
+    // console.log(vidName + seenState);
+    await AsyncStorage.setItem(vidName, String(!seenState));
+
+    setSeenStates();
+
+  }
+
+ 
 
   // React.useEffect(() => {
     
@@ -72,7 +92,13 @@ export function VideoList({navigation, route}) {
           <Text>READY TO Read</Text>
           </Left>
           <Right style={{alignSelf: "flex-end"}}>
-            <Icon name="arrow-forward" />
+            <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
+              <TouchableOpacity onPress={() => {changeReadState("video0seen", vid0Seen);}}>
+                <Icon name={seenIcon(vid0Seen)} style={{color: "blue", paddingRight: 20}}/>
+              </TouchableOpacity>
+
+              <Icon name="arrow-forward" />
+            </View>
           </Right>
          </CardItem>
          </TouchableOpacity>
@@ -83,7 +109,13 @@ export function VideoList({navigation, route}) {
           <Text>Making Life Connections</Text>
           <Left />
           <Right style={{alignSelf: "flex-end"}}>
-            <Icon name="arrow-forward" />
+            <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
+              <TouchableOpacity onPress={() => {changeReadState("video1seen", vid1Seen);}}>
+                <Icon name={seenIcon(vid1Seen)} style={{color: "blue", paddingRight: 20}}/>
+              </TouchableOpacity>
+
+              <Icon name="arrow-forward" />
+            </View>
           </Right>
          </CardItem>
          </TouchableOpacity>
@@ -93,9 +125,17 @@ export function VideoList({navigation, route}) {
           <Left>
           <Icon  name="movie" type="MaterialIcons"/>
           <Text>What's That Word?</Text>
+          
+          
           </Left>
           <Right>
-            <Icon name="arrow-forward" />
+            <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
+              <TouchableOpacity onPress={() => {changeReadState("video2seen", vid2Seen);}}>
+                <Icon name={seenIcon(vid2Seen)} style={{color: "blue", paddingRight: 20}}/>
+              </TouchableOpacity>
+
+              <Icon name="arrow-forward" />
+            </View>
           </Right>
          </CardItem>
          </TouchableOpacity>
@@ -107,36 +147,43 @@ export function VideoList({navigation, route}) {
           <Text>Check Out the Pictures</Text>
           </Left>
           <Right>
-            <Icon name="arrow-forward" />
+            <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
+              <TouchableOpacity onPress={() => {changeReadState("video3seen", vid3Seen);}}>
+                <Icon name={seenIcon(vid3Seen)} style={{color: "blue", paddingRight: 20}}/>
+              </TouchableOpacity>
+
+              <Icon name="arrow-forward" />
+            </View>
           </Right>
          </CardItem>
          </TouchableOpacity>       
          
         </Card>
       </Content>
-      
-      <View style={{flex:1, padding: 50, opactity: 0, justifyContent: 'space-around'}}>
+      {(readCount > 2)? (
+        <View style={{flex:1, padding: 50, opactity: 0.0, justifyContent: 'space-around'}}>
+        
+          <Text style={{backgroundColor: "#eee", padding: 15, borderRadius: 10}}>
+            Done watching the videos? Click 'Let's Read' to practice your literacy-building strategies!
+          </Text>
+         
+          <TouchableOpacity style={{flex:0.7}} key="letsread" onPress={() => navigation.navigate("BookList")}> 
+            <Card>
+              <CardItem>
+                <Left>
+                  <Thumbnail square source={Letsread} style={{resizeMode: "contain"}}/>
+                  <Body>
+                    <Text>Let's Read</Text>
+                  
+                  </Body>
+                </Left>
+              </CardItem>
+            
+            </Card>
+          </TouchableOpacity>
 
-        <Text style={{backgroundColor: "#eee", padding: 15, borderRadius: 10}}>
-          Done watching the videos? Click 'Let's Read' to practice your literacy-building strategies!
-        </Text>
-       
-        <TouchableOpacity style={{flex:0.7}} key="letsread" onPress={() => navigation.navigate("BookList")}> 
-          <Card>
-            <CardItem>
-              <Left>
-                <Thumbnail square source={Letsread} style={{resizeMode: "contain"}}/>
-                <Body>
-                  <Text>Let's Read</Text>
-                
-                </Body>
-              </Left>
-            </CardItem>
-          
-          </Card>
-        </TouchableOpacity>
-
-      </View>
+        </View>
+        ): null}
 		</Container>
 	);
 }

@@ -58,18 +58,18 @@ export function MenuScreen({navigation, route}) {
         </TouchableOpacity>
 
         <TouchableOpacity key="letsread" onPress={() => navigation.navigate("BookList")}> 
-        <Card>
-          <CardItem>
-            <Left>
-              <Thumbnail square source={Letsread} style={{resizeMode: "contain"}}/>
-              <Body>
-                <Text>Let's Read</Text>
-                <Text note>Learn and practice simple literacy-building strategies for reading aloud with your child.</Text>
-              </Body>
-            </Left>
-          </CardItem>
-        
-        </Card>
+          <Card>
+            <CardItem>
+              <Left>
+                <Thumbnail square source={Letsread} style={{resizeMode: "contain"}}/>
+                <Body>
+                  <Text>Let's Read</Text>
+                  <Text note>Learn and practice simple literacy-building strategies for reading aloud with your child.</Text>
+                </Body>
+              </Left>
+            </CardItem>
+          
+          </Card>
         </TouchableOpacity>
 
 

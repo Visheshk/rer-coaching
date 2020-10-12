@@ -19,6 +19,7 @@ export function VideoList({navigation, route}) {
   const [vid3Seen, setVid3Seen] = React.useState(false);
   
   const [readCount, setReadCount] = React.useState(0);
+  let rc = 0;
   const SEEN_OPACITY = 0.6;
 
   var storeData = async (vals) => {
@@ -30,6 +31,7 @@ export function VideoList({navigation, route}) {
     }
   };
   storeData();
+
   React.useEffect(() => {
     setTimeout(() => {
       Keyboard.dismiss();      
@@ -45,13 +47,26 @@ export function VideoList({navigation, route}) {
     return unsubscribe;
   }, [navigation]);
 
+  function updateReadCount (v0, v1, v2, v3, v4) {
+    console.log("thrd");
+    console.log(v0 + v1 + v2 + v3);
+    rc = ((v0=="true")? 1: 0) + ((v1=="true")? 1: 0) + ((v2=="true")? 1: 0) + ((v3=="true")? 1: 0);
+    console.log("Rc is " + rc);
+    setReadCount(rc);
+    console.log(readCount);
+  }
+
   async function setSeenStates () {
-    let v0 = await AsyncStorage.getItem('video0seen');      setVid0Seen("true" == v0);  
-    let v1 = await AsyncStorage.getItem('video1seen');      setVid1Seen("true" == v1);
-    let v2 = await AsyncStorage.getItem('video2seen');      setVid2Seen("true" == v2);
-    let v3 = await AsyncStorage.getItem('video3seen');      setVid3Seen("true" == v3);
+    let v0 = await AsyncStorage.getItem('video0seen');      await setVid0Seen("true" == String(v0));
+    let v1 = await AsyncStorage.getItem('video1seen');      await setVid1Seen("true" == String(v1));
+    let v2 = await AsyncStorage.getItem('video2seen');      await setVid2Seen("true" == String(v2));
+    let v3 = await AsyncStorage.getItem('video3seen');      await setVid3Seen("true" == String(v3));
+    // console.log(v0 == "true");
+    console.log(v0 + " " + v1 + " " + v2 + " " + v3);
+    console.log(vid0Seen + " " + vid1Seen + " " + vid2Seen + " " + vid3Seen);
+    // await setReadCount((vid0Seen? 1: 0) + (vid1Seen? 1: 0) + (vid2Seen? 1: 0) + (vid3Seen? 1: 0));
+    updateReadCount(v0, v1, v2, v3);
     
-    setReadCount((vid0Seen? 0: 1) + (vid1Seen? 0: 1) + (vid2Seen? 0: 1) + (vid3Seen? 0: 1));
     console.log(readCount);
 
   }
@@ -69,6 +84,8 @@ export function VideoList({navigation, route}) {
     // console.log(vidName);
     // console.log(vidName + seenState);
     await AsyncStorage.setItem(vidName, String(!seenState));
+
+    // await setReadCount(setRead)
 
     setSeenStates();
 
@@ -160,8 +177,8 @@ export function VideoList({navigation, route}) {
          
         </Card>
       </Content>
-      {(readCount > 2)? (
-        <View style={{flex:1, padding: 50, opactity: 0.0, justifyContent: 'space-around'}}>
+      
+        <View style={{flex:1, padding: 50, opacity: 1.0, justifyContent: 'space-around'}}>
         
           <Text style={{backgroundColor: "#eee", padding: 15, borderRadius: 10}}>
             If you're done watching the videos, click 'Let's Read' to practice your literacy-building strategies!
@@ -178,12 +195,11 @@ export function VideoList({navigation, route}) {
                   </Body>
                 </Left>
               </CardItem>
-            
             </Card>
           </TouchableOpacity>
 
         </View>
-        ): null}
+      
 		</Container>
 	);
 }

@@ -39,7 +39,7 @@ export function MenuScreen({navigation, route}) {
           isMuted={false}
           resizeMode={Video.RESIZE_MODE_CONTAIN}
           useNativeControls={true}
-          shouldPlay={true}
+          shouldPlay={false}
           isLooping={false}
           style={{ height: 300 }}
         />

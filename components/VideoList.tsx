@@ -164,7 +164,7 @@ export function VideoList({navigation, route}) {
         <View style={{flex:1, padding: 50, opactity: 0.0, justifyContent: 'space-around'}}>
         
           <Text style={{backgroundColor: "#eee", padding: 15, borderRadius: 10}}>
-            Done watching the videos? Click 'Let's Read' to practice your literacy-building strategies!
+            If you're done watching the videos, click 'Let's Read' to practice your literacy-building strategies!
           </Text>
          
           <TouchableOpacity style={{flex:0.7}} key="letsread" onPress={() => navigation.navigate("BookList")}> 

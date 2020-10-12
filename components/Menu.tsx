@@ -32,13 +32,14 @@ export function MenuScreen({navigation, route}) {
 		return (
       <View style={{ flexDirection: 'column', justifyContent: 'space-around'}}>
         <Video
-          source={{ uri: 'http://18.215.149.31/wp-content/uploads/2020/05/loginvid.mp4' }}
+          usePoster={true}
+          source={{ uri: 'https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Intro10-1-20.mp4?raw=true', overrideFileExtensionAndroid: 'mp4' }}
           rate={1.0}
           volume={1.0}
           isMuted={false}
-          resizeMode="contain"
+          resizeMode={Video.RESIZE_MODE_CONTAIN}
           useNativeControls={true}
-          shouldPlay={false}
+          shouldPlay={true}
           isLooping={false}
           style={{ height: 300 }}
         />

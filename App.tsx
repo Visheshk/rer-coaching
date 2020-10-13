@@ -9,6 +9,7 @@ import * as Yup from 'yup';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+// import { NetInfo } from '@react-native-community/netinfo';
 import 'react-native-gesture-handler';
 
 import { WelcomeScreen } from './components/Welcome';

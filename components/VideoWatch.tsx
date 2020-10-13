@@ -21,46 +21,30 @@ export function VideoWatch({navigation, route}) {
   const [after, setAfter] = React.useState();
   const [befState, setBefState] = React.useState(false);
   const [aftState, setAftState] = React.useState(false);
-  // console.log(route.params.video);
-  // const 
-  // setPage(route.params.page);
 
-  // navigation.setParams({ "title": paramVid });
-
-  // const videoLinks = {
-  //   "READY": "https://www.dropbox.com/s/48myczlan6btufk/loginvid.mp4?dl=0",
-  //   "Reading Fun": "https://www.dropbox.com/s/qtnn10iru7v89xt/welcomevid.mp4?dl=0"
-  // };
   const videoLinks = {
-    "Picture": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/CheckOutThePictures.mp4?raw=true",
-    "Connections": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/MakingLifeConnections.mp4?raw=true",
-    "Reading Fun": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/MakingReadingFun.mp4?raw=true",
-    "READY": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/ReadyToRead.mp4?raw=true",
-    "Word": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/WhatsThatWord.mp4?raw=true"
+    // "Picture": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/CheckOutThePictures.mp4?raw=true",
+    // "Connections": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/MakingLifeConnections.mp4?raw=true",
+    // "Reading Fun": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/MakingReadingFun.mp4?raw=true",
+    // "READY": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/ReadyToRead.mp4?raw=true",
+    // "Word": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/WhatsThatWord.mp4?raw=true"
+    "Difference": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Shortened%20You%20Can%20Make%20A%20Difference_9-28-20.mp4?raw=true",
+    "Questions": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/DRAFT_Ask%20Questions_9-28-20.mp4?raw=true",
+    "Ideas": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/DRAFT_Explain%20New%20Words%20Or%20Ideas_9-28-20.mp4?raw=true",
+    "Past": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/DRAFT_Recall%20The%20Past_9-26-20.mp4",
+    "Future": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/DRAFT_Discuss%20The%20Future_9-28-20.mp4?raw=true", 
   };
-  // const thisVid = videoLinks[paramVid];
-  // console.log(thisVid);
-
-  // const videoOrder = {
-  //   "Picture": {"before": false, "next": "Connections"},
-  //   "Connections": {"before": "Picture", "next": "Reading Fun"},
-  //   "Reading Fun": {"before": "Connections", "next": "READY"},
-  //   "READY": {"before": "Reading Fun", "next": "READY"},
-  //   "Word": {"before": "READY", "next": false} 
-  // };
-
-  // const videoOrder = {
-  //   "READY": {"before": false, "next": "Connections"},
-  //   "Connections": {"before": "READY", "next": "Word"},
-  //   "Word": {"before": "Connections", "next": "Picture"},
-  //   "Picture": {"before": "Word", "next": false},
-  // };
-
+ 
   const pageTitles = {
-    "READY": "R.E.A.D.Y. to Read",
-    "Connections": "Making Life Connections",
-    "Word": "What's That Word?",
-    "Picture": "Check Out the Pictures",
+    // "READY": "R.E.A.D.Y. to Read",
+    // "Connections": "Making Life Connections",
+    // "Word": "What's That Word?",
+    // "Picture": "Check Out the Pictures",
+    "Difference": "You Can Make a Difference",
+    "Questions": "Ask Questions",
+    "Ideas": "Explain New Words or Ideas",
+    "Past": "Recall the Past",
+    "Future": "Discuss the Future"
   };
 
   const pageList = Object.keys(pageTitles);
@@ -75,7 +59,7 @@ export function VideoWatch({navigation, route}) {
 
   function changeVideo(dir) {
     let newPage = thisPage + dir;
-    if (newPage > 3) {  newPage = 3;   }
+    if (newPage > 4) {  newPage = 4;   }
     else if (newPage < 0) {  newPage = 0;  }
     setPage(newPage);
   }
@@ -119,7 +103,7 @@ export function VideoWatch({navigation, route}) {
       setBefState(false);
     }
     // console.log(vidUri);
-    if (thisPage == 3) {
+    if (thisPage == 4) {
       console.log("last page");
       setAftState(false);
     }

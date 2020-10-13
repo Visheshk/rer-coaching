@@ -17,6 +17,9 @@ export function VideoList({navigation, route}) {
   const [vid1Seen, setVid1Seen] = React.useState(false);
   const [vid2Seen, setVid2Seen] = React.useState(false);
   const [vid3Seen, setVid3Seen] = React.useState(false);
+  const [vid4Seen, setVid4Seen] = React.useState(false);
+
+  // const [vidSeen, setVidSeen] = React.use
   
   const [readCount, setReadCount] = React.useState(0);
   let rc = 0;
@@ -48,9 +51,9 @@ export function VideoList({navigation, route}) {
   }, [navigation]);
 
   function updateReadCount (v0, v1, v2, v3, v4) {
-    console.log("thrd");
-    console.log(v0 + v1 + v2 + v3);
-    rc = ((v0=="true")? 1: 0) + ((v1=="true")? 1: 0) + ((v2=="true")? 1: 0) + ((v3=="true")? 1: 0);
+    // console.log("thrd");
+    // console.log(v0 + v1 + v2 + v3);
+    rc = ((v0=="true")? 1: 0) + ((v1=="true")? 1: 0) + ((v2=="true")? 1: 0) + ((v3=="true")? 1: 0) + ((v4=="true")? 1: 0);
     console.log("Rc is " + rc);
     setReadCount(rc);
     console.log(readCount);
@@ -61,11 +64,12 @@ export function VideoList({navigation, route}) {
     let v1 = await AsyncStorage.getItem('video1seen');      await setVid1Seen("true" == String(v1));
     let v2 = await AsyncStorage.getItem('video2seen');      await setVid2Seen("true" == String(v2));
     let v3 = await AsyncStorage.getItem('video3seen');      await setVid3Seen("true" == String(v3));
+    let v4 = await AsyncStorage.getItem('video4seen');      await setVid4Seen("true" == String(v4));
     // console.log(v0 == "true");
-    console.log(v0 + " " + v1 + " " + v2 + " " + v3);
-    console.log(vid0Seen + " " + vid1Seen + " " + vid2Seen + " " + vid3Seen);
+    // console.log(v0 + " " + v1 + " " + v2 + " " + v3);
+    // console.log(vid0Seen + " " + vid1Seen + " " + vid2Seen + " " + vid3Seen);
     // await setReadCount((vid0Seen? 1: 0) + (vid1Seen? 1: 0) + (vid2Seen? 1: 0) + (vid3Seen? 1: 0));
-    updateReadCount(v0, v1, v2, v3);
+    updateReadCount(v0, v1, v2, v3, v4);
     
     console.log(readCount);
 
@@ -102,11 +106,11 @@ export function VideoList({navigation, route}) {
 		<Container>
       <Content>
         <Card style={{flex: 0}}>
-        <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 0, video: 'READY', "name": "READY To Read"})}>
+        <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 0, video: 'Difference', "name": "You Can Make a Difference"})}>
         <CardItem bordered style = {{opacity: vid0Seen ? SEEN_OPACITY: 1.0}}>
           <Left>
           <Icon  name="movie" type="MaterialIcons"/>
-          <Text>READY TO Read</Text>
+          <Text>You Can Make a Difference</Text>
           </Left>
           <Right style={{alignSelf: "flex-end"}}>
             <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
@@ -120,10 +124,10 @@ export function VideoList({navigation, route}) {
          </CardItem>
          </TouchableOpacity>
 
-         <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 1, video: 'Connections', "name": "Making Life Connections"})}>
+         <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 1, video: 'Questions', "name": "Ask Questions"})}>
           <CardItem bordered style = {{opacity: vid1Seen ? SEEN_OPACITY: 1.0}}>
           <Icon  name="movie" type="MaterialIcons"/>
-          <Text>Making Life Connections</Text>
+          <Text>Ask Questions</Text>
           <Left />
           <Right style={{alignSelf: "flex-end"}}>
             <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
@@ -137,13 +141,11 @@ export function VideoList({navigation, route}) {
          </CardItem>
          </TouchableOpacity>
     
-         <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 2, video: 'Word', "name": "What's That Word?"})}>
+         <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 2, video: 'Ideas', "name": "Explain New Words or Ideas"})}>
           <CardItem bordered style = {{opacity: vid2Seen ? SEEN_OPACITY: 1.0}}>
           <Left>
           <Icon  name="movie" type="MaterialIcons"/>
-          <Text>What's That Word?</Text>
-          
-          
+          <Text>Explain New Words or Ideas</Text>
           </Left>
           <Right>
             <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
@@ -157,11 +159,11 @@ export function VideoList({navigation, route}) {
          </CardItem>
          </TouchableOpacity>
 
-         <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 3, video: 'Picture', "name": "Check Out the Pictures"})}>
+         <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 3, video: 'Past', "name": "Recall the Past"})}>
           <CardItem bordered style = {{opacity: vid3Seen ? SEEN_OPACITY: 1.0}}>
           <Left>
           <Icon  name="movie" type="MaterialIcons"/>
-          <Text>Check Out the Pictures</Text>
+          <Text>Recall the Past</Text>
           </Left>
           <Right>
             <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
@@ -173,12 +175,30 @@ export function VideoList({navigation, route}) {
             </View>
           </Right>
          </CardItem>
-         </TouchableOpacity>       
+         </TouchableOpacity>
+
+         <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 4, video: 'Future', "name": "Discuss the Future"})}>
+          <CardItem bordered style = {{opacity: vid4Seen ? SEEN_OPACITY: 1.0}}>
+          <Left>
+          <Icon  name="movie" type="MaterialIcons"/>
+          <Text>Discuss the Future</Text>
+          </Left>
+          <Right>
+            <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
+              <TouchableOpacity onPress={() => {changeReadState("video4seen", vid4Seen);}}>
+                <Icon name={seenIcon(vid4Seen)} style={{color: "blue", paddingRight: 20}}/>
+              </TouchableOpacity>
+
+              <Icon name="arrow-forward" />
+            </View>
+          </Right>
+         </CardItem>
+         </TouchableOpacity>    
          
         </Card>
       </Content>
       
-        <View style={{flex:1, padding: 50, opacity: 1.0, justifyContent: 'space-around'}}>
+        <View style={{flex:0.75, padding: 50, opacity: 1.0, justifyContent: 'space-around'}}>
         
           <Text style={{backgroundColor: "#eee", padding: 15, borderRadius: 10}}>
             If you're done watching the videos, click 'Let's Read' to practice your literacy-building strategies!
@@ -191,7 +211,6 @@ export function VideoList({navigation, route}) {
                   <Thumbnail square source={Letsread} style={{resizeMode: "contain"}}/>
                   <Body>
                     <Text>Let's Read</Text>
-                  
                   </Body>
                 </Left>
               </CardItem>

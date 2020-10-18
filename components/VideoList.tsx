@@ -28,25 +28,25 @@ export function VideoList({navigation, route}) {
   const SEEN_OPACITY = 0.6;
 
   let rc = 0;
-  let videoUrls = [
-    {
-      "name": "R - Recall the Past", 
+  let videoUrls = {
+    "past": {
+      "title": "R - Recall the Past", 
       "videoUrl": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/DRAFT_Recall%20The%20Past_9-26-20.mp4", 
       "thumbnail": "https://raw.githubusercontent.com/Visheshk/rer-coaching/master/assets/videos/R%20-%20Recall%20the%20Past%20Thumbnail.png", 
       "index": 0
     }, 
-    {
-      "name": "E - Explain New Words and Ideas", 
+    "ideas": {
+      "title": "E - Explain New Words and Ideas", 
       "videoUrl": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/DRAFT_Explain%20New%20Words%20Or%20Ideas_9-28-20.mp4?raw=true", 
       "thumbnail": "https://raw.githubusercontent.com/Visheshk/rer-coaching/master/assets/videos/E%20-%20Explain%20New%20Words_Ideas%20Thumbnail.png", 
       "index": 1
     }
-  ];
+  };
   //downloaded URLS
   //
 
   var storeData = async (vals) => {
-    
+    let vs = null;
     try {
       setUserInfo(await AsyncStorage.getItem('userInfo'));
     } catch (error) {
@@ -56,18 +56,29 @@ export function VideoList({navigation, route}) {
     // in asyncstorage - store [v0seen, ... ,v5 seen]
     // if not found, write them all as false and do asynctorage.set
     try {
-      let vidStatus = await AsyncStorage.getItem('videoStatus');
-      if (vidStatus == null) {
-        vidStatus = videoUrls;
-        for (vu in videoUrls) {
+      vs = await AsyncStorage.getItem('videoStatus');
+      if (vs == null) {
+        vs = videoUrls;
+        for (let vu in videoUrls) {
+          console.log(vu);
           // videoUrls[vu] = 
+          vs[vu] = videoUrls[vu];
+          vs[vu]["downloaded"] = false;
         }
+        // setVidStatus(vs);
+        AsyncStorage.setItem("videoStatus", JSON.stringify(vidStatus));
       }
-      setVidStatus(JSON.parse(vidStatus));
+      else {
+        console.log(vs);
+        // AsyncStorage.setItem("videoStatus", JSON.parse(vidStatus));
+      }
+      
     }
     catch (error) {
-
+      console.error(error);
     }
+
+    return vs;
 
     // file list (from asyncstorage)
     // new file list (from url)
@@ -88,6 +99,10 @@ export function VideoList({navigation, route}) {
 
   };
   storeData();
+
+  // setVidStatus(await AsyncStorage.getItem("videoStatus"));
+  console.log(vidStatus);
+
 
   React.useEffect(() => {
     setTimeout(() => {

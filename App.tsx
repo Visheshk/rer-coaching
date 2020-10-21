@@ -93,7 +93,7 @@ function LoginScreen ( {route, navigation} ) {
       <Text style={styles.title}>R.E.A.D.Y. to Read</Text>
       
       <Video
-        source={{ uri: 'http://18.215.149.31/wp-content/uploads/2020/05/loginvid.mp4' }}
+        source={{ uri: 'https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Intro%20Final%20V2.mp4?raw=true' }}
         rate={1.0}
         volume={1.0}
         isMuted={false}

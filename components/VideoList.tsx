@@ -175,13 +175,14 @@ export function VideoList({navigation, route}) {
 		<Container>
       <Content>
         <Card style={{flex: 0}}>
-        <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 0, video: 'Difference', "name": "You Can Make a Difference"})}>
-        <CardItem bordered style = {{opacity: vid0Seen ? SEEN_OPACITY: 1.0}}>
+        
+         <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 0, video: 'Past', "name": "Recall the Past"})}>
+          <CardItem bordered style = {{opacity: vid0Seen ? SEEN_OPACITY: 1.0}}>
           <Left>
           <Icon  name="movie" type="MaterialIcons"/>
-          <Text>You Can Make a Difference</Text>
+          <Text>Recall the Past</Text>
           </Left>
-          <Right style={{alignSelf: "flex-end"}}>
+          <Right>
             <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
               <TouchableOpacity onPress={() => {changeReadState("video0seen", vid0Seen);}}>
                 <Icon name={seenIcon(vid0Seen)} style={{color: "blue", paddingRight: 20}}/>
@@ -193,12 +194,13 @@ export function VideoList({navigation, route}) {
          </CardItem>
          </TouchableOpacity>
 
-         <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 1, video: 'Questions', "name": "Ask Questions"})}>
+         <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 1, video: 'Ideas', "name": "Explain New Words or Ideas"})}>
           <CardItem bordered style = {{opacity: vid1Seen ? SEEN_OPACITY: 1.0}}>
+          <Left>
           <Icon  name="movie" type="MaterialIcons"/>
-          <Text>Ask Questions</Text>
-          <Left />
-          <Right style={{alignSelf: "flex-end"}}>
+          <Text>Explain New Words or Ideas</Text>
+          </Left>
+          <Right>
             <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
               <TouchableOpacity onPress={() => {changeReadState("video1seen", vid1Seen);}}>
                 <Icon name={seenIcon(vid1Seen)} style={{color: "blue", paddingRight: 20}}/>
@@ -209,14 +211,13 @@ export function VideoList({navigation, route}) {
           </Right>
          </CardItem>
          </TouchableOpacity>
-    
-         <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 2, video: 'Ideas', "name": "Explain New Words or Ideas"})}>
+
+         <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 2, video: 'Questions', "name": "Ask Questions"})}>
           <CardItem bordered style = {{opacity: vid2Seen ? SEEN_OPACITY: 1.0}}>
-          <Left>
           <Icon  name="movie" type="MaterialIcons"/>
-          <Text>Explain New Words or Ideas</Text>
-          </Left>
-          <Right>
+          <Text>Ask Questions</Text>
+          <Left />
+          <Right style={{alignSelf: "flex-end"}}>
             <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
               <TouchableOpacity onPress={() => {changeReadState("video2seen", vid2Seen);}}>
                 <Icon name={seenIcon(vid2Seen)} style={{color: "blue", paddingRight: 20}}/>
@@ -228,11 +229,11 @@ export function VideoList({navigation, route}) {
          </CardItem>
          </TouchableOpacity>
 
-         <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 3, video: 'Past', "name": "Recall the Past"})}>
+         <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 3, video: 'Future', "name": "Discuss the Future"})}>
           <CardItem bordered style = {{opacity: vid3Seen ? SEEN_OPACITY: 1.0}}>
           <Left>
           <Icon  name="movie" type="MaterialIcons"/>
-          <Text>Recall the Past</Text>
+          <Text>Discuss the Future</Text>
           </Left>
           <Right>
             <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
@@ -244,15 +245,15 @@ export function VideoList({navigation, route}) {
             </View>
           </Right>
          </CardItem>
-         </TouchableOpacity>
+         </TouchableOpacity>    
 
-         <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 4, video: 'Future', "name": "Discuss the Future"})}>
-          <CardItem bordered style = {{opacity: vid4Seen ? SEEN_OPACITY: 1.0}}>
+        <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 4, video: 'Difference', "name": "You Can Make a Difference"})}>
+        <CardItem bordered style = {{opacity: vid4Seen ? SEEN_OPACITY: 1.0}}>
           <Left>
           <Icon  name="movie" type="MaterialIcons"/>
-          <Text>Discuss the Future</Text>
+          <Text>You Can Make a Difference</Text>
           </Left>
-          <Right>
+          <Right style={{alignSelf: "flex-end"}}>
             <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
               <TouchableOpacity onPress={() => {changeReadState("video4seen", vid4Seen);}}>
                 <Icon name={seenIcon(vid4Seen)} style={{color: "blue", paddingRight: 20}}/>
@@ -262,7 +263,8 @@ export function VideoList({navigation, route}) {
             </View>
           </Right>
          </CardItem>
-         </TouchableOpacity>    
+         </TouchableOpacity>
+
          
         </Card>
       </Content>

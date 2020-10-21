@@ -9,6 +9,7 @@ import { Asset } from 'expo-asset';
 import { READY } from '../assets/loginvid.mp4';
 // import { AVPlaybackStatus, VideoProps } from 'expo-av/build/Video'
 import { styles } from '../style';
+import { sources, titles } from './videoInfo';
 
 export function VideoWatch({navigation, route}) {
 	// render() {
@@ -28,11 +29,11 @@ export function VideoWatch({navigation, route}) {
     // "Reading Fun": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/MakingReadingFun.mp4?raw=true",
     // "READY": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/ReadyToRead.mp4?raw=true",
     // "Word": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/WhatsThatWord.mp4?raw=true"
-    "Difference": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Shortened%20You%20Can%20Make%20A%20Difference_9-28-20.mp4?raw=true",
-    "Questions": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/DRAFT_Ask%20Questions_9-28-20.mp4?raw=true",
-    "Ideas": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/DRAFT_Explain%20New%20Words%20Or%20Ideas_9-28-20.mp4?raw=true",
-    "Past": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/DRAFT_Recall%20The%20Past_9-26-20.mp4",
-    "Future": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/DRAFT_Discuss%20The%20Future_9-28-20.mp4?raw=true", 
+    "Difference": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/You%20Can%20Make%20A%20Difference%20Final%20V2.mp4?raw=true",
+    "Questions": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Ask%20Questions%20Final%20V2.mp4?raw=true",
+    "Ideas": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Explain%20New%20Words%20Or%20Ideas%20Final%20V2.mp4?raw=true",
+    "Past": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Recall%20The%20Past%20Final%20V2.mp4?raw=true",
+    "Future": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Discuss%20The%20Future%20Final%20V2.mp4?raw=true", 
   };
  
   const pageTitles = {

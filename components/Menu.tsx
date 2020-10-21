@@ -33,7 +33,7 @@ export function MenuScreen({navigation, route}) {
       <View style={{ flexDirection: 'column', justifyContent: 'space-around'}}>
         <Video
           usePoster={true}
-          source={{ uri: 'https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Intro10-1-20.mp4?raw=true', overrideFileExtensionAndroid: 'mp4' }}
+          source={{ uri: 'https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Intro%20Final%20V2.mp4?raw=true', overrideFileExtensionAndroid: 'mp4' }}
           rate={1.0}
           volume={1.0}
           isMuted={false}

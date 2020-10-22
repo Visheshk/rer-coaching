@@ -29,5 +29,14 @@ export const styles = StyleSheet.create({
   },
   contentContainer: {
     paddingBottom: 200
+  },
+
+  timestamp: {
+    fontSize: 12,
+    marginRight: 30,
+    // textAlign: 'right',
+    // alignSelf: 'flex-end'
+    // flexDirection: 'row',
+    // justifyContent: 'flex-end'
   }
 });

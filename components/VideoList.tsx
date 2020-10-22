@@ -189,6 +189,7 @@ export function VideoList({navigation, route}) {
           </Left>
           <Right>
             <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
+              <Text style={styles.timestamp}>1:30</Text>
               <TouchableOpacity onPress={() => {changeReadState("video0seen", vid0Seen);}}>
                 <Icon name={seenIcon(vid0Seen)} style={{color: "blue", paddingRight: 20}}/>
               </TouchableOpacity>
@@ -207,6 +208,7 @@ export function VideoList({navigation, route}) {
           </Left>
           <Right>
             <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
+              <Text style={styles.timestamp}>1:17</Text>
               <TouchableOpacity onPress={() => {changeReadState("video1seen", vid1Seen);}}>
                 <Icon name={seenIcon(vid1Seen)} style={{color: "blue", paddingRight: 20}}/>
               </TouchableOpacity>
@@ -224,6 +226,7 @@ export function VideoList({navigation, route}) {
           <Left />
           <Right style={{alignSelf: "flex-end"}}>
             <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
+              <Text style={styles.timestamp}>0:59</Text>
               <TouchableOpacity onPress={() => {changeReadState("video2seen", vid2Seen);}}>
                 <Icon name={seenIcon(vid2Seen)} style={{color: "blue", paddingRight: 20}}/>
               </TouchableOpacity>
@@ -242,6 +245,7 @@ export function VideoList({navigation, route}) {
           </Left>
           <Right>
             <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
+              <Text style={styles.timestamp}>1:17</Text>
               <TouchableOpacity onPress={() => {changeReadState("video3seen", vid3Seen);}}>
                 <Icon name={seenIcon(vid3Seen)} style={{color: "blue", paddingRight: 20}}/>
               </TouchableOpacity>
@@ -259,7 +263,9 @@ export function VideoList({navigation, route}) {
           <Text>You Can Make a Difference</Text>
           </Left>
           <Right style={{alignSelf: "flex-end"}}>
+
             <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
+              <Text style={styles.timestamp}>1:27</Text>
               <TouchableOpacity onPress={() => {changeReadState("video4seen", vid4Seen);}}>
                 <Icon name={seenIcon(vid4Seen)} style={{color: "blue", paddingRight: 20}}/>
               </TouchableOpacity>

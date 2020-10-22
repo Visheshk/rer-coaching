@@ -208,7 +208,7 @@ function LoginScreen ( {route, navigation} ) {
     </View>
     </TouchableWithoutFeedback>
     <View style={{position: 'absolute', bottom: 0}}>
-      <Text style={{textAlign: "right", fontSize: 10, padding: 10, opacity: 0.5}}> v1.2.2 </Text>
+      <Text style={{textAlign: "right", fontSize: 10, padding: 10, opacity: 0.5}}> v1.2.3 </Text>
     </View>
 
     </ScrollView>
@@ -232,15 +232,20 @@ export default function App(props) {
     const restoreState = async () => {
       try {
         const savedStateString = await AsyncStorage.getItem(PERSISTENCE_KEY);
-        console.log(savedStateString);
-        const state = JSON.parse(savedStateString);
+        // console.log(savedStateString);
+        let state = JSON.parse(savedStateString);
         const uInfo = await AsyncStorage.getItem('userInfo');
         const parseduInfo = JSON.parse(uInfo);
         setUserInfo(parseduInfo);
-        // if (uInfo === null || state == null) {
-        //   state = "Login";
-        // }
-        console.log(state);
+        if (uInfo === null || state == null) {
+          state = "Login";
+        }
+        else {
+          // state = "Welcome";
+          console.log("starting state!!");
+          // console.log(state);
+        }
+        // console.log(state);
         setInitialState(state);
 
       } finally {
@@ -295,21 +300,21 @@ export default function App(props) {
 
   return (
     <NavigationContainer
-      initialState={initialState}
+      // initialState={initialState}
       onStateChange={state =>
         AsyncStorage.setItem(PERSISTENCE_KEY, JSON.stringify(state))
       }
     >
       <Stack.Navigator>
         <Stack.Screen
-          name="Login"
-          component={LoginScreen}
-          options={{title: 'Login'}}
-        />
-        <Stack.Screen
           name="Welcome"
           component={WelcomeScreen}
           options={{title: 'Welcome'}}
+        />
+        <Stack.Screen
+          name="Login"
+          component={LoginScreen}
+          options={{title: 'Login'}}
         />
         <Stack.Screen
           name="Speaker"

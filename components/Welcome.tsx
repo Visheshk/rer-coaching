@@ -78,41 +78,42 @@ export class WelcomeScreen extends React.Component {
       <View style={{ width: "100%", alignItems: "center" }}>
         <Image source={require('../assets/images/ready-logo.png')} style={{width: "100%", height: 200, resizeMode: 'contain'}}/>
       </View>
-       <Text style={styles.title}> Hi {this.state.name} </Text>
-       <View style={{flex: 1, flexDirection: 'row'}}>
-         <View style={styles.tileView}>
-           <Tile
-            imageSrc={coachApp}
-            title="Coaching Experience"
-            imageContainerStyle={{borderWidth: 2}}
-            containerStyle={[styles.tileContainer, {borderWidth: 0}]}
-            imageProps={{resizeMode: "contain"}}
-            onPress={() => {navigation.navigate('Menu', {name: this.state.name})}}
-          >
-          </Tile>
-         </View>
-        
 
-        <View style={styles.tileView}>
-          <Tile
-            imageSrc={bunnyReading}
-            title="Read Aloud with Floppy"
-            imageContainerStyle={{borderWidth: 2}}
-            containerStyle={[styles.tileContainer, {borderWidth: 0, opacity: this.state.isLoading ? 0.3: 1.0}]}
-            disabled={this.state.isLoading}
-            imageProps={{resizeMode: "contain"}}
-            onPress={() => {
-              if (!this.state.isLoading){ 
-                Linking.openURL(this.state.speakerAppURL); 
-                // navigation.navigate('Speaker', {'speakerurl': this.state.speakerAppURL}) ;
-              } 
-            }}
-          >
-          </Tile>
-          
-        </View>
+     <Text style={styles.title}> Hi {this.state.name} </Text>
+
+    <View style={{flex: 1, flexDirection: 'row', borderRadius: 5, overflow: 'visible'}}>
+      <View style={styles.tileView}>
+         <Tile
+          imageSrc={coachApp}
+          title="Coaching Experience"
+          imageContainerStyle={{borderWidth: 3, margin:0}}
+          containerStyle={[styles.tileContainer, {borderWidth: 0}]}
+          imageProps={{resizeMode: "contain"}}
+          onPress={() => {navigation.navigate('Menu', {name: this.state.name})}}
+        >
+        </Tile>
+      </View>   
+
+      <View style={styles.tileView}>
+        <Tile
+          imageSrc={bunnyReading}
+          title="Read Aloud with Floppy"
+          imageContainerStyle={{borderWidth: 3, margin:0}}
+          containerStyle={[styles.tileContainer, {borderWidth: 0, opacity: this.state.isLoading ? 0.3: 1.0}]}
+          disabled={this.state.isLoading}
+          imageProps={{resizeMode: "contain"}}
+          onPress={() => {
+            if (!this.state.isLoading){ 
+              Linking.openURL(this.state.speakerAppURL); 
+              // navigation.navigate('Speaker', {'speakerurl': this.state.speakerAppURL}) ;
+            } 
+          }}
+        >
+        </Tile>      
       </View>
-		</View>
+    </View>
+    
+	</View>
 	);
 	}
 }

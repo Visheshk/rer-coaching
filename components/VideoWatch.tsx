@@ -17,7 +17,7 @@ export function VideoWatch({navigation, route}) {
   const [pageTitle, setTitle] = React.useState("");
   const [thisPage, setPage] = React.useState();
   const [thisVid, setThisVid] = React.useState();
-  const [vidUri, setVidUri] = React.useState("https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/ReadyToRead.mp4?raw=true");
+  const [vidUri, setVidUri] = React.useState();
   const [before, setBefore] = React.useState();
   const [after, setAfter] = React.useState();
   const [befState, setBefState] = React.useState(false);
@@ -29,23 +29,19 @@ export function VideoWatch({navigation, route}) {
     // "Reading Fun": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/MakingReadingFun.mp4?raw=true",
     // "READY": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/ReadyToRead.mp4?raw=true",
     // "Word": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/WhatsThatWord.mp4?raw=true"
-    "Difference": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/You%20Can%20Make%20A%20Difference%20Final%20V2.mp4?raw=true",
-    "Questions": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Ask%20Questions%20Final%20V2.mp4?raw=true",
-    "Ideas": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Explain%20New%20Words%20Or%20Ideas%20Final%20V2.mp4?raw=true",
     "Past": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Recall%20The%20Past%20Final%20V2.mp4?raw=true",
+    "Ideas": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Explain%20New%20Words%20Or%20Ideas%20Final%20V2.mp4?raw=true",
+    "Questions": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Ask%20Questions%20Final%20V2.mp4?raw=true",
     "Future": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Discuss%20The%20Future%20Final%20V2.mp4?raw=true", 
+    "Difference": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/You%20Can%20Make%20A%20Difference%20Final%20V2.mp4?raw=true",    
   };
  
   const pageTitles = {
-    // "READY": "R.E.A.D.Y. to Read",
-    // "Connections": "Making Life Connections",
-    // "Word": "What's That Word?",
-    // "Picture": "Check Out the Pictures",
-    "Difference": "You Can Make a Difference",
-    "Questions": "Ask Questions",
-    "Ideas": "Explain New Words or Ideas",
     "Past": "Recall the Past",
-    "Future": "Discuss the Future"
+    "Ideas": "Explain New Words or Ideas",
+    "Questions": "Ask Questions",
+    "Future": "Discuss the Future",
+    "Difference": "You Can Make a Difference",
   };
 
   const pageList = Object.keys(pageTitles);
@@ -90,13 +86,14 @@ export function VideoWatch({navigation, route}) {
         await AsyncStorage.setItem(vidItem, 'true') 
       } catch (error) {console.log(error);}
     })();
+    
     setThisVid(pageList[thisPage]);
-    console.log(thisVid);
     setTitle(pageTitles[thisVid]);
-    console.log(pageTitles[thisVid]);
-    // document.title = title;
     navigation.setOptions({ "title": pageTitle});
     setVidUri(videoLinks[thisVid]);
+
+    console.log(thisVid);
+    console.log(pageTitles[thisVid]);
     console.log(vidUri);
     setBefState(true);
     setAftState(true);
@@ -118,10 +115,10 @@ export function VideoWatch({navigation, route}) {
           rate={1.0}
           volume={1.0}
           isMuted={false}
-          resizeMode="contain"
+          resizeMode={Video.RESIZE_MODE_CONTAIN}
           useNativeControls={true}
           shouldPlay={false}
-          isLooping
+          isLooping={false}
           style={{ height: 300 }}
         />
       </View>

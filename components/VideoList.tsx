@@ -19,12 +19,13 @@ export function VideoList({navigation, route}) {
   const [vid3Seen, setVid3Seen] = React.useState(false);
   const [vid4Seen, setVid4Seen] = React.useState(false);
 
-  const [vidStatus, setVidStatus] = React.useState()
+  // const [vidStatus, setVidStatus] = React.useState()
 
 
-  const [vidSeen, setVidSeen] = React.useState([vid0Seen, vid1Seen, ]);
+  // const [vidSeen, setVidSeen] = React.useState([vid0Seen, vid1Seen]);
   
   const [readCount, setReadCount] = React.useState(0);
+  const [readAll, setReadAll] = React.useState(false);
   const SEEN_OPACITY = 0.6;
 
   let rc = 0;
@@ -60,13 +61,12 @@ export function VideoList({navigation, route}) {
       if (vs == null) {
         vs = videoUrls;
         for (let vu in videoUrls) {
-          console.log(vu);
+          console.log("video url " + vu);
           // videoUrls[vu] = 
           vs[vu] = videoUrls[vu];
           vs[vu]["downloaded"] = false;
         }
-        // setVidStatus(vs);
-        AsyncStorage.setItem("videoStatus", JSON.stringify(vidStatus));
+        // AsyncStorage.setItem("videoStatus", JSON.stringify(vidStatus));
       }
       else {
         console.log(vs);
@@ -101,7 +101,7 @@ export function VideoList({navigation, route}) {
   storeData();
 
   // setVidStatus(await AsyncStorage.getItem("videoStatus"));
-  console.log(vidStatus);
+  // console.log(vidStatus);
 
 
   React.useEffect(() => {
@@ -125,7 +125,13 @@ export function VideoList({navigation, route}) {
     rc = ((v0=="true")? 1: 0) + ((v1=="true")? 1: 0) + ((v2=="true")? 1: 0) + ((v3=="true")? 1: 0) + ((v4=="true")? 1: 0);
     console.log("Rc is " + rc);
     setReadCount(rc);
-    console.log(readCount);
+    if (rc > 4) {
+      setReadAll(true);
+    }
+    else {
+      setReadAll(false);
+    }
+    // console.log("update read count " + readCount);
   }
 
   async function setSeenStates () {
@@ -140,7 +146,7 @@ export function VideoList({navigation, route}) {
     // await setReadCount((vid0Seen? 1: 0) + (vid1Seen? 1: 0) + (vid2Seen? 1: 0) + (vid3Seen? 1: 0));
     updateReadCount(v0, v1, v2, v3, v4);
     
-    console.log(readCount);
+    // console.log("seen states " + readCount);
 
   }
 
@@ -157,25 +163,24 @@ export function VideoList({navigation, route}) {
     // console.log(vidName);
     // console.log(vidName + seenState);
     await AsyncStorage.setItem(vidName, String(!seenState));
-
-    // await setReadCount(setRead)
-
     setSeenStates();
-
   }
 
- 
-
-  // React.useEffect(() => {
-    
-  // });
+  function letsReadButton() { 
+    console.log("pressing this butting");
+    if (readCount > 4) {navigation.navigate("BookList");}
+    else {Alert.alert("Unlocks after videos","See all videos to unlock access to recording experience", 
+       [
+        { text: "OK", onPress: () => console.log("OK Pressed") }
+      ],
+      { cancelable: true } ); }
+  }
 
 	return (
 
 		<Container>
       <Content>
         <Card style={{flex: 0}}>
-        
          <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 0, video: 'Past', "name": "Recall the Past"})}>
           <CardItem bordered style = {{opacity: vid0Seen ? SEEN_OPACITY: 1.0}}>
           <Left>
@@ -212,8 +217,8 @@ export function VideoList({navigation, route}) {
          </CardItem>
          </TouchableOpacity>
 
-         <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 2, video: 'Questions', "name": "Ask Questions"})}>
-          <CardItem bordered style = {{opacity: vid2Seen ? SEEN_OPACITY: 1.0}}>
+        <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 2, video: 'Questions', "name": "Ask Questions"})}>
+        <CardItem bordered style = {{opacity: vid2Seen ? SEEN_OPACITY: 1.0}}>
           <Icon  name="movie" type="MaterialIcons"/>
           <Text>Ask Questions</Text>
           <Left />
@@ -226,11 +231,11 @@ export function VideoList({navigation, route}) {
               <Icon name="arrow-forward" />
             </View>
           </Right>
-         </CardItem>
-         </TouchableOpacity>
+        </CardItem>
+        </TouchableOpacity>
 
-         <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 3, video: 'Future', "name": "Discuss the Future"})}>
-          <CardItem bordered style = {{opacity: vid3Seen ? SEEN_OPACITY: 1.0}}>
+        <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 3, video: 'Future', "name": "Discuss the Future"})}>
+        <CardItem bordered style = {{opacity: vid3Seen ? SEEN_OPACITY: 1.0}}>
           <Left>
           <Icon  name="movie" type="MaterialIcons"/>
           <Text>Discuss the Future</Text>
@@ -244,8 +249,8 @@ export function VideoList({navigation, route}) {
               <Icon name="arrow-forward" />
             </View>
           </Right>
-         </CardItem>
-         </TouchableOpacity>    
+        </CardItem>
+        </TouchableOpacity>    
 
         <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 4, video: 'Difference', "name": "You Can Make a Difference"})}>
         <CardItem bordered style = {{opacity: vid4Seen ? SEEN_OPACITY: 1.0}}>
@@ -267,16 +272,21 @@ export function VideoList({navigation, route}) {
 
          
         </Card>
+
       </Content>
       
         <View style={{flex:0.75, padding: 50, opacity: 1.0, justifyContent: 'space-around'}}>
         
           <Text style={{backgroundColor: "#eee", padding: 15, borderRadius: 10}}>
-            If you're done watching the videos, click 'Let's Read' to practice your literacy-building strategies!
+            When you're done watching the videos, you'll be able to click 'Let's Read' to practice your literacy-building strategies!
           </Text>
          
-          <TouchableOpacity style={{flex:0.7}} key="letsread" onPress={() => navigation.navigate("BookList")}> 
-            <Card>
+          <TouchableOpacity 
+            // disabled={readAll? false: true} 
+            style={{flex:0.7, opacity:1, elevation: -1}} 
+            key="letsread" 
+            onPress={() => letsReadButton()}> 
+            <Card style={{opacity: readAll? 1.0: SEEN_OPACITY}}>
               <CardItem>
                 <Left>
                   <Thumbnail square source={Letsread} style={{resizeMode: "contain"}}/>

@@ -112,7 +112,9 @@ export class WelcomeScreen extends React.Component {
         </Tile>      
       </View>
     </View>
-    
+    <View style={{position: 'absolute', top: 0}}>
+      <Text style={{textAlign: "right", fontSize: 10, padding: 10, opacity: 0.5}}> v1.2.3 </Text>
+    </View>
 	</View>
 	);
 	}

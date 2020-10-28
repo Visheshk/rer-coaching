@@ -1,6 +1,6 @@
 import React from 'react';
-import { Text, View, StyleSheet, TextInput, Alert, AsyncStorage, Linking, Image, Keyboard } from 'react-native';
-import { Button } from 'react-native-elements';
+import { Text, Button, View, StyleSheet, TextInput, Alert, AsyncStorage, Linking, Image, Keyboard } from 'react-native';
+// import { Button } from 'react-native-elements';
 // import Button from '@material-ui/core/Button';
 import { Tile } from 'react-native-elements';
 import 'react-native-gesture-handler';
@@ -20,20 +20,34 @@ export class WelcomeScreen extends React.Component {
     super(props);    
     const { navigation } = this.props;
     this.state = {userInfo: {}, name: "", age: "", studyId: "", isLoading: true, speakerAppURL: ""};
+    
+    navigation.setOptions({ "headerRight": () => (
+      <Button 
+        color = "#AAA"
+        onPress={() => navigation.navigate("Login")}
+        title="Login"
+
+      />
+    )});
 
     AsyncStorage.getItem('userInfo').then(response =>  {
-      
-      if (response !== null) {
-        let resp = JSON.parse(response);
+      let res = JSON.parse(response);
+      let respEmpty = false;
+      if (res == null) { respEmpty = true; }
+      else if (res.name == null || res.name == "") { respEmpty = true; }
+      else if (res.studentId == null || res.studentId == "") { respEmpty = true; }
+      else if (res.age == null || res.age == "") { respEmpty = true; }
+      if (respEmpty == false ) {
         this.setState({
-          userInfo: resp,
-          name: resp.name,
-          age: resp.age,
-          studyId: resp.studentId
+          userInfo: res,
+          name: res.name,
+          age: res.age,
+          studyId: res.studentId
         });
         console.log(this.state);
         (async () => {
           try {
+            console.log(res);
             let resp = await fetch('https://talkwithme.herokuapp.com/api/users/', {
             method: 'POST',
             mode: 'cors',
@@ -43,7 +57,7 @@ export class WelcomeScreen extends React.Component {
               'Content-Type': 'application/json;charset=UTF-8'
             },
             body: JSON.stringify({
-              "name": "xhr", "age": "123", "study_id": "abc123"
+              "name": res.name, "age": res.age, "study_id": res.studentId
             })
           });
 

@@ -5,6 +5,7 @@ import {AsyncStorage} from 'react-native';
 // import { AVPlaybackStatus, VideoProps } from 'expo-av/build/Video'
 import { styles } from '../style';
 
+import { Audio, Video } from 'expo-av';
 import { useKeepAwake } from 'expo-keep-awake';
 
 import Letsread from '../assets/images/letsread2.png'; 
@@ -183,6 +184,18 @@ export function VideoList({navigation, route}) {
 
 		<Container>
       <Content>
+        <Video
+          source={{ uri: 'https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Intro%20Final%20V2.mp4?raw=true', overrideFileExtensionAndroid: 'mp4' }}
+          rate={1.0}
+          volume={1.0}
+          isMuted={false}
+          resizeMode={Video.RESIZE_MODE_CONTAIN}
+          useNativeControls={true}
+          shouldPlay={false}
+          isLooping={false}
+          style={{ height: 250 }}
+        />
+      
         <Card style={{flex: 0}}>
          <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 0, video: 'Past', "name": "Recall the Past"})}>
           <CardItem bordered style = {{opacity: vid0Seen ? SEEN_OPACITY: 1.0}}>
@@ -282,9 +295,9 @@ export function VideoList({navigation, route}) {
          
         </Card>
 
-      </Content>
       
-        <View style={{flex:0.75, padding: 50, opacity: 1.0, justifyContent: 'space-around'}}>
+      
+        <View style={{padding: 30, opacity: 1.0, justifyContent: 'space-around'}}>
         
           <Text style={{backgroundColor: "#eee", padding: 15, borderRadius: 10}}>
             When you're done watching the videos, you'll be able to click 'Let's Read' to practice your literacy-building strategies!
@@ -308,7 +321,7 @@ export function VideoList({navigation, route}) {
           </TouchableOpacity>
 
         </View>
-      
+      </Content>
 		</Container>
 	);
 }

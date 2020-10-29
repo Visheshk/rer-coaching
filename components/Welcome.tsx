@@ -21,7 +21,20 @@ export class WelcomeScreen extends React.Component {
     super(props);    
     const { navigation } = this.props;
     
-    this.state = {userInfo: {}, name: "", age: "", studyId: "", isLoading: true, speakerAppURL: ""};
+    this.state = {
+      userInfo: {}, 
+      
+      name: "", 
+      age: "", 
+      studyId: "", 
+      
+      isLoading: true, 
+      speakerAppURL: "",
+
+      seenVideoList: false,
+      seenSpeakerVideo: false
+
+    };
     
     navigation.setOptions({ "headerRight": () => (
       <Button 
@@ -81,6 +94,29 @@ export class WelcomeScreen extends React.Component {
       }
       console.log(response);
     });
+
+    const getData = async () => {
+      try {
+        const seenScreens = await AsyncStorage.getItem('seenScreens')
+        let seenS =  seenScreens != null ? JSON.parse(seenScreens) : null;
+        if (seenS == null) {
+          seenS = {
+            "seenVideoList": false,
+            "seenSpeakerVideo": false
+          }
+          AsyncStorage.setItem('seenScreens', seenS);
+        }
+        else {
+          this.setState({"seenVideoList": seenS["seenVideoList"], "seenSpeakerVideo": seenS["seenSpeakerVideo"]});
+        }
+      } catch(e) {
+        // error reading value
+        console.error("error reading get data value");
+        console.error(e);
+      }
+    }
+
+    getData();
   }
   
   componentDidMount() {
@@ -105,7 +141,7 @@ export class WelcomeScreen extends React.Component {
           imageContainerStyle={{borderWidth: 3, margin:0}}
           containerStyle={[styles.tileContainer, {borderWidth: 0}]}
           imageProps={{resizeMode: "contain"}}
-          onPress={() => {navigation.navigate('Menu', {name: this.state.name})}}
+          onPress={() => {navigation.navigate('VideoList', {name: this.state.name})}}
         >
         </Tile>
       </View>   

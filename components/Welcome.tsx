@@ -3,6 +3,7 @@ import { Text, Button, View, StyleSheet, TextInput, Alert, AsyncStorage, Linking
 // import { Button } from 'react-native-elements';
 // import Button from '@material-ui/core/Button';
 import { Tile } from 'react-native-elements';
+
 import 'react-native-gesture-handler';
 import { Audio, Video } from 'expo-av';
 // import { AVPlaybackStatus, VideoProps } from 'expo-av/build/Video'
@@ -19,6 +20,7 @@ export class WelcomeScreen extends React.Component {
   constructor(props) {
     super(props);    
     const { navigation } = this.props;
+    
     this.state = {userInfo: {}, name: "", age: "", studyId: "", isLoading: true, speakerAppURL: ""};
     
     navigation.setOptions({ "headerRight": () => (
@@ -127,7 +129,7 @@ export class WelcomeScreen extends React.Component {
       </View>
     </View>
     <View style={{position: 'absolute', top: 0}}>
-      <Text style={{textAlign: "right", fontSize: 10, padding: 10, opacity: 0.5}}> v1.2.3 </Text>
+      <Text style={{textAlign: "right", fontSize: 10, padding: 10, opacity: 0.5}}> v1.2.4 </Text>
     </View>
 	</View>
 	);

@@ -42,7 +42,8 @@
     "react-native-webview": "^10.3.2",
     "react-navigation": "^4.3.9",
     "styled-components": "^5.1.0",
-    "yup": "^0.28.5"
+    "yup": "^0.28.5",
+    "expo-keep-awake": "~8.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",

@@ -3,6 +3,7 @@ import { View, StyleSheet, TextInput, Alert, Image, TouchableOpacity, Keyboard }
 import { AsyncStorage } from 'react-native';
 import { styles } from '../style';
 
+import { useKeepAwake, activateKeepAwake } from 'expo-keep-awake';
 import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from 'native-base';
 import { Audio, Video } from 'expo-av';
 
@@ -29,6 +30,7 @@ export function MenuScreen({navigation, route}) {
     });
 
     storeData();
+    useKeepAwake();
 		return (
       <View style={{ flexDirection: 'column', justifyContent: 'space-around'}}>
         <Video

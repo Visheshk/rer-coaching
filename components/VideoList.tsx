@@ -5,6 +5,8 @@ import {AsyncStorage} from 'react-native';
 // import { AVPlaybackStatus, VideoProps } from 'expo-av/build/Video'
 import { styles } from '../style';
 
+import { useKeepAwake } from 'expo-keep-awake';
+
 import Letsread from '../assets/images/letsread2.png'; 
 import Videos from '../assets/images/videos2.png'; 
 import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Icon, Left, Right, Body } from 'native-base';
@@ -99,6 +101,7 @@ export function VideoList({navigation, route}) {
 
   };
   storeData();
+  useKeepAwake();
 
   // setVidStatus(await AsyncStorage.getItem("videoStatus"));
   // console.log(vidStatus);

@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, TextInput, Alert, Keyboard } from 'react-native
 import { Button } from 'react-native-elements';
 
 import 'react-native-gesture-handler';
+import { useKeepAwake } from 'expo-keep-awake';
 import { AsyncStorage } from 'react-native';
 import { Audio, Video } from 'expo-av';
 import { Asset } from 'expo-asset';
@@ -53,6 +54,7 @@ export function VideoWatch({navigation, route}) {
 
   };
   storeData();
+  useKeepAwake();
 
   function changeVideo(dir) {
     let newPage = thisPage + dir;

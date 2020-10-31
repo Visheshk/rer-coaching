@@ -153,7 +153,7 @@ export class WelcomeScreen extends React.Component {
           imageContainerStyle={{borderWidth: 3, margin:0}}
           containerStyle={[styles.tileContainer, {borderWidth: 0, opacity: this.state.isLoading ? 0.3: 1.0}]}
           disabled={this.state.isLoading}
-          imageProps={{resizeMode: "contain"}}
+          imageProps={{resizeMode: "contain", width: "50%"}}
           onPress={() => {
             if (!this.state.isLoading){ 
               Linking.openURL(this.state.speakerAppURL); 
@@ -165,7 +165,7 @@ export class WelcomeScreen extends React.Component {
       </View>
     </View>
     <View style={{position: 'absolute', top: 0}}>
-      <Text style={{textAlign: "right", fontSize: 10, padding: 10, opacity: 0.5}}> v1.2.4 </Text>
+      <Text style={{textAlign: "right", fontSize: 9, padding: 10, opacity: 0.5}}> v1.2.5 </Text>
     </View>
 	</View>
 	);

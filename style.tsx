@@ -38,5 +38,10 @@ export const styles = StyleSheet.create({
     // alignSelf: 'flex-end'
     // flexDirection: 'row',
     // justifyContent: 'flex-end'
+  },
+
+  vidThumb: {
+    resizeMode: "contain",
+    height: "90%"
   }
 });

@@ -199,12 +199,10 @@ export function VideoList({navigation, route}) {
         <Card style={{flex: 0}}>
          <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 0, video: 'Past', "name": "Recall the Past"})}>
           <CardItem bordered style = {{opacity: vid0Seen ? SEEN_OPACITY: 1.0}}>
-          <Left>
-          <Icon  name="movie" type="MaterialIcons"/>
-          <Thumbnail source={require("../assets/images/video-posters/Rthumb.png")} square style={{resizeMode: "contain"}}/>
+          <Thumbnail source={require("../assets/images/video-posters/Rthumb.png")} square style={styles.vidThumb}/>
           <Text>Recall the Past</Text>
-          </Left>
-          <Right>
+          <Left />
+          <Right style={{alignSelf: "flex-end"}}>
             <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
               <Text style={styles.timestamp}>1:30</Text>
               <TouchableOpacity onPress={() => {changeReadState("video0seen", vid0Seen);}}>
@@ -219,11 +217,11 @@ export function VideoList({navigation, route}) {
 
          <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 1, video: 'Ideas', "name": "Explain New Words or Ideas"})}>
           <CardItem bordered style = {{opacity: vid1Seen ? SEEN_OPACITY: 1.0}}>
-          <Left>
-          <Icon  name="movie" type="MaterialIcons"/>
+          
+          <Thumbnail source={require("../assets/images/video-posters/Ethumb.png")} square style={styles.vidThumb}/>
           <Text>Explain New Words or Ideas</Text>
-          </Left>
-          <Right>
+          <Left />
+          <Right style={{alignSelf: "flex-end"}}>
             <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
               <Text style={styles.timestamp}>1:17</Text>
               <TouchableOpacity onPress={() => {changeReadState("video1seen", vid1Seen);}}>
@@ -238,7 +236,7 @@ export function VideoList({navigation, route}) {
 
         <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 2, video: 'Questions', "name": "Ask Questions"})}>
         <CardItem bordered style = {{opacity: vid2Seen ? SEEN_OPACITY: 1.0}}>
-          <Icon  name="movie" type="MaterialIcons"/>
+          <Thumbnail source={require("../assets/images/video-posters/Athumb.png")} square style={styles.vidThumb}/>
           <Text>Ask Questions</Text>
           <Left />
           <Right style={{alignSelf: "flex-end"}}>
@@ -256,11 +254,11 @@ export function VideoList({navigation, route}) {
 
         <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 3, video: 'Future', "name": "Discuss the Future"})}>
         <CardItem bordered style = {{opacity: vid3Seen ? SEEN_OPACITY: 1.0}}>
-          <Left>
-          <Icon  name="movie" type="MaterialIcons"/>
+          
+          <Thumbnail source={require("../assets/images/video-posters/Dthumb.png")} square style={styles.vidThumb}/>
           <Text>Discuss the Future</Text>
-          </Left>
-          <Right>
+          <Left />
+          <Right style={{alignSelf: "flex-end"}}>
             <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
               <Text style={styles.timestamp}>1:17</Text>
               <TouchableOpacity onPress={() => {changeReadState("video3seen", vid3Seen);}}>
@@ -275,12 +273,11 @@ export function VideoList({navigation, route}) {
 
         <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 4, video: 'Difference', "name": "You Can Make a Difference"})}>
         <CardItem bordered style = {{opacity: vid4Seen ? SEEN_OPACITY: 1.0}}>
-          <Left>
-          <Icon  name="movie" type="MaterialIcons"/>
+          
+          <Thumbnail source={require("../assets/images/video-posters/Ythumb.png")} square style={styles.vidThumb}/>
           <Text>You Can Make a Difference</Text>
-          </Left>
+          <Left />
           <Right style={{alignSelf: "flex-end"}}>
-
             <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
               <Text style={styles.timestamp}>1:27</Text>
               <TouchableOpacity onPress={() => {changeReadState("video4seen", vid4Seen);}}>

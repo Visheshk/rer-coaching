@@ -131,7 +131,7 @@ export class WelcomeScreen extends React.Component {
         <Image source={require('../assets/images/ready-logo.png')} style={{width: "100%", height: 200, resizeMode: 'contain'}}/>
       </View>
 
-     <Text style={styles.title}> Hi {this.state.name} </Text>
+     <Text style={styles.title}> Hi {this.state.name}! </Text>
 
     <View style={{flex: 1, flexDirection: 'row', borderRadius: 5, overflow: 'visible'}}>
       <View style={styles.tileView}>
@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
   title: {
     textAlign: "center",
     fontSize: 24,
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
   }
 
 });

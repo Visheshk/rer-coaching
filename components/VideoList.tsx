@@ -64,7 +64,7 @@ export function VideoList({navigation, route}) {
       if (vs == null) {
         vs = videoUrls;
         for (let vu in videoUrls) {
-          console.log("video url " + vu);
+          // console.log("video url " + vu);
           // videoUrls[vu] = 
           vs[vu] = videoUrls[vu];
           vs[vu]["downloaded"] = false;
@@ -201,6 +201,7 @@ export function VideoList({navigation, route}) {
           <CardItem bordered style = {{opacity: vid0Seen ? SEEN_OPACITY: 1.0}}>
           <Left>
           <Icon  name="movie" type="MaterialIcons"/>
+          <Thumbnail source={require("../assets/images/video-posters/Rthumb.png")} square style={{resizeMode: "contain"}}/>
           <Text>Recall the Past</Text>
           </Left>
           <Right>
@@ -311,7 +312,7 @@ export function VideoList({navigation, route}) {
             <Card style={{opacity: readAll? 1.0: SEEN_OPACITY}}>
               <CardItem>
                 <Left>
-                  <Thumbnail square source={Letsread} style={{resizeMode: "contain"}}/>
+                  <Thumbnail source={Letsread} square style={{resizeMode: "contain"}}/>
                   <Body>
                     <Text>Let's Read</Text>
                   </Body>

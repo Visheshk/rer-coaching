@@ -19,8 +19,6 @@ export function VideoWatch({navigation, route}) {
   const [thisPage, setPage] = React.useState();
   const [thisVid, setThisVid] = React.useState();
   const [vidUri, setVidUri] = React.useState();
-  const [before, setBefore] = React.useState();
-  const [after, setAfter] = React.useState();
   const [befState, setBefState] = React.useState(false);
   const [aftState, setAftState] = React.useState(false);
 

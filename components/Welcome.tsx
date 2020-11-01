@@ -21,7 +21,7 @@ export class WelcomeScreen extends React.Component {
   constructor(props) {
     super(props);    
     const { navigation } = this.props;
-    
+    console.log("propos here", this.props.route.params);
     this.state = {
       userInfo: {}, 
       
@@ -46,6 +46,11 @@ export class WelcomeScreen extends React.Component {
       />
     )});
 
+  }
+
+  componentDidMount() {
+   const getUInfo = async () => {
+    console.log("getting user info")
     AsyncStorage.getItem('userInfo').then(response =>  {
       let res = JSON.parse(response);
       let respEmpty = false;
@@ -96,33 +101,36 @@ export class WelcomeScreen extends React.Component {
     .catch(err => {
       console.error(err);
     });
-
-    const getData = async () => {
-      try {
-        const seenScreens = await AsyncStorage.getItem('seenScreens')
-        let seenS =  seenScreens != null ? JSON.parse(seenScreens) : null;
-        if (seenS == null) {
-          seenS = {
-            "seenVideoList": false,
-            "seenSpeakerVideo": false
-          }
-          AsyncStorage.setItem('seenScreens', seenS);
-        }
-        else {
-          this.setState({"seenVideoList": seenS["seenVideoList"], "seenSpeakerVideo": seenS["seenSpeakerVideo"]});
-        }
-      } catch(e) {
-        // error reading value
-        console.error("error reading get data value");
-        console.error(e);
-      }
-    }
-
-    // getData();
   }
-  
-  componentDidMount() {
+
+  const getVideoData = async () => {
+    await AsyncStorage.getItem('seenScreens').then(res => {
+      const seenScreens = res;
+      let seenS = seenScreens != null ? JSON.parse(seenScreens) : null;
+      if (seenS == null) {
+        seenS = {
+          "seenVideoList": false,
+          "seenSpeakerVideo": false
+        }
+        try {AsyncStorage.setItem('seenScreens', JSON.stringify(seenS))}
+        catch (e) {console.error(e);}
+        
+      }
+      else {
+        this.setState({"seenVideoList": seenS["seenVideoList"], "seenSpeakerVideo": seenS["seenSpeakerVideo"]});
+      }
+    })
+    .catch (err => {
+      console.error(err);
+    });
+  }
+  this.focusListener = this.props.navigation.addListener('focus', () => {
+    getVideoData();
+    getUInfo();
+  });
+
     Keyboard.dismiss();
+
   }
 
   render() {

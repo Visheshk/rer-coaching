@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text, Button, View, StyleSheet, TouchableOpacity, TouchableHighlight, TextInput, Alert, AsyncStorage, Linking, Image, Keyboard,  Modal } from 'react-native';
+import { Text, Button, View, StyleSheet, TouchableOpacity, TouchableHighlight, TextInput, Alert, AsyncStorage, Linking, Image, Keyboard } from 'react-native';
+import { Modal } from 'react-native';
 // import { Button } from 'react-native-elements';
 // import Button from '@material-ui/core/Button';
 import { Tile } from 'react-native-elements';
@@ -33,7 +34,9 @@ export class WelcomeScreen extends React.Component {
       speakerAppURL: "",
 
       seenVideoList: false,
-      seenSpeakerVideo: false
+      seenSpeakerVideo: false,
+
+      speakerModal: false,
 
     };
     
@@ -45,7 +48,6 @@ export class WelcomeScreen extends React.Component {
 
       />
     )});
-
   }
 
   componentDidMount() {
@@ -133,6 +135,8 @@ export class WelcomeScreen extends React.Component {
     Keyboard.dismiss();
 
   }
+  // handleOnPress = () => 
+  modalChange = (newState) => this.setState({ "speakerModal": newState })
 
   render() {
   const { navigation } = this.props;
@@ -169,7 +173,12 @@ export class WelcomeScreen extends React.Component {
                 imageProps={{resizeMode: "contain", width: "50%"}}
                 onPress={() => {
                   if (!this.state.isLoading){ 
-                    Linking.openURL(this.state.speakerAppURL); 
+                    if (this.state.seenSpeakerVideo) {
+                      Linking.openURL(this.state.speakerAppURL); 
+                    }
+                    else {
+
+                    }
                     // navigation.navigate('Speaker', {'speakerurl': this.state.speakerAppURL}) ;
                   } 
                 }}
@@ -182,7 +191,7 @@ export class WelcomeScreen extends React.Component {
           </View>
       	</View>
         <Card style={{flex: 0}}>
-          <TouchableOpacity onPress={() => alert("Here are some helpful tips on using the app.")}>
+          <TouchableOpacity onPress={() => this.modalChange(true)}>
             <CardItem bordered>
             <Text>Helpful Tips</Text>
             <Left />
@@ -207,6 +216,28 @@ export class WelcomeScreen extends React.Component {
           </TouchableOpacity>
         </Card>
       </Content>
+      <Modal
+          animationType="fade"
+          transparent={true}
+          visible={this.state.speakerModal}
+          onRequestClose={() => {
+            // Alert.alert("Modal has been closed.");
+            this.modalChange(false);
+          }}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text style={styles.modalText}>Hello World!</Text>
+
+              <TouchableHighlight
+                style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
+                onPress={() => this.modalChange(false)}
+              >
+                <Text style={styles.textStyle}>Hide Modal</Text>
+              </TouchableHighlight>
+            </View>
+          </View>
+        </Modal>
     </Container>
 	);
 	}
@@ -230,6 +261,43 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 24,
     // fontWeight: 'bold',
+  },
+
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
+  },
+  openButton: {
+    backgroundColor: "#F194FF",
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center"
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center"
   }
 
 });

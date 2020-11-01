@@ -234,6 +234,12 @@ export default function App(props) {
   React.useEffect(() => {
     const restoreState = async () => {
       try {
+        SplashScreen.preventAutoHide();
+        console.log("loading font ideally");
+        await Font.loadAsync({
+          ...Ionicons.font,
+          // 'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
+        });
         const savedStateString = await AsyncStorage.getItem(PERSISTENCE_KEY);
         // console.log(savedStateString);
         let state = JSON.parse(savedStateString);
@@ -253,54 +259,27 @@ export default function App(props) {
 
       } finally {
         setIsReady(true);
+        SplashScreen.hide();
       }
     };
 
     if (!isReady) {
       restoreState();
     }
+
+
   }, [isReady]);
 
   if (!isReady) {
     return null;
   }
-  /*
+
   // Load any resources or data that we need prior to rendering the app
+  /*
   React.useEffect(() => {
-    async function loadResourcesAndDataAsync() {
-      try {
-        SplashScreen.preventAutoHide();
-
-        // Load our initial navigation state
-        // setInitialNavigationState(await getInitialState());
-        // userInfo = {};
-        await AsyncStorage.getItem('userInfo').then(value => {
-          console.log(value);
-          setUserInfo(value);
-        });
-        await AsyncStorage.getItem('currentScreen').then(value => {
-          console.log(value);
-          setUserInfo(value);
-        })
-        // Load fonts
-        // await Font.loadAsync({
-        //   ...Ionicons.font,
-        //   'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
-        // });
-      } catch (e) {
-        // We might want to provide this error information to an error reporting service
-        console.warn(e);
-      } finally {
-        setLoadingComplete(true);
-        console.log(userInfo);
-        SplashScreen.hide();
-      }
-    }
-
-    loadResourcesAndDataAsync();
+    
   }, []);
   */
-
   return (
     <NavigationContainer
       // initialState={initialState}

@@ -1,8 +1,9 @@
 import React from 'react';
-import { Text, Button, View, StyleSheet, TextInput, Alert, AsyncStorage, Linking, Image, Keyboard } from 'react-native';
+import { Text, Button, View, StyleSheet, TouchableOpacity, TouchableHighlight, TextInput, Alert, AsyncStorage, Linking, Image, Keyboard } from 'react-native';
 // import { Button } from 'react-native-elements';
 // import Button from '@material-ui/core/Button';
 import { Tile } from 'react-native-elements';
+import { Container, Header, Content, Card, CardItem, Thumbnail, Icon, Left, Right, Body } from 'native-base';
 
 import 'react-native-gesture-handler';
 import { Audio, Video } from 'expo-av';
@@ -59,7 +60,7 @@ export class WelcomeScreen extends React.Component {
           age: res.age,
           studyId: res.studentId
         });
-        console.log(this.state);
+        console.log(" updating state from userInfo" + this.state);
         (async () => {
           try {
             console.log(res);
@@ -80,9 +81,7 @@ export class WelcomeScreen extends React.Component {
             console.log(t);
             this.setState({isLoading: false});
             this.setState({speakerAppURL: "https://talkwithme.herokuapp.com/talk/booklist.html?session=" + t});
-            // this.setState({speakerAppURL: "http://192.168.1.222:8000/bl2.html"});
             console.log(this.state.speakerAppURL);
-            // return json;
           } catch (error) {
             console.log("fetch failing");
             console.error(error);
@@ -93,6 +92,9 @@ export class WelcomeScreen extends React.Component {
         navigation.navigate('Login');
       }
       console.log(response);
+    })
+    .catch(err => {
+      console.error(err);
     });
 
     const getData = async () => {
@@ -116,7 +118,7 @@ export class WelcomeScreen extends React.Component {
       }
     }
 
-    getData();
+    // getData();
   }
   
   componentDidMount() {
@@ -126,48 +128,77 @@ export class WelcomeScreen extends React.Component {
   render() {
   const { navigation } = this.props;
 	return (
-		<View style={{flexDirection: "column"}}>
-      <View style={{ width: "100%", alignItems: "center" }}>
-        <Image source={require('../assets/images/ready-logo.png')} style={{width: "100%", height: 200, resizeMode: 'contain'}}/>
-      </View>
+    <Container>
+      <Content>
+    		<View style={{flexDirection: "column"}}>
+          <View style={{ width: "100%", alignItems: "center" }}>
+            <Image source={require('../assets/images/ready-logo.png')} style={{width: "100%", height: 200, resizeMode: 'contain'}}/>
+          </View>
 
-     <Text style={styles.title}> Hi {this.state.name}! </Text>
+          <Text style={styles.title}> Hi {this.state.userInfo.name}! </Text>
 
-    <View style={{flex: 1, flexDirection: 'row', borderRadius: 5, overflow: 'visible'}}>
-      <View style={styles.tileView}>
-         <Tile
-          imageSrc={coachApp}
-          title="Coaching Experience"
-          imageContainerStyle={{borderWidth: 3, margin:0}}
-          containerStyle={[styles.tileContainer, {borderWidth: 0}]}
-          imageProps={{resizeMode: "contain"}}
-          onPress={() => {navigation.navigate('VideoList', {name: this.state.name})}}
-        >
-        </Tile>
-      </View>   
+          <View style={{flex: 1, flexDirection: 'row', borderRadius: 5, overflow: 'visible'}}>
+            <View style={styles.tileView}>
+               <Tile
+                imageSrc={coachApp}
+                title="Coaching Experience"
+                imageContainerStyle={{borderWidth: 3, margin:0}}
+                containerStyle={[styles.tileContainer, {borderWidth: 0}]}
+                imageProps={{resizeMode: "contain"}}
+                onPress={() => {navigation.navigate('VideoList', {name: this.state.name})}}
+              >
+              </Tile>
+            </View>   
 
-      <View style={styles.tileView}>
-        <Tile
-          imageSrc={bunnyReading}
-          title="Read Aloud with Floppy"
-          imageContainerStyle={{borderWidth: 3, margin:0}}
-          containerStyle={[styles.tileContainer, {borderWidth: 0, opacity: this.state.isLoading ? 0.3: 1.0}]}
-          disabled={this.state.isLoading}
-          imageProps={{resizeMode: "contain", width: "50%"}}
-          onPress={() => {
-            if (!this.state.isLoading){ 
-              Linking.openURL(this.state.speakerAppURL); 
-              // navigation.navigate('Speaker', {'speakerurl': this.state.speakerAppURL}) ;
-            } 
-          }}
-        >
-        </Tile>      
-      </View>
-    </View>
-    <View style={{position: 'absolute', top: 0}}>
-      <Text style={{textAlign: "right", fontSize: 9, padding: 10, opacity: 0.5}}> v1.2.5 </Text>
-    </View>
-	</View>
+            <View style={styles.tileView}>
+              <Tile
+                imageSrc={bunnyReading}
+                title="Read Aloud with Floppy"
+                imageContainerStyle={{borderWidth: 3, margin:0}}
+                containerStyle={[styles.tileContainer, {borderWidth: 0, opacity: this.state.isLoading ? 0.3: 1.0}]}
+                disabled={this.state.isLoading}
+                imageProps={{resizeMode: "contain", width: "50%"}}
+                onPress={() => {
+                  if (!this.state.isLoading){ 
+                    Linking.openURL(this.state.speakerAppURL); 
+                    // navigation.navigate('Speaker', {'speakerurl': this.state.speakerAppURL}) ;
+                  } 
+                }}
+              >
+              </Tile>      
+            </View>
+          </View>
+          <View style={{position: 'absolute', top: 0}}>
+            <Text style={{textAlign: "right", fontSize: 9, padding: 10, opacity: 0.5}}> v1.2.5 </Text>
+          </View>
+      	</View>
+        <Card style={{flex: 0}}>
+          <TouchableOpacity onPress={() => alert("Here are some helpful tips on using the app.")}>
+            <CardItem bordered>
+            <Text>Helpful Tips</Text>
+            <Left />
+            <Right style={{alignSelf: "flex-end"}}>
+              <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
+                <Icon name="arrow-forward" />
+              </View>
+            </Right>
+            </CardItem>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => alert("This will lead you to the videos you have seen across the app.")}>
+            <CardItem bordered>
+            <Text>Seen Videos</Text>
+            <Left />
+            <Right style={{alignSelf: "flex-end"}}>
+              <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
+                <Icon name="arrow-forward" />
+              </View>
+            </Right>
+            </CardItem>
+          </TouchableOpacity>
+        </Card>
+      </Content>
+    </Container>
 	);
 	}
 }

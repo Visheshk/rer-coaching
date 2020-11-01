@@ -1,0 +1,30 @@
+** in pr2.tsx - if recording permissions were not granted, ask for them again.
+
+- try harder to make keyboard dismiss work
+- 
+- need to fix page loading
+- push back to app from browser
+
+
+- make videos offline
+- add thumbnails for the videos
+
+- submit first form twice
+- fix page 0 on list\
+
+
+
+// 0. improve bookread styles, make the image bigger
+//1. squish those buttons together
+// 2. add page number at top of read
+1. fix start/stop bug for recorder play
+1.5. improve page transition - image load before rest load; 
+2. figure out how to unmount page recorder!!
+// 3. move page number to bottom of screen
+
+buttonsContainerBase
+buttonsContainerTopRow
+
+playStopContainer
+wrapper
+

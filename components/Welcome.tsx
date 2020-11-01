@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, Button, View, StyleSheet, TouchableOpacity, TouchableHighlight, TextInput, Alert, AsyncStorage, Linking, Image, Keyboard } from 'react-native';
+import { Text, Button, View, StyleSheet, TouchableOpacity, TouchableHighlight, TextInput, Alert, AsyncStorage, Linking, Image, Keyboard,  Modal } from 'react-native';
 // import { Button } from 'react-native-elements';
 // import Button from '@material-ui/core/Button';
 import { Tile } from 'react-native-elements';
@@ -21,7 +21,7 @@ export class WelcomeScreen extends React.Component {
   constructor(props) {
     super(props);    
     const { navigation } = this.props;
-    console.log("propos here", this.props.route.params);
+    // console.log("propos here", this.props.route.params);
     this.state = {
       userInfo: {}, 
       
@@ -65,7 +65,8 @@ export class WelcomeScreen extends React.Component {
           age: res.age,
           studyId: res.studentId
         });
-        console.log(" updating state from userInfo" + this.state);
+        console.log(" updating state from userInfo 22");
+        console.log(this.state);
         (async () => {
           try {
             console.log(res);
@@ -143,7 +144,7 @@ export class WelcomeScreen extends React.Component {
             <Image source={require('../assets/images/ready-logo.png')} style={{width: "100%", height: 200, resizeMode: 'contain'}}/>
           </View>
 
-          <Text style={styles.title}> Hi {this.state.userInfo.name}! </Text>
+          <Text style={styles.title}> Hi {this.state.name}! </Text>
 
           <View style={{flex: 1, flexDirection: 'row', borderRadius: 5, overflow: 'visible'}}>
             <View style={styles.tileView}>

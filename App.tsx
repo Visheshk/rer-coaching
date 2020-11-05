@@ -105,7 +105,7 @@ function LoginScreen ( {route, navigation} ) {
         showControlsOnLoad={true}
         videoProps={{
           shouldPlay: false,
-
+          useNativeControls: true,
           resizeMode: "contain",
           source: {
             uri: 'https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Intro%20Final%20V2.mp4?raw=true',

@@ -177,7 +177,8 @@ export class WelcomeScreen extends React.Component {
                       Linking.openURL(this.state.speakerAppURL); 
                     }
                     else {
-
+                      this.setState({"seenSpeakerVideo": true})
+                      this.modalChange(true);
                     }
                     // navigation.navigate('Speaker', {'speakerurl': this.state.speakerAppURL}) ;
                   } 

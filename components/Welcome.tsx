@@ -60,6 +60,7 @@ export class WelcomeScreen extends React.Component {
       else if (res.name == null || res.name == "") { respEmpty = true; }
       else if (res.studentId == null || res.studentId == "") { respEmpty = true; }
       else if (res.age == null || res.age == "") { respEmpty = true; }
+      console.log(res);
       if (respEmpty == false ) {
         this.setState({
           userInfo: res,
@@ -188,7 +189,7 @@ export class WelcomeScreen extends React.Component {
             </View>
           </View>
           <View style={{position: 'absolute', top: 0}}>
-            <Text style={{textAlign: "right", fontSize: 9, padding: 10, opacity: 0.5}}> v1.2.5 </Text>
+            <Text style={{textAlign: "right", fontSize: 9, padding: 10, opacity: 0.5}}> v1.2.6 </Text>
           </View>
       	</View>
         <Card style={{flex: 0}}>
@@ -206,7 +207,7 @@ export class WelcomeScreen extends React.Component {
 
           <TouchableOpacity onPress={() => alert("This will lead you to the videos you have seen across the app.")}>
             <CardItem bordered>
-            <Text>Seen Videos</Text>
+            <Text>All Videos</Text>
             <Left />
             <Right style={{alignSelf: "flex-end"}}>
               <View style={{alignSelf: "flex-end", flexDirection: "row"}}>

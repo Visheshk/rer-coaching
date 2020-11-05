@@ -1,11 +1,12 @@
 import React from 'react';
-import { View, StyleSheet, TextInput, Alert, TouchableOpacity, TouchableHighlight, Keyboard, Image } from 'react-native';
+import { Dimensions, View, StyleSheet, TextInput, Alert, TouchableOpacity, TouchableHighlight, Keyboard, Image } from 'react-native';
 import 'react-native-gesture-handler';
 import {AsyncStorage} from 'react-native';
 // import { AVPlaybackStatus, VideoProps } from 'expo-av/build/Video'
 import { styles } from '../style';
 
 import { Audio, Video } from 'expo-av';
+import VideoPlayer from 'expo-video-player';
 import { useKeepAwake } from 'expo-keep-awake';
 
 import Letsread from '../assets/images/letsread2.png'; 
@@ -184,16 +185,14 @@ export function VideoList({navigation, route}) {
 
 		<Container>
       <Content>
-        <Video
-          source={{ uri: 'https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Intro%20Final%20V2.mp4?raw=true', overrideFileExtensionAndroid: 'mp4' }}
-          rate={1.0}
-          volume={1.0}
-          isMuted={false}
-          resizeMode={Video.RESIZE_MODE_CONTAIN}
-          useNativeControls={true}
-          shouldPlay={false}
-          isLooping={false}
-          style={{ height: 250 }}
+        <VideoPlayer
+          showControlsOnLoad={true}
+          height={250}
+          videoProps={{
+            source : { uri: 'https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Intro%20Final%20V2.mp4?raw=true', overrideFileExtensionAndroid: 'mp4' },
+            resizeMode : Video.RESIZE_MODE_CONTAIN,
+            shouldPlay: false,
+          }}
         />
       
         <Card style={{flex: 0}}>

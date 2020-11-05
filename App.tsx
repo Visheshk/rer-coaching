@@ -1,9 +1,12 @@
 import * as React from 'react';
-import { Text, View, StyleSheet, TextInput, Alert, ScrollView, Platform, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { Text, View, StyleSheet, TextInput, Alert, ScrollView, Platform, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, Dimensions } from 'react-native';
 import {AsyncStorage} from 'react-native';
 import { Button } from 'react-native-paper';
 import { SplashScreen } from 'expo';
 import { Audio, Video } from 'expo-av';
+import VideoPlayer from 'expo-video-player';
+// import Slider from '@react-native-community/slider';
+
 import { Formik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
@@ -24,6 +27,7 @@ import { PR2 } from './components/pr2';
 
 import { styles } from './style';
 import { LoginVideo } from './assets/loginvid.mp4';
+import { Ionicons } from '@expo/vector-icons';
 
 function LoginScreen ( {route, navigation} ) {
   const [isReady, setIsReady] = React.useState(false);
@@ -57,7 +61,7 @@ function LoginScreen ( {route, navigation} ) {
     playbackObject = component;
   }
   var pauseVideo = function () {
-    playbackObject.pauseAsync();
+    // playbackObject.pauseAsync();
   }
 
   React.useEffect(() => {
@@ -95,18 +99,22 @@ function LoginScreen ( {route, navigation} ) {
     <View style={styles.container}>
       <Text style={styles.title}>R.E.A.D.Y. to Read</Text>
       
-      <Video
-        source={{ uri: 'https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Intro%20Final%20V2.mp4?raw=true' }}
-        rate={1.0}
-        volume={1.0}
-        isMuted={false}
-        resizeMode="contain"
-        useNativeControls={true}
-        shouldPlay={false}
-        isLooping={false}
-        style={{ height: 300 }}
-        ref={_handleVideoRef}
+       <VideoPlayer
+        height={300}
+        width={Dimensions.get('window').width*0.95}
+        showControlsOnLoad={true}
+        videoProps={{
+          shouldPlay: false,
+
+          resizeMode: "contain",
+          source: {
+            uri: 'https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Intro%20Final%20V2.mp4?raw=true',
+          },
+        }}
+        inFullscreen={false}
       />
+      
+      
       <Text> {"\n"} </Text>
       
       <Formik
@@ -236,10 +244,10 @@ export default function App(props) {
       try {
         SplashScreen.preventAutoHide();
         console.log("loading font ideally");
-        await Font.loadAsync({
-          ...Ionicons.font,
+        // await Expo.Font.loadAsync({
+          // Ionicons,
           // 'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
-        });
+        // });
         const savedStateString = await AsyncStorage.getItem(PERSISTENCE_KEY);
         // console.log(savedStateString);
         let state = JSON.parse(savedStateString);

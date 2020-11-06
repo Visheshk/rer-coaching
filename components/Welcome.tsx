@@ -8,6 +8,7 @@ import { Container, Header, Content, Card, CardItem, Thumbnail, Icon, Left, Righ
 
 import 'react-native-gesture-handler';
 import { Audio, Video } from 'expo-av';
+import VideoPlayer from 'expo-video-player';
 // import { AVPlaybackStatus, VideoProps } from 'expo-av/build/Video'
 // import { styles } from '../style';
 import { useNavigation } from '@react-navigation/native';
@@ -159,6 +160,11 @@ export class WelcomeScreen extends React.Component {
   // handleOnPress = () => 
   modalChange = (newState) => this.setState({ "speakerModal": newState })
   
+  modalClose = function () {
+    this.modalChange(false);
+    Linking.openURL(this.state.speakerAppURL); 
+  }
+  
   speakerClick = function () {
     if (!this.state.isLoading){
       console.log("on tile click");
@@ -271,16 +277,42 @@ export class WelcomeScreen extends React.Component {
             this.modalChange(false);
           }}
         >
+          <View style= {styles.overlay} />
           <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <Text style={styles.modalText}>Hello World!</Text>
 
-              <TouchableHighlight
-                style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
-                onPress={() => this.modalChange(false)}
-              >
-                <Text style={styles.textStyle}>Hide Modal</Text>
-              </TouchableHighlight>
+            <View style={styles.modalView}>
+              <View style = {{width:"100%"}}>
+                <TouchableHighlight
+                  style={{ ...styles.closeButton}}
+                  onPress={() => this.modalChange(false)}
+                >
+                
+                <Text style={styles.buttonTextStyle}>X</Text>
+                </TouchableHighlight>
+              </View>
+              <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
+                <Text style={styles.modalText}>Learn How to Read Aloud With Floppy</Text>
+                
+              </View>
+              <VideoPlayer
+                showControlsOnLoad={true}
+                height={250}
+                width={400}
+                videoProps={{
+                  source : { uri: 'https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Intro%20Final%20V2.mp4?raw=true', overrideFileExtensionAndroid: 'mp4' },
+                  resizeMode : Video.RESIZE_MODE_CONTAIN,
+                  shouldPlay: false,
+                }}
+              />
+              <View style={{paddingTop: 10}}>
+                <TouchableHighlight
+                  style={{ ...styles.openButton, backgroundColor: "#2196F3", paddingTop: 10}}
+                  onPress={() => this.modalClose()}
+                >
+                
+                <Text style={styles.buttonTextStyle}>Head to Read Aloud</Text>
+                </TouchableHighlight>
+              </View>
             </View>
           </View>
         </Modal>
@@ -309,10 +341,17 @@ const styles = StyleSheet.create({
     // fontWeight: 'bold',
   },
 
+  overlay: {
+    height: "100%",
+    width: "100%",
+    backgroundColor: "#333",
+    position: 'absolute'
+  },
+
   centeredView: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",
+    // alignItems: "center",
     marginTop: 22
   },
   modalView: {
@@ -330,20 +369,29 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5
   },
+  closeButton: {
+    backgroundColor: "#dd1111",
+    borderRadius: 10,
+    padding: 10,
+    elevation: 2,
+    alignSelf: "flex-end"
+    // alignSelf: "right"    
+  },
   openButton: {
     backgroundColor: "#F194FF",
     borderRadius: 20,
     padding: 10,
     elevation: 2
   },
-  textStyle: {
+  buttonTextStyle: {
     color: "white",
     fontWeight: "bold",
     textAlign: "center"
   },
   modalText: {
     marginBottom: 15,
-    textAlign: "center"
+    textAlign: "center",
+    fontSize: 22    
   }
 
 });

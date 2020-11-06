@@ -7,7 +7,7 @@
       "android",
       "web"
     ],
-    "version": "0.19.4",
+    "version": "1",
     "orientation": "default",
     "icon": "./assets/icon.png",
     "splash": {
@@ -21,11 +21,11 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.step.rercoach",
-      "buildNumber": "0.19.4"
+      "buildNumber": "0.20.2"
     },
     "android": {
       "package": "com.step.rercoach",
-      "versionCode": 5
+      "versionCode": 6
     },
     "description": "",
     "githubUrl": "https://github.com/Visheshk/rer-coaching/"

@@ -5,6 +5,7 @@ import { Button } from 'react-native-paper';
 import { SplashScreen } from 'expo';
 import { Audio, Video } from 'expo-av';
 import VideoPlayer from 'expo-video-player';
+import { useKeepAwake, activateKeepAwake } from 'expo-keep-awake';
 // import Slider from '@react-native-community/slider';
 
 import { Formik, ErrorMessage } from 'formik';
@@ -37,7 +38,7 @@ function LoginScreen ( {route, navigation} ) {
   const [studId, setStudId] = React.useState("");
 
   var storeData = async (vals, forward=true) => {
-
+    useKeepAwake();
     try {
       // console.log(vals);
       await AsyncStorage.setItem('bookPages', JSON.stringify({}));
@@ -103,15 +104,14 @@ function LoginScreen ( {route, navigation} ) {
         height={300}
         width={Dimensions.get('window').width*0.95}
         showControlsOnLoad={true}
+        inFullscreen={false}
         videoProps={{
           shouldPlay: false,
-          useNativeControls: true,
           resizeMode: "contain",
           source: {
             uri: 'https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Intro%20Final%20V2.mp4?raw=true',
           },
         }}
-        inFullscreen={false}
       />
       
       

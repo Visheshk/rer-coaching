@@ -9,6 +9,7 @@ import { Audio, Video } from 'expo-av';
 import VideoPlayer from 'expo-video-player';
 import { useKeepAwake } from 'expo-keep-awake';
 
+import { updateSeenScreens } from '../extras/methods.tsx';
 import Letsread from '../assets/images/letsread2.png'; 
 import Videos from '../assets/images/videos2.png'; 
 import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Icon, Left, Right, Body } from 'native-base';
@@ -30,6 +31,7 @@ export function VideoList({navigation, route}) {
   
   const [readCount, setReadCount] = React.useState(0);
   const [readAll, setReadAll] = React.useState(false);
+  const [seenScreens, setSeenScreens] = React.useState();
   const SEEN_OPACITY = 0.6;
 
   let rc = 0;
@@ -54,6 +56,7 @@ export function VideoList({navigation, route}) {
     let vs = null;
     try {
       setUserInfo(await AsyncStorage.getItem('userInfo'));
+      // setSeenScreens(await AsyncStorage.setItem('seenScreens'));
     } catch (error) {
       console.log(error);
     }
@@ -132,9 +135,11 @@ export function VideoList({navigation, route}) {
     setReadCount(rc);
     if (rc > 4) {
       setReadAll(true);
+      try { updateSeenScreens("seenVideoList", true);} catch (e) {console.error(e);}
     }
     else {
       setReadAll(false);
+      try { updateSeenScreens("seenVideoList", false);} catch (e) {console.error(e);}
     }
     // console.log("update read count " + readCount);
   }

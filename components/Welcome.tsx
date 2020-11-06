@@ -12,6 +12,7 @@ import { Audio, Video } from 'expo-av';
 // import { styles } from '../style';
 import { useNavigation } from '@react-navigation/native';
 
+import { updateSeenScreens } from '../extras/methods.tsx';
 import {logo} from '../assets/images/ready-logo.png';
 import coachApp from '../assets/icons/coaching-app.png';
 import bunnyReading from '../assets/images/bunny-reading.png';
@@ -52,7 +53,7 @@ export class WelcomeScreen extends React.Component {
 
   componentDidMount() {
    const getUInfo = async () => {
-    console.log("getting user info")
+    // console.log("getting user info")
     AsyncStorage.getItem('userInfo').then(response =>  {
       let res = JSON.parse(response);
       let respEmpty = false;
@@ -60,7 +61,7 @@ export class WelcomeScreen extends React.Component {
       else if (res.name == null || res.name == "") { respEmpty = true; }
       else if (res.studentId == null || res.studentId == "") { respEmpty = true; }
       else if (res.age == null || res.age == "") { respEmpty = true; }
-      console.log(res);
+      // console.log(res);
       if (respEmpty == false ) {
         this.setState({
           userInfo: res,
@@ -68,11 +69,11 @@ export class WelcomeScreen extends React.Component {
           age: res.age,
           studyId: res.studentId
         });
-        console.log(" updating state from userInfo 22");
-        console.log(this.state);
+        // console.log(" updating state from userInfo 22");
+        // console.log(this.state);
         (async () => {
           try {
-            console.log(res);
+            // console.log(res);
             let resp = await fetch('https://talkwithme.herokuapp.com/api/users/', {
             method: 'POST',
             mode: 'cors',
@@ -87,7 +88,7 @@ export class WelcomeScreen extends React.Component {
           });
 
             let t = await resp.text();
-            console.log(t);
+            // console.log(t);
             this.setState({isLoading: false});
             this.setState({speakerAppURL: "https://talkwithme.herokuapp.com/talk/booklist.html?session=" + t});
             console.log(this.state.speakerAppURL);
@@ -100,7 +101,7 @@ export class WelcomeScreen extends React.Component {
       else {
         navigation.navigate('Login');
       }
-      console.log(response);
+      // console.log(response);
     })
     .catch(err => {
       console.error(err);
@@ -108,27 +109,46 @@ export class WelcomeScreen extends React.Component {
   }
 
   const getVideoData = async () => {
+    try {
+      this.setState({"seenVideoList": await AsyncStorage.getItem("seenVideoList")});
+      this.setState({"seenSpeakerVideo": await AsyncStorage.getItem("seenSpeakerVideo")});
+      console.log("getting just videolist");
+      console.log(this.state.seenVideoList);
+    } catch(e) {console.error(e);}
+    /*
     await AsyncStorage.getItem('seenScreens').then(res => {
       const seenScreens = res;
       let seenS = seenScreens != null ? JSON.parse(seenScreens) : null;
+      console.log("first retrieve " + res);
       if (seenS == null) {
+        console.log("seens found null");
         seenS = {
           "seenVideoList": false,
           "seenSpeakerVideo": false
         }
-        try {AsyncStorage.setItem('seenScreens', JSON.stringify(seenS))}
-        catch (e) {console.error(e);}
+        // try {AsyncStorage.setItem('seenVideoList', false);} catch (e) {console.error(e);}
+        try {AsyncStorage.setItem('seenScreens', JSON.stringify(seenS));} catch (e) {console.error(e);}
         
       }
       else {
+        console.log("setting state");
+        console.log(seenS);
         this.setState({"seenVideoList": seenS["seenVideoList"], "seenSpeakerVideo": seenS["seenSpeakerVideo"]});
       }
     })
     .catch (err => {
       console.error(err);
     });
+    */
   }
-  this.focusListener = this.props.navigation.addListener('focus', () => {
+  getVideoData();
+  getUInfo();
+  // console.log(this.props.navigation);
+  this._unsubscribe = this.props.navigation.addListener('focus', () => {
+    // console.log("refocussed");
+    // console.log("refocussed");
+    // console.log("refocussed");
+
     getVideoData();
     getUInfo();
   });
@@ -138,6 +158,31 @@ export class WelcomeScreen extends React.Component {
   }
   // handleOnPress = () => 
   modalChange = (newState) => this.setState({ "speakerModal": newState })
+  
+  speakerClick = function () {
+    if (!this.state.isLoading){
+      console.log("on tile click");
+      console.log(this.state.seenSpeakerVideo == "true");
+      if (this.state.seenVideoList != "false") {
+        if (this.state.seenSpeakerVideo == "true") {
+          Linking.openURL(this.state.speakerAppURL); 
+        }
+        else {
+          this.setState({"seenSpeakerVideo": true})
+
+          updateSeenScreens("seenSpeakerVideo", true);
+          this.modalChange(true);
+        }
+        // navigation.navigate('Speaker', {'speakerurl': this.state.speakerAppURL}) ;
+      }
+      else {
+        alert("Try out the coaching experience before Reading Aloud with Floppy!");
+      }
+    } 
+  }
+  // function AllVideos(props) {
+  //   const propst
+  // }
 
   render() {
   const { navigation } = this.props;
@@ -173,16 +218,7 @@ export class WelcomeScreen extends React.Component {
                 disabled={this.state.isLoading}
                 imageProps={{resizeMode: "contain", width: "50%"}}
                 onPress={() => {
-                  if (!this.state.isLoading){ 
-                    if (this.state.seenSpeakerVideo) {
-                      Linking.openURL(this.state.speakerAppURL); 
-                    }
-                    else {
-                      this.setState({"seenSpeakerVideo": true})
-                      this.modalChange(true);
-                    }
-                    // navigation.navigate('Speaker', {'speakerurl': this.state.speakerAppURL}) ;
-                  } 
+                  this.speakerClick();
                 }}
               >
               </Tile>      

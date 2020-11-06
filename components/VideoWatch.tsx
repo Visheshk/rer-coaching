@@ -134,7 +134,7 @@ export function VideoWatch({navigation, route}) {
         </View>
 
         <View style={{ flex: 1, alignItems: "flex-end", margin: 20}}>
-          <Button title="Next"
+          <Button title={!aftState? "Last Page": "Next"}
             onPress={() => changeVideo(1)}
             disabled={!aftState}
           >

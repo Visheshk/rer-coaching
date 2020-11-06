@@ -180,9 +180,27 @@ export class WelcomeScreen extends React.Component {
       }
     } 
   }
-  // function AllVideos(props) {
-  //   const propst
-  // }
+  
+  AllVideos = function() {
+    if (this.state.seenVideoList == "true") {
+      return(
+        <TouchableOpacity onPress={() => alert("This will lead you to the videos you have seen across the app.")}>
+          <CardItem bordered>
+          <Text>All Videos</Text>
+          <Left />
+          <Right style={{alignSelf: "flex-end"}}>
+            <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
+              <Icon name="arrow-forward" />
+            </View>
+          </Right>
+          </CardItem>
+        </TouchableOpacity>
+      )
+    }
+    else {
+      return(<View />);
+    }
+  }
 
   render() {
   const { navigation } = this.props;
@@ -241,17 +259,7 @@ export class WelcomeScreen extends React.Component {
             </CardItem>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => alert("This will lead you to the videos you have seen across the app.")}>
-            <CardItem bordered>
-            <Text>All Videos</Text>
-            <Left />
-            <Right style={{alignSelf: "flex-end"}}>
-              <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
-                <Icon name="arrow-forward" />
-              </View>
-            </Right>
-            </CardItem>
-          </TouchableOpacity>
+          {this.AllVideos()}
         </Card>
       </Content>
       <Modal

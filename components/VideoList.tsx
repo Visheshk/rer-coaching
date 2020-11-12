@@ -193,10 +193,12 @@ export function VideoList({navigation, route}) {
         <VideoPlayer
           showControlsOnLoad={true}
           height={400}
+          switchToPortrait= {()=> {}}
           videoProps={{
             source : { uri: 'https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/coaching-tut.mp4?raw=true', overrideFileExtensionAndroid: 'mp4' },
             resizeMode : Video.RESIZE_MODE_CONTAIN,
             shouldPlay: false,
+
           }}
         />
       

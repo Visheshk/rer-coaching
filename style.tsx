@@ -32,7 +32,7 @@ export const styles = StyleSheet.create({
   },
 
   timestamp: {
-    fontSize: 12,
+    fontSize: 10,
     marginRight: 30,
     // textAlign: 'right',
     // alignSelf: 'flex-end'

@@ -29,6 +29,7 @@ import { PR2 } from './components/pr2';
 import { styles } from './style';
 import { LoginVideo } from './assets/loginvid.mp4';
 import { Ionicons } from '@expo/vector-icons';
+import { Material } from '@expo/vector-icons';
 
 function LoginScreen ( {route, navigation} ) {
   const [isReady, setIsReady] = React.useState(false);
@@ -109,7 +110,7 @@ function LoginScreen ( {route, navigation} ) {
           shouldPlay: false,
           resizeMode: "contain",
           source: {
-            uri: 'https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Intro%20Final%20V2.mp4?raw=true',
+            uri: 'https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/welcome.mp4?raw=true',
           },
         }}
       />
@@ -244,10 +245,10 @@ export default function App(props) {
       try {
         SplashScreen.preventAutoHide();
         console.log("loading font ideally");
-        // await Expo.Font.loadAsync({
-          // Ionicons,
+        await Expo.Font.loadAsync({
+          Ionicons, Material
           // 'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
-        // });
+        });
         const savedStateString = await AsyncStorage.getItem(PERSISTENCE_KEY);
         // console.log(savedStateString);
         let state = JSON.parse(savedStateString);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, Button, View, StyleSheet, TouchableOpacity, TouchableHighlight, TextInput, Alert, AsyncStorage, Linking, Image, Keyboard } from 'react-native';
+import { Text, Button, View, StyleSheet, TouchableWithoutFeedback, TouchableOpacity, TouchableHighlight, TextInput, Alert, AsyncStorage, Linking, Image, Keyboard } from 'react-native';
 import { Modal } from 'react-native';
 // import { Button } from 'react-native-elements';
 // import Button from '@material-ui/core/Button';
@@ -11,7 +11,7 @@ import { Audio, Video } from 'expo-av';
 import VideoPlayer from 'expo-video-player';
 // import { AVPlaybackStatus, VideoProps } from 'expo-av/build/Video'
 // import { styles } from '../style';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, CommonActions } from '@react-navigation/native';
 
 import { updateSeenScreens } from '../extras/methods.tsx';
 import {logo} from '../assets/images/ready-logo.png';
@@ -100,7 +100,7 @@ export class WelcomeScreen extends React.Component {
         })();
       }
       else {
-        navigation.navigate('Login');
+        this.props.navigation.navigate('Login');
       }
       // console.log(response);
     })
@@ -116,40 +116,11 @@ export class WelcomeScreen extends React.Component {
       console.log("getting just videolist");
       console.log(this.state.seenVideoList);
     } catch(e) {console.error(e);}
-    /*
-    await AsyncStorage.getItem('seenScreens').then(res => {
-      const seenScreens = res;
-      let seenS = seenScreens != null ? JSON.parse(seenScreens) : null;
-      console.log("first retrieve " + res);
-      if (seenS == null) {
-        console.log("seens found null");
-        seenS = {
-          "seenVideoList": false,
-          "seenSpeakerVideo": false
-        }
-        // try {AsyncStorage.setItem('seenVideoList', false);} catch (e) {console.error(e);}
-        try {AsyncStorage.setItem('seenScreens', JSON.stringify(seenS));} catch (e) {console.error(e);}
-        
-      }
-      else {
-        console.log("setting state");
-        console.log(seenS);
-        this.setState({"seenVideoList": seenS["seenVideoList"], "seenSpeakerVideo": seenS["seenSpeakerVideo"]});
-      }
-    })
-    .catch (err => {
-      console.error(err);
-    });
-    */
   }
   getVideoData();
   getUInfo();
-  // console.log(this.props.navigation);
-  this._unsubscribe = this.props.navigation.addListener('focus', () => {
-    // console.log("refocussed");
-    // console.log("refocussed");
-    // console.log("refocussed");
 
+  this._unsubscribe = this.props.navigation.addListener('focus', () => {
     getVideoData();
     getUInfo();
   });
@@ -177,7 +148,9 @@ export class WelcomeScreen extends React.Component {
           this.setState({"seenSpeakerVideo": true})
 
           updateSeenScreens("seenSpeakerVideo", true);
-          this.modalChange(true);
+          // this.modalChange(true);
+          this.props.navigation.navigate("FloppyPage");
+          console.log("trying to navigate to floppy tut");
         }
         // navigation.navigate('Speaker', {'speakerurl': this.state.speakerAppURL}) ;
       }
@@ -208,6 +181,16 @@ export class WelcomeScreen extends React.Component {
     }
   }
 
+  floppyReset = async function () {
+    try {
+      await AsyncStorage.setItem("seenSpeakerVideo", "false")
+      this.setState({"seenSpeakerVideo": "false"});
+      // this.setState({"seenSpeakerVideo": await AsyncStorage.getItem("seenSpeakerVideo")});
+      console.log("resetting floppy tut");
+      // console.log(this.state.seenVideoList);
+    } catch(e) {console.error(e);}
+  }
+
   render() {
   const { navigation } = this.props;
 	return (
@@ -215,7 +198,9 @@ export class WelcomeScreen extends React.Component {
       <Content>
     		<View style={{flexDirection: "column"}}>
           <View style={{ width: "100%", alignItems: "center" }}>
+          <TouchableWithoutFeedback onLongPress={() => this.floppyReset()}>
             <Image source={require('../assets/images/ready-logo.png')} style={{width: "100%", height: 200, resizeMode: 'contain'}}/>
+            </TouchableWithoutFeedback>
           </View>
 
           <Text style={styles.title}> Hi {this.state.name}! </Text>
@@ -253,7 +238,7 @@ export class WelcomeScreen extends React.Component {
           </View>
       	</View>
         <Card style={{flex: 0}}>
-          <TouchableOpacity onPress={() => this.modalChange(true)}>
+          <TouchableOpacity onPress={() => navigation.navigate("FloppyPage")}>
             <CardItem bordered>
             <Text>Helpful Tips</Text>
             <Left />

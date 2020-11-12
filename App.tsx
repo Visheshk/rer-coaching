@@ -26,6 +26,8 @@ import { SpeakerView } from './components/SpeakerView';
 import { PageRecorder } from './components/PageRecorder';
 import { PR2 } from './components/pr2';
 
+import { FloppyPage } from './components/FloppyPage';
+
 import { styles } from './style';
 import { LoginVideo } from './assets/loginvid.mp4';
 import { Ionicons } from '@expo/vector-icons';
@@ -350,8 +352,17 @@ export default function App(props) {
             {headerTitleStyle: {textAlign: 'center'}}, 
             ({ route }) => ({ title: route.params.name }) 
           }
-
         />
+
+        <Stack.Screen
+          name="FloppyPage"
+          component={FloppyPage}
+          options={
+            {title: 'Learn to Read With Floppy'}
+            
+          }
+        />
+
 
       </Stack.Navigator>
     </NavigationContainer>

@@ -29,7 +29,7 @@ import { PR2 } from './components/pr2';
 import { styles } from './style';
 import { LoginVideo } from './assets/loginvid.mp4';
 import { Ionicons } from '@expo/vector-icons';
-import { Material } from '@expo/vector-icons';
+// import { Material } from '@expo/vector-icons';
 
 function LoginScreen ( {route, navigation} ) {
   const [isReady, setIsReady] = React.useState(false);
@@ -246,7 +246,8 @@ export default function App(props) {
         SplashScreen.preventAutoHide();
         console.log("loading font ideally");
         await Expo.Font.loadAsync({
-          Ionicons, Material
+          Ionicons
+          // , Material
           // 'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
         });
         const savedStateString = await AsyncStorage.getItem(PERSISTENCE_KEY);

@@ -194,7 +194,7 @@ export function VideoList({navigation, route}) {
           showControlsOnLoad={true}
           height={400}
           videoProps={{
-            source : { uri: 'https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/coaching%20tut.mp4?raw=true', overrideFileExtensionAndroid: 'mp4' },
+            source : { uri: 'https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/coaching-tut.mp4?raw=true', overrideFileExtensionAndroid: 'mp4' },
             resizeMode : Video.RESIZE_MODE_CONTAIN,
             shouldPlay: false,
           }}

@@ -299,7 +299,7 @@ export class WelcomeScreen extends React.Component {
                 height={400}
                 width={300}
                 videoProps={{
-                  source : { uri: 'https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/floppy%20tut.mp4?raw=true', overrideFileExtensionAndroid: 'mp4' },
+                  source : { uri: 'https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/floppy-tut.mp4?raw=true', overrideFileExtensionAndroid: 'mp4' },
                   resizeMode : Video.RESIZE_MODE_CONTAIN,
                   shouldPlay: false,
                 }}

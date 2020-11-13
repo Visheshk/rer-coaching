@@ -149,7 +149,7 @@ export class WelcomeScreen extends React.Component {
 
           updateSeenScreens("seenSpeakerVideo", true);
           // this.modalChange(true);
-          this.props.navigation.navigate("FloppyPage");
+          this.props.navigation.navigate("FloppyPage", {"speakerURL": this.state.speakerAppURL});
           console.log("trying to navigate to floppy tut");
         }
         // navigation.navigate('Speaker', {'speakerurl': this.state.speakerAppURL}) ;

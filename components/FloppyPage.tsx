@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, Dimensions, TouchableHighlight, View, StyleSheet, TextInput, Alert, Keyboard } from 'react-native';
+import { Text, Dimensions, TouchableHighlight, View, StyleSheet, TextInput, Alert, Linking, Keyboard } from 'react-native';
 import { Tooltip, Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Container, Content } from 'native-base'
@@ -16,7 +16,7 @@ import { styles } from '../style';
 
 export function FloppyPage({navigation, route}) {
   // render() {
- 
+  const speakerURL = route.params.speakerURL;
   // const pageList = Object.keys(pageTitles);
 
   var storeData = async (vals) => {
@@ -27,7 +27,7 @@ export function FloppyPage({navigation, route}) {
   };
   // storeData();
   useKeepAwake();
-  console.log(this);
+  console.log(route.params);
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -67,6 +67,7 @@ export function FloppyPage({navigation, route}) {
           title="Go to Read Aloud With Floppy!  "
           icon={<Icon name="external-link" color="white" />}
           iconRight={true}
+          onPress={() => Linking.openURL(speakerURL)}
         />
       </View>
 

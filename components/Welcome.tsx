@@ -238,7 +238,7 @@ export class WelcomeScreen extends React.Component {
           </View>
       	</View>
         <Card style={{flex: 0}}>
-          <TouchableOpacity onPress={() => navigation.navigate("FloppyPage")}>
+          <TouchableOpacity onPress={() => navigation.navigate("FloppyPage", {"speakerURL": this.state.speakerAppURL})}>
             <CardItem bordered>
             <Text>Helpful Tips</Text>
             <Left />

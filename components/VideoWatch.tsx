@@ -119,7 +119,7 @@ export function VideoWatch({navigation, route}) {
           useNativeControls={true}
           shouldPlay={false}
           isLooping={false}
-          style={{ height: 300 }}
+          style={{ height: 400 }}
         />
       </View>
 

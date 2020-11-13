@@ -2,7 +2,8 @@ import * as React from 'react';
 import { Text, View, StyleSheet, TextInput, Alert, ScrollView, Platform, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, Dimensions } from 'react-native';
 import {AsyncStorage} from 'react-native';
 import { Button } from 'react-native-paper';
-import { SplashScreen } from 'expo';
+import * as SplashScreen  from 'expo-splash-screen';
+import * as ScreenOrientation from 'expo-screen-orientation';
 import { Audio, Video } from 'expo-av';
 import VideoPlayer from 'expo-video-player';
 import { useKeepAwake, activateKeepAwake } from 'expo-keep-awake';
@@ -31,6 +32,7 @@ import { FloppyPage } from './components/FloppyPage';
 import { styles } from './style';
 import { LoginVideo } from './assets/loginvid.mp4';
 import { Ionicons } from '@expo/vector-icons';
+
 // import { Material } from '@expo/vector-icons';
 
 function LoginScreen ( {route, navigation} ) {
@@ -107,7 +109,7 @@ function LoginScreen ( {route, navigation} ) {
         height={300}
         width={Dimensions.get('window').width*0.95}
         showControlsOnLoad={true}
-        inFullscreen={false}
+        inFullscreen={true}
         videoProps={{
           shouldPlay: false,
           resizeMode: "contain",
@@ -115,6 +117,13 @@ function LoginScreen ( {route, navigation} ) {
             uri: 'https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/welcome.mp4?raw=true',
           },
         }}
+        switchToLandscape={() => 
+          ScreenOrientation.lockAsync(ScreenOrientation.Orientation.LANDSCAPE_LEFT)
+        }
+        switchToPortrait={() => 
+          ScreenOrientation.lockAsync(ScreenOrientation.Orientation.LANDSCAPE_LEFT)
+        }
+
       />
       
       
@@ -245,7 +254,7 @@ export default function App(props) {
   React.useEffect(() => {
     const restoreState = async () => {
       try {
-        SplashScreen.preventAutoHide();
+        SplashScreen.preventAutoHideAsync();
         console.log("loading font ideally");
         await Expo.Font.loadAsync({
           Ionicons
@@ -271,7 +280,7 @@ export default function App(props) {
 
       } finally {
         setIsReady(true);
-        SplashScreen.hide();
+        SplashScreen.hideAsync();
       }
     };
 

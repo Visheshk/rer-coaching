@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, TextInput, Alert, Keyboard } from 'react-native';
+import { Text, View, TouchableHighlight, TouchableOpacity, StyleSheet, TextInput, Alert, Keyboard } from 'react-native';
 import { Button } from 'react-native-elements';
 
 import 'react-native-gesture-handler';
@@ -11,6 +11,7 @@ import { READY } from '../assets/loginvid.mp4';
 // import { AVPlaybackStatus, VideoProps } from 'expo-av/build/Video'
 import { styles } from '../style';
 import { sources, titles } from './videoInfo';
+import { Ionicons } from '@expo/vector-icons';
 
 export function VideoWatch({navigation, route}) {
 	// render() {
@@ -105,7 +106,46 @@ export function VideoWatch({navigation, route}) {
       console.log("last page");
       setAftState(false);
     }
+
   });
+
+  const [vidPlaying, setVidPlaying] = React.useState(false);
+  const [playOpacity, setPlayOpacity] = React.useState(1);
+
+  let playbackObject;
+  var _handleVideoRef = component => {
+    playbackObject = component;
+  }
+
+  var _playState = playStatus => {
+    if (playStatus.isPlaying) {
+      setVidPlaying(true);
+      setPlayOpacity(1);
+    }
+    else {console.log("paused");
+      setVidPlaying(false); 
+      setPlayOpacity(0);
+    }
+  }
+
+  async function playVideo() {
+    var stat = await playbackObject.getStatusAsync();
+    console.log(stat);
+    if (stat.isPlaying == true) {
+      playbackObject.pauseAsync(); 
+    }
+    else {
+      console.log("not playing")
+      if (stat.positionMillis == stat.playableDurationMillis) {
+        playbackObject.replayAsync();
+      }
+      else {
+        playbackObject.playAsync();
+      }
+      
+    }
+    
+  }
 
 	return (
 		<View style={{flex: 1, flexDirection: "column"}}>
@@ -120,7 +160,41 @@ export function VideoWatch({navigation, route}) {
           shouldPlay={false}
           isLooping={false}
           style={{ height: 400 }}
+          ref={_handleVideoRef}
+          onPlaybackStatusUpdate={_playState}
         />
+        <View style={{ 
+          alignSelf: "center",
+          flex:1,
+          flexDirection: "row",
+          height: "100%", 
+          width: "100%", 
+          justifyContent: "space-around", 
+          alignItems: "center", 
+          flex: 1, 
+          position: "absolute"}}>
+          <TouchableOpacity 
+            style={{
+              backgroundColor: 'rgba(52, 52, 52, 0.4)',
+              width: 80,
+              height: 80,
+              borderRadius:80,
+              justifyContent: "space-around",
+              opacity: playOpacity,
+              alignItems: "center"
+            }}
+
+            underlayColor="#111" delayPressIn={0} delayPressOut={10} onPress={() => playVideo()}>
+            <Ionicons name="ios-play" 
+                style={{
+                    textShadowColor: '#333',
+                    textShadowOffset: {width: -1, height: 1},
+                    textShadowRadius: 10}} 
+                size={54} 
+                color="white" />
+              
+          </TouchableOpacity>
+        </View>
       </View>
 
       <View style={{ flex: 1, flexDirection: "row", width: "100%" }}>          

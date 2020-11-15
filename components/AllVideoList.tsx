@@ -14,7 +14,7 @@ import Letsread from '../assets/images/letsread2.png';
 import Videos from '../assets/images/videos2.png'; 
 import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Icon, Left, Right, Body } from 'native-base';
 
-export function SeenVideoList({navigation, route}) {
+export function AllVideoList({navigation, route}) {
   
   const SEEN_OPACITY = 0.6;
 

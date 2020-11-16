@@ -253,54 +253,6 @@ export class WelcomeScreen extends React.Component {
           {this.AllVideos()}
         </Card>
       </Content>
-      <Modal
-          animationType="fade"
-          transparent={true}
-          visible={this.state.speakerModal}
-          onRequestClose={() => {
-            // Alert.alert("Modal has been closed.");
-            this.modalChange(false);
-          }}
-        >
-          <View style= {styles.overlay} />
-          <View style={styles.centeredView}>
-
-            <View style={styles.modalView}>
-              <View style = {{width:"100%"}}>
-                <TouchableHighlight
-                  style={{ ...styles.closeButton}}
-                  onPress={() => this.modalChange(false)}
-                >
-                
-                <Text style={styles.buttonTextStyle}>X</Text>
-                </TouchableHighlight>
-              </View>
-              <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
-                <Text style={styles.modalText}>Learn How to Read Aloud With Floppy</Text>
-                
-              </View>
-              <VideoPlayer
-                showControlsOnLoad={true}
-                height={400}
-                width={300}
-                videoProps={{
-                  source : { uri: 'https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/floppy-tut.mp4?raw=true', overrideFileExtensionAndroid: 'mp4' },
-                  resizeMode : Video.RESIZE_MODE_CONTAIN,
-                  shouldPlay: false,
-                }}
-              />
-              <View style={{paddingTop: 10}}>
-                <TouchableHighlight
-                  style={{ ...styles.openButton, backgroundColor: "#2196F3", paddingTop: 10}}
-                  onPress={() => this.modalClose()}
-                >
-                
-                <Text style={styles.buttonTextStyle}>Head to Read Aloud</Text>
-                </TouchableHighlight>
-              </View>
-            </View>
-          </View>
-        </Modal>
     </Container>
 	);
 	}

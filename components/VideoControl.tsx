@@ -9,17 +9,18 @@ export class VideoControl extends React.Component {
   constructor (props) {
     super(props);
     console.log("props props props");
-    
+    this.video = null;
     this.state = {
-      vidPlaying: false,
-      playOpacity: 1
+      "vidPlaying": true,
+      "playOpacity": 1,
+      "playbackObject": null
 
     }
     activateKeepAwake();
   }
 
   componentDidUpdate(props) {
-    console.log(props);
+    // console.log(props);
   }
 
   // const [vidPlaying, setVidPlaying] = React.useState(false);
@@ -28,38 +29,52 @@ export class VideoControl extends React.Component {
   // let playbackObject;
   
   _handleVideoRef = component => {
-    const playbackObject = component;
+    this.video = component; 
   }
 
   _playState = playStatus => {
-    console.log("play state change");
-    if (playStatus.isPlaying) {
-      this.state.vidPlaying = true;
-      this.state.playOpacity = 1;
+    console.log(playStatus["isPlaying"]);
+    if (playStatus.isPlaying == true && this.state.playOpacity == 1) {
+      // console.log("playing is ");
+      this.setState({"playOpacity": 0, "vidPlaying": true});
     }
-    else {
-      console.log("paused");
-      this.state.vidPlaying = false;
-      this.state.playOpacity = 0;
+    else if (playStatus.isPlaying == false && this.state.playOpacity == 0) {
+      // console.log("paused");
+      this.setState({"playOpacity": 1, "vidPlaying": false});
     }
+    console.log(this.state.playOpacity);
   }
 
-  async playVideo() {
-    var stat = await playbackObject.getStatusAsync();
-    console.log(stat);
-    if (stat.isPlaying == true) {
-      this.playbackObject.pauseAsync(); 
-    }
-    else {
-      console.log("not playing")
-      if (stat.positionMillis == stat.playableDurationMillis) {
-        this.playbackObject.replayAsync();
+  playVideo = async () => {
+    // var stat = await this.state.playbackObject.getStatusAsync();
+    // if (stat.isPlaying == true) {
+    //   this.state.playbackObject.pauseAsync(); 
+    // }
+    // else {
+    //   console.log("not playing")
+    //   if (stat.positionMillis == stat.playableDurationMillis) {
+    //     this.state.playbackObject.replayAsync();
+    //   }
+    //   else {
+    //     this.state.playbackObject.playAsync();
+    //   }
+    // }
+    // console.log(this);
+    if (this.video !== null) {
+      var stat = await this.video.getStatusAsync();
+      if (stat.isPlaying == true) {
+        this.video.pauseAsync(); 
       }
       else {
-        this.playbackObject.playAsync();
+        console.log("not playing")
+        if (stat.positionMillis == stat.playableDurationMillis) {
+          this.video.replayAsync();
+        }
+        else {
+          this.video.playAsync();
+        }
       }
     }
-    
   }
   render(){
   return(
@@ -94,11 +109,11 @@ export class VideoControl extends React.Component {
               height: 80,
               borderRadius:80,
               justifyContent: "space-around",
-              opacity: this.state.playOpacity,
+              opacity: this.state.vidPlaying? 1:0,
               alignItems: "center"
             }}
 
-            underlayColor="#111" delayPressIn={0} delayPressOut={10} onPress={() => this.playVideo()}>
+            underlayColor="#111" delayPressIn={0} delayPressOut={10} onPress={this.playVideo}>
             <Ionicons name="ios-play" 
                 style={{
                     textShadowColor: '#333',

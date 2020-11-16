@@ -110,46 +110,6 @@ export function VideoWatch({navigation, route}) {
 
   });
 
-  const [vidPlaying, setVidPlaying] = React.useState(false);
-  const [playOpacity, setPlayOpacity] = React.useState(1);
-
-  let playbackObject;
-  var _handleVideoRef = component => {
-    playbackObject = component;
-  }
-
-  var _playState = playStatus => {
-    console.log("play state change");
-    if (playStatus.isPlaying) {
-      setVidPlaying(true);
-      setPlayOpacity(1);
-    }
-    else {
-      console.log("paused");
-      setVidPlaying(false); 
-      setPlayOpacity(0);
-    }
-  }
-
-  async function playVideo() {
-    var stat = await playbackObject.getStatusAsync();
-    console.log(stat);
-    if (stat.isPlaying == true) {
-      playbackObject.pauseAsync(); 
-    }
-    else {
-      console.log("not playing")
-      if (stat.positionMillis == stat.playableDurationMillis) {
-        playbackObject.replayAsync();
-      }
-      else {
-        playbackObject.playAsync();
-      }
-      
-    }
-    
-  }
-
 	return (
 		<View style={{flex: 1, flexDirection: "column"}}>
       <VideoControl uri={vidUri} />

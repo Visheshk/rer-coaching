@@ -25,6 +25,8 @@ import { BookList } from './components/BookList';
 import { BookRead } from './components/BookRead';
 import { SpeakerView } from './components/SpeakerView';
 import { PageRecorder } from './components/PageRecorder';
+import { AllVideoList } from './components/AllVideoList';
+import { HelpfulTips } from './components/HelpfulTips';
 import { PR2 } from './components/pr2';
 
 import { FloppyPage } from './components/FloppyPage';
@@ -372,6 +374,21 @@ export default function App(props) {
           }
         />
 
+        <Stack.Screen
+          name="AllVideoList"
+          component={AllVideoList}
+          options={
+            {title: 'All Videos'}
+          }
+        />
+
+        <Stack.Screen
+          name="HelpfulTips"
+          component={HelpfulTips}
+          options={
+            {title: 'Helpful Tips'}
+          }
+        />
 
       </Stack.Navigator>
     </NavigationContainer>

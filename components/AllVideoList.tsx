@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { Dimensions, View, StyleSheet, TextInput, Alert, TouchableOpacity, TouchableHighlight, Keyboard, Image } from 'react-native';
 import 'react-native-gesture-handler';
 import {AsyncStorage} from 'react-native';
@@ -14,171 +14,88 @@ import Letsread from '../assets/images/letsread2.png';
 import Videos from '../assets/images/videos2.png'; 
 import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Icon, Left, Right, Body } from 'native-base';
 
-export function AllVideoList({navigation, route}) {
-  
-  const SEEN_OPACITY = 0.6;
+const videoUrls1 = [
+  {"title": "Introduction to R.E.A.D.Y", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/welcome.mp4?raw=true"},
+  {"title": "How to use the Coaching Experience", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/coaching-tut.mp4?raw=true"},
+  {"title": "How to Read With Floppy", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/floppy-tut.mp4?raw=true"}
+]
 
-  let rc = 0;
-  let videoUrls = [
-    {"title": "Introduction to R.E.A.D.Y", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/welcome.mp4?raw=true"}
-    {"title": "How to use the Coaching Experience", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/coaching-tut.mp4?raw=true"}
-    {"title": "How to Read With Floppy", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/floppy-tut.mp4?raw=true"}
-  ]
-    
-  //downloaded URLS
-  //
+const videoUrls2 = [
+  {"title": "Recall the Past", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Recall%20The%20Past%20Final%20V2.mp4?raw=true"},
+  {"title": "Explain New Words or Ideas", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Explain%20New%20Words%20Or%20Ideas%20Final%20V2.mp4?raw=true"},
+  {"title": "Ask Questions", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Ask%20Questions%20Final%20V2.mp4?raw=true"},
+  {"title": "Discuss the Future", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Discuss%20The%20Future%20Final%20V2.mp4?raw=true"},
+  {"title": "You Can Make a Difference", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/You%20Can%20Make%20A%20Difference%20Final%20V2.mp4?raw=true"},
+]
 
-  
-  };
-  
+const videoUrls = [
+  {"title": "Introduction to R.E.A.D.Y", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/welcome.mp4?raw=true"},
+  {"title": "How to use the Coaching Experience", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/coaching-tut.mp4?raw=true"},
+  {"title": "How to Read With Floppy", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/floppy-tut.mp4?raw=true"},
+  {"title": "", "url": ""},
+  {"title": "Recall the Past", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Recall%20The%20Past%20Final%20V2.mp4?raw=true"},
+  {"title": "Explain New Words or Ideas", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Explain%20New%20Words%20Or%20Ideas%20Final%20V2.mp4?raw=true"},
+  {"title": "Ask Questions", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Ask%20Questions%20Final%20V2.mp4?raw=true"},
+  {"title": "Discuss the Future", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Discuss%20The%20Future%20Final%20V2.mp4?raw=true"},
+  {"title": "You Can Make a Difference", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/You%20Can%20Make%20A%20Difference%20Final%20V2.mp4?raw=true"}, 
+]
 
-  React.useEffect(() => {
-    setTimeout(() => {
-      Keyboard.dismiss();      
-    }, 1000);
+const SEEN_OPACITY = 0.6;
+export class AllVideoList extends React.Component {
 
-  }, [navigation]);
+  v1Arr = videoUrls1.map((vurl) => {
+    return(<Text>{vurl.text}</Text>);
+  });
 
-
-  return (
-
-    <Container>
-      <Content>
-        <VideoPlayer
-          showControlsOnLoad={true}
-          height={400}
-          switchToPortrait= {()=> {}}
-          videoProps={{
-            source : { uri: 'https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/coaching-tut.mp4?raw=true', overrideFileExtensionAndroid: 'mp4' },
-            resizeMode : Video.RESIZE_MODE_CONTAIN,
-            shouldPlay: false,
-          }}
-        />
-      
+  render() {  
+    return (
+      <Container>
+        <Content>
         <Card style={{flex: 0}}>
-         <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 0, video: 'Past', "name": "Recall the Past"})}>
-          <CardItem bordered style = {{opacity: vid0Seen ? SEEN_OPACITY: 1.0}}>
-          <Thumbnail source={require("../assets/images/video-posters/Rthumb.png")} square style={styles.vidThumb}/>
-          <Text>Recall the Past</Text>
-          <Left />
-          <Right style={{alignSelf: "flex-end"}}>
-            <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
-              <Text style={styles.timestamp}>1:30</Text>
-              <TouchableOpacity onPress={() => {changeReadState("video0seen", vid0Seen);}}>
-                <Icon name={seenIcon(vid0Seen)} style={{color: "blue", paddingRight: 20}}/>
-              </TouchableOpacity>
-
-              <Icon name="arrow-forward" />
-            </View>
-          </Right>
-         </CardItem>
-         </TouchableOpacity>
-
-         <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 1, video: 'Ideas', "name": "Explain New Words or Ideas"})}>
-          <CardItem bordered style = {{opacity: vid1Seen ? SEEN_OPACITY: 1.0}}>
           
-          <Thumbnail source={require("../assets/images/video-posters/Ethumb.png")} square style={styles.vidThumb}/>
-          <Text>Explain New Words or Ideas</Text>
-          <Left />
-          <Right style={{alignSelf: "flex-end"}}>
-            <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
-              <Text style={styles.timestamp}>1:17</Text>
-              <TouchableOpacity onPress={() => {changeReadState("video1seen", vid1Seen);}}>
-                <Icon name={seenIcon(vid1Seen)} style={{color: "blue", paddingRight: 20}}/>
-              </TouchableOpacity>
-
-              <Icon name="arrow-forward" />
-            </View>
-          </Right>
-         </CardItem>
-         </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 2, video: 'Questions', "name": "Ask Questions"})}>
-        <CardItem bordered style = {{opacity: vid2Seen ? SEEN_OPACITY: 1.0}}>
-          <Thumbnail source={require("../assets/images/video-posters/Athumb.png")} square style={styles.vidThumb}/>
-          <Text>Ask Questions</Text>
-          <Left />
-          <Right style={{alignSelf: "flex-end"}}>
-            <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
-              <Text style={styles.timestamp}>0:59</Text>
-              <TouchableOpacity onPress={() => {changeReadState("video2seen", vid2Seen);}}>
-                <Icon name={seenIcon(vid2Seen)} style={{color: "blue", paddingRight: 20}}/>
-              </TouchableOpacity>
-
-              <Icon name="arrow-forward" />
-            </View>
-          </Right>
-        </CardItem>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 3, video: 'Future', "name": "Discuss the Future"})}>
-        <CardItem bordered style = {{opacity: vid3Seen ? SEEN_OPACITY: 1.0}}>
-          
-          <Thumbnail source={require("../assets/images/video-posters/Dthumb.png")} square style={styles.vidThumb}/>
-          <Text>Discuss the Future</Text>
-          <Left />
-          <Right style={{alignSelf: "flex-end"}}>
-            <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
-              <Text style={styles.timestamp}>1:17</Text>
-              <TouchableOpacity onPress={() => {changeReadState("video3seen", vid3Seen);}}>
-                <Icon name={seenIcon(vid3Seen)} style={{color: "blue", paddingRight: 20}}/>
-              </TouchableOpacity>
-
-              <Icon name="arrow-forward" />
-            </View>
-          </Right>
-        </CardItem>
-        </TouchableOpacity>    
-
-        <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 4, video: 'Difference', "name": "You Can Make a Difference"})}>
-        <CardItem bordered style = {{opacity: vid4Seen ? SEEN_OPACITY: 1.0}}>
-          
-          <Thumbnail source={require("../assets/images/video-posters/Ythumb.png")} square style={styles.vidThumb}/>
-          <Text>You Can Make a Difference</Text>
-          <Left />
-          <Right style={{alignSelf: "flex-end"}}>
-            <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
-              <Text style={styles.timestamp}>1:27</Text>
-              <TouchableOpacity onPress={() => {changeReadState("video4seen", vid4Seen);}}>
-                <Icon name={seenIcon(vid4Seen)} style={{color: "blue", paddingRight: 20}}/>
-              </TouchableOpacity>
-
-              <Icon name="arrow-forward" />
-            </View>
-          </Right>
-         </CardItem>
-         </TouchableOpacity>
-
-         
         </Card>
-
-      
-      
-        <View style={{padding: 30, opacity: 1.0, justifyContent: 'space-around'}}>
-        
-          <Text style={{backgroundColor: "#eee", padding: 15, borderRadius: 10}}>
-            When you're done watching the videos, you'll be able to click 'Let's Read' to practice your literacy-building strategies!
-          </Text>
-         
-          <TouchableOpacity 
-            // disabled={readAll? false: true} 
-            style={{flex:0.7, opacity:1, elevation: -1}} 
-            key="letsread" 
-            onPress={() => letsReadButton()}> 
-            <Card style={{opacity: readAll? 1.0: SEEN_OPACITY}}>
-              <CardItem>
-                <Left>
-                  <Thumbnail source={Letsread} square style={{resizeMode: "contain"}}/>
-                  <Body>
-                    <Text>Let's Read</Text>
-                  </Body>
-                </Left>
+        {
+          videoUrls.map(function (vurl) {
+            if (vurl["title"] == "") {
+              return(
+                <CardItem bordered>
+                <Text> </Text>
+                <Left />
+                
+                </CardItem>
+              )
+            }
+            return(
+              <TouchableOpacity onPress={() => alert(vurl.url)}>
+              <CardItem bordered>
+              <Text>{vurl.title}</Text>
+              <Left />
+              <Right style={{alignSelf: "flex-end"}}>
+                <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
+                  <Icon name="arrow-forward" />
+                </View>
+              </Right>
               </CardItem>
-            </Card>
-          </TouchableOpacity>
+            </TouchableOpacity>
+          )
+          })
+        }
+        </Content>
+      </Container>
+    );
+  }
+}
 
-        </View>
-      </Content>
-    </Container>
+
+const FlatListBasics = () => {
+  return (
+    <View style={styles.container}>
+      <FlatList
+        data={videoUrls1}
+        renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>}
+      />
+    </View>
   );
 }
+
+export default FlatListBasics;

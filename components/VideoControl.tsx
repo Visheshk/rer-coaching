@@ -33,7 +33,7 @@ export class VideoControl extends React.Component {
   }
 
   _playState = playStatus => {
-    console.log(playStatus["isPlaying"]);
+    // console.log(playStatus["isPlaying"]);
     if (playStatus.isPlaying == true && this.state.playOpacity == 1) {
       // console.log("playing is ");
       this.setState({"playOpacity": 0, "vidPlaying": true});
@@ -42,7 +42,7 @@ export class VideoControl extends React.Component {
       // console.log("paused");
       this.setState({"playOpacity": 1, "vidPlaying": false});
     }
-    console.log(this.state.playOpacity);
+    // console.log(this.state.playOpacity);
   }
 
   playVideo = async () => {

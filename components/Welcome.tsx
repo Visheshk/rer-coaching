@@ -163,7 +163,7 @@ export class WelcomeScreen extends React.Component {
   AllVideos = function() {
     if (this.state.seenVideoList == "true") {
       return(
-        <TouchableOpacity onPress={() => alert("This will lead you to the videos you have seen across the app.")}>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate("AllVideoList")}>
           <CardItem bordered>
           <Text>All Videos</Text>
           <Left />
@@ -238,7 +238,7 @@ export class WelcomeScreen extends React.Component {
           </View>
       	</View>
         <Card style={{flex: 0}}>
-          <TouchableOpacity onPress={() => navigation.navigate("FloppyPage", {"speakerURL": this.state.speakerAppURL})}>
+          <TouchableOpacity onPress={() => navigation.navigate("HelpfulTips")}>
             <CardItem bordered>
             <Text>Helpful Tips</Text>
             <Left />

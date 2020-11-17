@@ -234,7 +234,7 @@ export class WelcomeScreen extends React.Component {
             </View>
           </View>
           <View style={{position: 'absolute', top: 0}}>
-            <Text style={{textAlign: "right", fontSize: 9, padding: 10, opacity: 0.5}}> v1.2.8 </Text>
+            <Text style={{textAlign: "right", fontSize: 9, padding: 10, opacity: 0.5}}> v1.2.10 </Text>
           </View>
       	</View>
         <Card style={{flex: 0}}>

@@ -27,6 +27,7 @@ import { SpeakerView } from './components/SpeakerView';
 import { PageRecorder } from './components/PageRecorder';
 import { AllVideoList } from './components/AllVideoList';
 import { HelpfulTips } from './components/HelpfulTips';
+import { VideoPage } from './components/VideoPage';
 import { PR2 } from './components/pr2';
 
 import { FloppyPage } from './components/FloppyPage';
@@ -387,6 +388,14 @@ export default function App(props) {
           component={HelpfulTips}
           options={
             {title: 'Helpful Tips'}
+          }
+        />
+
+        <Stack.Screen
+          name="VideoPage"
+          component={VideoPage}
+          options={
+            {title: 'Watch Video'}
           }
         />
 

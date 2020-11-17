@@ -6,8 +6,6 @@ import {AsyncStorage} from 'react-native';
 import { styles } from '../style';
 
 import { Audio, Video } from 'expo-av';
-import VideoPlayer from 'expo-video-player';
-import { useKeepAwake } from 'expo-keep-awake';
 
 import { updateSeenScreens } from '../extras/methods.tsx';
 import Letsread from '../assets/images/letsread2.png'; 
@@ -42,10 +40,15 @@ const videoUrls = [
 
 const SEEN_OPACITY = 0.6;
 export class AllVideoList extends React.Component {
+  constructor (props) {
+    super(props);
+    console.log(this.props);
 
-  v1Arr = videoUrls1.map((vurl) => {
-    return(<Text>{vurl.text}</Text>);
-  });
+  }
+
+  goToVideo(title, url) {
+    this.props.navigation.navigate("VideoPage", {"title": title, "url": url});
+  }
 
   render() {  
     return (
@@ -55,7 +58,7 @@ export class AllVideoList extends React.Component {
           
         </Card>
         {
-          videoUrls.map(function (vurl) {
+          videoUrls.map( (vurl) => {
             if (vurl["title"] == "") {
               return(
                 <CardItem bordered>
@@ -66,7 +69,7 @@ export class AllVideoList extends React.Component {
               )
             }
             return(
-              <TouchableOpacity onPress={() => alert(vurl.url)}>
+              <TouchableOpacity onPress={() => this.goToVideo(vurl.title, vurl.url)}>
               <CardItem bordered>
               <Text>{vurl.title}</Text>
               <Left />
@@ -85,17 +88,3 @@ export class AllVideoList extends React.Component {
     );
   }
 }
-
-
-const FlatListBasics = () => {
-  return (
-    <View style={styles.container}>
-      <FlatList
-        data={videoUrls1}
-        renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>}
-      />
-    </View>
-  );
-}
-
-export default FlatListBasics;

@@ -46,9 +46,9 @@ function LoginScreen ( {route, navigation} ) {
   const [studId, setStudId] = React.useState("");
 
   var storeData = async (vals, forward=true) => {
-    useKeepAwake();
+    // useKeepAwake();
     try {
-      // console.log(vals);
+      console.log(vals);
       await AsyncStorage.setItem('bookPages', JSON.stringify({}));
       await AsyncStorage.setItem('userInfo', JSON.stringify(vals));
       await AsyncStorage.setItem('age', vals["age"]);

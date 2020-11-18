@@ -57,7 +57,7 @@ export class HelpfulTips extends React.Component {
         <Content padder>
         <View style={{flexDirection: "row", flex: 1}}>
           <View style={{flex: 1}}>
-            <Text style={styles.header}> Set up your device {"\n"}</Text>
+            <Text style={styles.header}> Set up your device </Text>
             <Text style={styles.body}> 
             Turn up your volume so you can hear our videos, audio clips, and Floppy.
             {"\n"} {"\n"}
@@ -71,7 +71,7 @@ export class HelpfulTips extends React.Component {
               </TouchableOpacity>
           </View>
         </View>
-        <Text style={styles.header}> {"\n"}Ready to try the R.E.A.D.Y. App?</Text>
+        <Text style={styles.header}>Ready to try the R.E.A.D.Y. App?</Text>
         <Text style={styles.body}> It's simple to get started! Tap on the Coaching Experience (and Let's Read) to begin {"\n"}</Text>
 
         <Text style={styles.header}> Coaching Experience </Text>
@@ -104,11 +104,11 @@ export class HelpfulTips extends React.Component {
 
 const styles = StyleSheet.create({
   header: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: "bold"
   },
 
   body: {
-    fontSize: 18
+    fontSize: 16
   }
 })

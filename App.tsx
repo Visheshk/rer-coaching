@@ -33,7 +33,7 @@ import { PR2 } from './components/pr2';
 import { FloppyPage } from './components/FloppyPage';
 
 import { styles } from './style';
-import { LoginVideo } from './assets/loginvid.mp4';
+
 import { Ionicons } from '@expo/vector-icons';
 
 // import { Material } from '@expo/vector-icons';
@@ -239,7 +239,7 @@ function LoginScreen ( {route, navigation} ) {
     </View>
     </TouchableWithoutFeedback>
     <View style={{position: 'absolute', bottom: 0}}>
-      <Text style={{textAlign: "right", fontSize: 10, padding: 10, opacity: 0.5}}> v1.2.10 </Text>
+      <Text style={{textAlign: "right", fontSize: 10, padding: 10, opacity: 0.5}}> v1.2.11 </Text>
     </View>
 
     </ScrollView>

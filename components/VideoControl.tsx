@@ -8,6 +8,7 @@ import { Ionicons } from '@expo/vector-icons';
 export class VideoControl extends React.Component {
   constructor (props) {
     super(props);
+    this.playButton = React.createRef();
     console.log("props props props");
     this.video = null;
     this.state = {
@@ -34,35 +35,24 @@ export class VideoControl extends React.Component {
 
   _playState = playStatus => {
     // console.log(playStatus["isPlaying"]);
-    if (playStatus.isPlaying == true && this.state.playOpacity == 1) {
-      // console.log("playing is ");
-      this.setState({"playOpacity": 0, "vidPlaying": true});
+    if (playStatus.isPlaying == true) {
+      console.log("playing is ");
+      this.setState({"playOpacity": 1, "vidPlaying": true});
+      console.log(this.state.vidPlaying);
     }
-    else if (playStatus.isPlaying == false && this.state.playOpacity == 0) {
-      // console.log("paused");
-      this.setState({"playOpacity": 1, "vidPlaying": false});
+    else if (playStatus.isPlaying == false && this.state.vidPlaying == true) {
+      console.log("paused");
+      this.setState({"playOpacity": 0, "vidPlaying": false});
+      console.log(this.state.vidPlaying);
     }
-    // console.log(this.state.playOpacity);
+    // console.log(this.state.vidPlaying);
   }
 
   playVideo = async () => {
-    // var stat = await this.state.playbackObject.getStatusAsync();
-    // if (stat.isPlaying == true) {
-    //   this.state.playbackObject.pauseAsync(); 
-    // }
-    // else {
-    //   console.log("not playing")
-    //   if (stat.positionMillis == stat.playableDurationMillis) {
-    //     this.state.playbackObject.replayAsync();
-    //   }
-    //   else {
-    //     this.state.playbackObject.playAsync();
-    //   }
-    // }
-    // console.log(this);
     if (this.video !== null) {
       var stat = await this.video.getStatusAsync();
       if (stat.isPlaying == true) {
+        console.log("playing")
         this.video.pauseAsync(); 
       }
       else {
@@ -75,6 +65,7 @@ export class VideoControl extends React.Component {
         }
       }
     }
+    return true;
   }
   render(){
   return(
@@ -103,6 +94,7 @@ export class VideoControl extends React.Component {
           flex: 1, 
           position: "absolute"}}>
           <TouchableOpacity 
+            ref={this.playButton}
             style={{
               backgroundColor: 'rgba(52, 52, 52, 0.4)',
               width: 80,
@@ -112,7 +104,6 @@ export class VideoControl extends React.Component {
               opacity: this.state.vidPlaying? 1:0,
               alignItems: "center"
             }}
-
             underlayColor="#111" delayPressIn={0} delayPressOut={10} onPress={this.playVideo}>
             <Ionicons name="ios-play" 
                 style={{

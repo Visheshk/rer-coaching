@@ -25,7 +25,23 @@
     },
     "android": {
       "package": "com.step.rercoach",
-      "versionCode": 6
+      "versionCode": 6,
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "data": [
+            {
+              "scheme": "rercoach",
+              "host": "coach.io",
+              // "pathPrefix": "/records"
+            },
+          ],
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ]
+        }
+      ]
     },
     "description": "",
     "githubUrl": "https://github.com/Visheshk/rer-coaching/"

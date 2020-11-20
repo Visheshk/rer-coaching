@@ -17,7 +17,7 @@ export class VideoControl extends React.Component {
       "playbackObject": null
 
     }
-    activateKeepAwake();
+    
   }
 
   componentDidUpdate(props) {
@@ -37,11 +37,13 @@ export class VideoControl extends React.Component {
     // console.log(playStatus["isPlaying"]);
     if (playStatus.isPlaying == true) {
       console.log("playing is ");
+      activateKeepAwake();
       this.setState({"playOpacity": 1, "vidPlaying": true});
       console.log(this.state.vidPlaying);
     }
     else if (playStatus.isPlaying == false && this.state.vidPlaying == true) {
       console.log("paused");
+      deactivateKeepAwake();
       this.setState({"playOpacity": 0, "vidPlaying": false});
       console.log(this.state.vidPlaying);
     }

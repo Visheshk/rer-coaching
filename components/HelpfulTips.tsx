@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Container, Header, Content, Accordion } from "native-base";
 
-import { View, Text, Keyboard, StyleSheet, Image, TouchableOpacity, Dimensions } from 'react-native';
+import { View, Text, Keyboard, StyleSheet, Image, TouchableOpacity, Dimensions, Linking } from 'react-native';
 
 import ImageView from "react-native-image-viewing";
 import phone from '../assets/tips/img1.png';
@@ -39,6 +39,11 @@ export class HelpfulTips extends React.Component {
   
   }
 
+  openLink = () => {
+    console.log("opening link");
+    Linking.openURL("https://support.google.com/pixelphone/?hl=en#topic=7078250");
+  }
+
 
   // Keyboard.dismiss();
 
@@ -60,9 +65,9 @@ export class HelpfulTips extends React.Component {
             <Text style={styles.header}> Set up your device </Text>
             <Text style={styles.body}> 
             Turn up your volume so you can hear our videos, audio clips, and Floppy.
-            {"\n"} {"\n"}
-            New to Androids and need more help? For more information, visit https://support.google.com/
-  pixelphone/?hl=en#topic=7078250 
+            {"\n"} </Text>
+            <Text style={styles.link} onPress={() => this.openLink()}> 
+            New to Androids and need more help? Click here for more information. 
             </Text>
           </View>
           <View style={this.state.imageState}>
@@ -110,5 +115,11 @@ const styles = StyleSheet.create({
 
   body: {
     fontSize: 16
+  },
+
+  link: {
+    fontSize: 16,
+    color: "blue",
+    textDecorationLine: "underline"
   }
 })

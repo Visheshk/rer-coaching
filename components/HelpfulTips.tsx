@@ -44,7 +44,14 @@ export class HelpfulTips extends React.Component {
     Linking.openURL("https://support.google.com/pixelphone/?hl=en#topic=7078250");
   }
 
-
+  makeBullet = (text) => {
+    return (
+      <View style={ styles.row }>
+        <View style={ styles.bullet }><Text>{'\u2022' + " "}</Text></View>
+        <View style={ styles.bulletText }><Text>{text}</Text></View>
+      </View>
+    );
+  }
   // Keyboard.dismiss();
 
   // handleOnPress = () => 
@@ -80,8 +87,9 @@ export class HelpfulTips extends React.Component {
         <Text style={styles.body}> It's simple to get started! Tap on the Coaching Experience (and Let's Read) to begin {"\n"}</Text>
 
         <Text style={styles.header}> Coaching Experience </Text>
-        <Text style={styles.body}> &bull; {"\t"} View or check-off all R.E.A.D.Y. videos to start using the coaching experience activity {"\n"}</Text>        
-        <Text style={styles.body}> &bull; {"\t"} Buttons to know:</Text>        
+        {this.makeBullet("View or check-off all R.E.A.D.Y. videos to start using the coaching experience activity")}
+        {this.makeBullet("Buttons to know:")}
+        
         <View style={{flexDirection: "row", flex: 2, marginTop: -10, marginBottom: -30}}>
           <TouchableOpacity style={{width: "50%", maxHeight: 150}} onPress={() => this.setState({"galleryVisible": true, "bigImage": 1}) }>
             <Image source={i2}  style={{width: "100%", maxHeight: 150, resizeMode: 'contain'}} />
@@ -93,14 +101,15 @@ export class HelpfulTips extends React.Component {
         </View>
 
         <Text style={styles.header}> {"\n"}Read Aloud with Floppy</Text>
-        <Text style={styles.body}> &bull; {"\t"} There are 5 books to read with your child. Scroll down if you don't see all 5 in the menu.</Text>        
-        <Text style={styles.body}> &bull; {"\t"} When reading with your child, you should hear Floppy’s prompts within the first few pages. If you don’t, tap “Debug” to see a transcript of what Floppy heard you say. Nothing transcribed in Debug? Check your internet and/or contact us.</Text>        
-        <Text style={styles.body}> &bull; {"\t"} Button to know: </Text>
+        {this.makeBullet("There are 5 books to read with your child. Scroll down if you don't see all 5 in the menu.")}
+        {this.makeBullet("When reading with your child, you should hear Floppy’s prompts within the first few pages. If you don’t, tap “Debug” to see a transcript of what Floppy heard you say. Nothing transcribed in Debug? Check your internet and/or contact us.")}
+        {this.makeBullet("Button to know:")}
         <View style={{flexDirection: "row", flex: 2, marginTop: -30, marginBottom: -30}}>
           <TouchableOpacity style={{width: "90%", maxHeight: 150}} onPress={() => this.setState({"galleryVisible": true, "bigImage": 3}) }>
             <Image source={i4}   style={{width: "90%", resizeMode: 'contain'}}/>
           </TouchableOpacity>
         </View>
+
         </Content>
       </Container>
     );
@@ -114,12 +123,26 @@ const styles = StyleSheet.create({
   },
 
   body: {
-    fontSize: 16
+    // fontSize: 16
   },
 
   link: {
-    fontSize: 16,
+    // fontSize: 16,
     color: "blue",
     textDecorationLine: "underline"
+  },
+
+  row: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    flexWrap: 'wrap',
+    flex: 1,
+    marginVertical: 4
+  },
+  bullet: {
+    width: 10
+  },
+  bulletText: {
+    flex: 1
   }
 })

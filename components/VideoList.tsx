@@ -7,7 +7,8 @@ import { styles } from '../style';
 
 import { Audio, Video } from 'expo-av';
 import VideoPlayer from 'expo-video-player';
-import { useKeepAwake } from 'expo-keep-awake';
+import { VideoControl } from './VideoControl';
+// import { useKeepAwake } from 'expo-keep-awake';
 
 import { updateSeenScreens } from '../extras/methods.tsx';
 import Letsread from '../assets/images/letsread2.png'; 
@@ -106,7 +107,7 @@ export function VideoList({navigation, route}) {
 
   };
   storeData();
-  useKeepAwake();
+  // useKeepAwake();
 
   // setVidStatus(await AsyncStorage.getItem("videoStatus"));
   // console.log(vidStatus);
@@ -190,15 +191,9 @@ export function VideoList({navigation, route}) {
 
 		<Container>
       <Content>
-        <VideoPlayer
-          showControlsOnLoad={true}
+        <VideoControl
           height={400}
-          switchToPortrait= {()=> {}}
-          videoProps={{
-            source : { uri: 'https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/coaching-tut.mp4?raw=true', overrideFileExtensionAndroid: 'mp4' },
-            resizeMode : Video.RESIZE_MODE_CONTAIN,
-            shouldPlay: false,
-          }}
+          uri='https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/coaching-tut.mp4?raw=true'
         />
       
         <Card style={{flex: 0}}>

@@ -12,37 +12,23 @@ import Letsread from '../assets/images/letsread2.png';
 import Videos from '../assets/images/videos2.png'; 
 import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Icon, Left, Right, Body } from 'native-base';
 
-const videoUrls1 = [
-  {"title": "Introduction to R.E.A.D.Y", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/welcome.mp4?raw=true"},
-  {"title": "How to use the Coaching Experience", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/coaching-tut.mp4?raw=true"},
-  {"title": "How to Read With Floppy", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/floppy-tut.mp4?raw=true"}
-]
-
-const videoUrls2 = [
-  {"title": "Recall the Past", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Recall%20The%20Past%20Final%20V2.mp4?raw=true"},
-  {"title": "Explain New Words or Ideas", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Explain%20New%20Words%20Or%20Ideas%20Final%20V2.mp4?raw=true"},
-  {"title": "Ask Questions", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Ask%20Questions%20Final%20V2.mp4?raw=true"},
-  {"title": "Discuss the Future", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Discuss%20The%20Future%20Final%20V2.mp4?raw=true"},
-  {"title": "You Can Make a Difference", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/You%20Can%20Make%20A%20Difference%20Final%20V2.mp4?raw=true"},
-]
-
 const videoUrls = [
-  {"title": "Introduction to R.E.A.D.Y", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/welcome.mp4?raw=true"},
-  {"title": "How to use the Coaching Experience", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/coaching-tut.mp4?raw=true"},
-  {"title": "How to Read With Floppy", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/floppy-tut.mp4?raw=true"},
-  {"title": "", "url": ""},
-  {"title": "Recall the Past", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Recall%20The%20Past%20Final%20V2.mp4?raw=true"},
-  {"title": "Explain New Words or Ideas", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Explain%20New%20Words%20Or%20Ideas%20Final%20V2.mp4?raw=true"},
-  {"title": "Ask Questions", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Ask%20Questions%20Final%20V2.mp4?raw=true"},
-  {"title": "Discuss the Future", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Discuss%20The%20Future%20Final%20V2.mp4?raw=true"},
-  {"title": "You Can Make a Difference", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/You%20Can%20Make%20A%20Difference%20Final%20V2.mp4?raw=true"}, 
+  {"key": "l1", "title": "Introduction to R.E.A.D.Y", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/welcome.mp4?raw=true"},
+  {"key": "l2", "title": "How to use the Coaching Experience", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/coaching-tut.mp4?raw=true"},
+  {"key": "l3", "title": "How to Read With Floppy", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/floppy-tut.mp4?raw=true"},
+  {"key": "l4", "title": "", "url": ""},
+  {"key": "l5", "title": "Recall the Past", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Recall%20The%20Past%20Final%20V2.mp4?raw=true"},
+  {"key": "l6", "title": "Explain New Words or Ideas", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Explain%20New%20Words%20Or%20Ideas%20Final%20V2.mp4?raw=true"},
+  {"key": "l7", "title": "Ask Questions", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Ask%20Questions%20Final%20V2.mp4?raw=true"},
+  {"key": "l8", "title": "Discuss the Future", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Discuss%20The%20Future%20Final%20V2.mp4?raw=true"},
+  {"key": "l9", "title": "You Can Make a Difference", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/You%20Can%20Make%20A%20Difference%20Final%20V2.mp4?raw=true"}, 
 ]
 
 const SEEN_OPACITY = 0.6;
 export class AllVideoList extends React.Component {
   constructor (props) {
     super(props);
-    console.log(this.props);
+    // console.log(this.props);
 
   }
 

@@ -6,7 +6,8 @@ import * as SplashScreen  from 'expo-splash-screen';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import { Audio, Video } from 'expo-av';
 import VideoPlayer from 'expo-video-player';
-import { useKeepAwake, activateKeepAwake } from 'expo-keep-awake';
+import { VideoControl } from './components/VideoControl';
+// import { useKeepAwake, activateKeepAwake } from 'expo-keep-awake';
 // import Slider from '@react-native-community/slider';
 
 import { Formik, ErrorMessage } from 'formik';
@@ -34,7 +35,7 @@ import { FloppyPage } from './components/FloppyPage';
 
 import { styles } from './style';
 
-import { Ionicons } from '@expo/vector-icons';
+// import { Ionicons } from '@expo/vector-icons';
 
 // import { Material } from '@expo/vector-icons';
 
@@ -68,7 +69,7 @@ function LoginScreen ( {route, navigation} ) {
   };
   
   let playbackObject;
-  useKeepAwake();
+  // useKeepAwake();
 
   var _handleVideoRef = component => {
     playbackObject = component;
@@ -111,31 +112,11 @@ function LoginScreen ( {route, navigation} ) {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <View style={styles.container}>
       <Text style={styles.title}>R.E.A.D.Y. to Read</Text>
-      
-       <VideoPlayer
-        height={300}
-        width={Dimensions.get('window').width*0.95}
-        showControlsOnLoad={true}
-        inFullscreen={true}
-        videoProps={{
-          shouldPlay: false,
-          resizeMode: "contain",
-          source: {
-            uri: 'https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/welcome.mp4?raw=true',
-          },
-        }}
-        switchToLandscape={() => 
-          ScreenOrientation.lockAsync(ScreenOrientation.Orientation.LANDSCAPE_LEFT)
-        }
-        switchToPortrait={() => 
-          ScreenOrientation.lockAsync(ScreenOrientation.Orientation.LANDSCAPE_LEFT)
-        }
-
-      />
-      
-      
+        <VideoControl
+          height={300}
+          uri='https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/welcome.mp4?raw=true'
+        />
       <Text> {"\n"} </Text>
-      
       <Formik
         initialValues={userInfo}
         enableReinitialize = {true}
@@ -239,7 +220,7 @@ function LoginScreen ( {route, navigation} ) {
     </View>
     </TouchableWithoutFeedback>
     <View style={{position: 'absolute', bottom: 0}}>
-      <Text style={{textAlign: "right", fontSize: 10, padding: 10, opacity: 0.5}}> v1.2.11 </Text>
+      <Text style={{textAlign: "right", fontSize: 10, padding: 10, opacity: 0.5}}> v1.2.12 </Text>
     </View>
 
     </ScrollView>
@@ -265,7 +246,7 @@ export default function App(props) {
         SplashScreen.preventAutoHideAsync();
         console.log("loading font ideally");
         await Expo.Font.loadAsync({
-          Ionicons
+          // Ionicons
           // , Material
           // 'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
         });

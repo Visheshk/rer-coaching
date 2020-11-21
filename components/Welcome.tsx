@@ -42,7 +42,11 @@ export class WelcomeScreen extends React.Component {
 
     };
     
-    navigation.setOptions({ "headerRight": () => (
+    
+  }
+
+  componentDidMount() {
+    this.props.navigation.setOptions({ "headerRight": () => (
       <Button 
         color = "#AAA"
         onPress={() => navigation.navigate("Login")}
@@ -50,9 +54,6 @@ export class WelcomeScreen extends React.Component {
 
       />
     )});
-  }
-
-  componentDidMount() {
    const getUInfo = async () => {
     // console.log("getting user info")
     AsyncStorage.getItem('userInfo').then(response =>  {
@@ -234,7 +235,7 @@ export class WelcomeScreen extends React.Component {
             </View>
           </View>
           <View style={{position: 'absolute', top: 0}}>
-            <Text style={{textAlign: "right", fontSize: 9, padding: 10, opacity: 0.5}}> v1.2.11 </Text>
+            <Text style={{textAlign: "right", fontSize: 9, padding: 10, opacity: 0.5}}> v1.2.12 </Text>
           </View>
       	</View>
         <Card style={{flex: 0}}>

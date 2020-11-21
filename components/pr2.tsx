@@ -146,9 +146,19 @@ export class PR2 extends React.Component {
     // Keyboard.dismiss();
   }
 
+  componentWillUnmount() {
+    this._stopRecordingAndEnablePlayback();
+    if (this.sound !== null) {
+      this.sound.unloadAsync();
+      this.sound.setOnPlaybackStatusUpdate(null);
+      this.sound = null;
+    }
+  }
+
   componentDidUpdate(props) {
     if ("page" in props) {
       if (this.state.currentPage != parseInt(props.page) && props.page != null){
+        this._stopRecordingAndEnablePlayback()
         console.log("page props: " + props.page);
         var thisPage = parseInt(props.page);
         console.log(thisPage);
@@ -333,8 +343,6 @@ export class PR2 extends React.Component {
     } catch (error) {
       // Do nothing -- we are already unloaded.
     }
-    const info = await FileSystem.getInfoAsync(this.recording.getURI());
-    console.log(`FILE INFO: ${JSON.stringify(info)}`);
     await Audio.setAudioModeAsync({
       allowsRecordingIOS: false,
       interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
@@ -345,18 +353,24 @@ export class PR2 extends React.Component {
       playThroughEarpieceAndroid: false,
       staysActiveInBackground: true,
     });
-    const { sound, status } = await this.recording.createNewLoadedSoundAsync(
-      {
-        isLooping: false,
-        isMuted: this.state.muted,
-        volume: this.state.volume,
-        rate: this.state.rate,
-        shouldCorrectPitch: this.state.shouldCorrectPitch,
-      },
-      this._updateScreenForSoundStatus
-    );
-    this.sound = sound;
-    await AsyncStorage.setItem(('bookRec' + this.state.currentPage), info.uri);
+
+    if (this.recording){
+      const info = await FileSystem.getInfoAsync(this.recording.getURI());
+      console.log(`FILE INFO: ${JSON.stringify(info)}`);
+      const { sound, status } = await this.recording.createNewLoadedSoundAsync(
+        {
+          isLooping: false,
+          isMuted: this.state.muted,
+          volume: this.state.volume,
+          rate: this.state.rate,
+          shouldCorrectPitch: this.state.shouldCorrectPitch,
+        },
+        this._updateScreenForSoundStatus
+      );
+      this.sound = sound;
+      await AsyncStorage.setItem(('bookRec' + this.state.currentPage), info.uri);  
+    }
+
     this.setState({
       isLoading: false,
     });

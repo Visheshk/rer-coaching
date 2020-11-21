@@ -110,6 +110,8 @@ export class HelpfulTips extends React.Component {
           </TouchableOpacity>
         </View>
 
+        <Text style={styles.header}> {"\n"}Remember to have fun! this is a no stakes, no stress app made just for you!</Text>
+        <Text style={styles.link} onPress={() => {Linking.openURL("mailto:ilanasch@mit.edu")}}> {"\n"}Still have questions? Feel free to e-mail us at ilanasch@mit.edu.</Text>
         </Content>
       </Container>
     );

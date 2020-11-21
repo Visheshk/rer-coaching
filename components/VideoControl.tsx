@@ -26,6 +26,11 @@ export class VideoControl extends React.Component {
 
   }
 
+  toggleButton(){
+    console.log("toggling button");
+    this.setState({"vidPlaying": !this.state.vidPlaying});
+  }
+
   // const [vidPlaying, setVidPlaying] = React.useState(false);
   // const [playOpacity, setPlayOpacity] = React.useState(1);
   // let vidUri = 
@@ -35,22 +40,23 @@ export class VideoControl extends React.Component {
     this.video = component; 
   }
 
-  _playState = playStatus => {
+  _playState = async (playStatus) => {
     // console.log(playStatus);
     if (playStatus.isPlaying == true && this.state.vidPlaying == false) {
       console.log("playing is ");
       activateKeepAwake();
-      // this.setState({"vidPlaying": true});
+      this.toggleButton();
       // console.log(this.state.vidPlaying);
       // console.log(playStatus);
     }
     else if (playStatus.isPlaying == false && this.state.vidPlaying == true) {
-      // console.log("paused");
+      console.log("paused");
       deactivateKeepAwake();
-      this.setState({"vidPlaying": false});
+      this.toggleButton();
       // console.log(this.state.vidPlaying);
       // console.log(playStatus);
       // if (playStatus)
+
     }
     // console.log(this.state.vidPlaying);
   }

@@ -32,9 +32,9 @@
           "data": [
             {
               "scheme": "rercoach",
-              "host": "coach.io",
-              // "pathPrefix": "/records"
-            },
+              "host": "*.coach.io",
+              "pathPrefix": "/*"
+            }
           ],
           "category": [
             "BROWSABLE",

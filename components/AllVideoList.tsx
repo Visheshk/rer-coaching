@@ -55,7 +55,7 @@ export class AllVideoList extends React.Component {
               )
             }
             return(
-              <TouchableOpacity onPress={() => this.goToVideo(vurl.title, vurl.url)}>
+              <TouchableOpacity key={vurl.key} onPress={() => this.goToVideo(vurl.title, vurl.url)}>
               <CardItem bordered>
               <Text>{vurl.title}</Text>
               <Left />

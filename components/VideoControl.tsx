@@ -22,6 +22,7 @@ export class VideoControl extends React.Component {
 
   componentDidUpdate(props) {
     // console.log(props);
+
   }
 
   // const [vidPlaying, setVidPlaying] = React.useState(false);
@@ -34,18 +35,21 @@ export class VideoControl extends React.Component {
   }
 
   _playState = playStatus => {
-    // console.log(playStatus["isPlaying"]);
+    // console.log(playStatus);
     if (playStatus.isPlaying == true && this.state.vidPlaying == false) {
       console.log("playing is ");
       activateKeepAwake();
-      this.setState({"vidPlaying": true});
-      console.log(this.state.vidPlaying);
+      // this.setState({"vidPlaying": true});
+      // console.log(this.state.vidPlaying);
+      // console.log(playStatus);
     }
     else if (playStatus.isPlaying == false && this.state.vidPlaying == true) {
-      console.log("paused");
+      // console.log("paused");
       deactivateKeepAwake();
       this.setState({"vidPlaying": false});
-      console.log(this.state.vidPlaying);
+      // console.log(this.state.vidPlaying);
+      // console.log(playStatus);
+      // if (playStatus)
     }
     // console.log(this.state.vidPlaying);
   }
@@ -120,7 +124,7 @@ export class VideoControl extends React.Component {
           </TouchableOpacity>
 
         </View>
-        <Text style={{flex: 1, fontSize: 30, position: "absolute"}}> Terst {this.state.vidPlaying? 1:0} </Text>
+        
 
       </View>
   )

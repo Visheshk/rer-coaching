@@ -112,7 +112,7 @@ export function VideoWatch({navigation, route}) {
 
 	return (
 		<View style={{flex: 1, flexDirection: "column"}}>
-      <VideoControl uri={vidUri} />
+      <VideoControl uri={vidUri} height={400}/>
 
       <View style={{ flex: 1, flexDirection: "row", width: "100%" }}>          
         <View style={{ flex: 1, alignItems: "flex-start", margin: 20}}>

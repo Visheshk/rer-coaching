@@ -10,6 +10,7 @@ export class VideoControl extends React.Component {
     super(props);
     this.playButton = React.createRef();
     console.log("props props props");
+    console.log(props);
     this.video = null;
     this.state = {
       "vidPlaying": true,
@@ -86,7 +87,7 @@ export class VideoControl extends React.Component {
           useNativeControls={true}
           shouldPlay={false}
           isLooping={false}
-          style={{ height: 400 }}
+          style={{ height: this.props.height }}
           ref={this._handleVideoRef}
           onPlaybackStatusUpdate={this._playState}
         />

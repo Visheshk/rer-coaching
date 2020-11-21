@@ -22,7 +22,7 @@ export class VideoPage extends React.Component {
   render(){
     return (
       <View style={{flex: 1, flexDirection: "column"}}>
-        <VideoControl uri={this.props.route.params.url} />
+        <VideoControl uri={this.props.route.params.url} height={400}/>
       </View>
 
     );  

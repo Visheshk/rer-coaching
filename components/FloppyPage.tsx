@@ -8,6 +8,7 @@ import 'react-native-gesture-handler';
 import { useKeepAwake } from 'expo-keep-awake';
 import { AsyncStorage } from 'react-native'
 import VideoPlayer from 'expo-video-player';
+import { VideoControl } from './VideoControl';
 import { Audio, Video } from 'expo-av';
 import { Asset } from 'expo-asset';
 // import { AVPlaybackStatus, VideoProps } from 'expo-av/build/Video'

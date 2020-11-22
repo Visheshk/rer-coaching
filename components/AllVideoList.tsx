@@ -47,7 +47,7 @@ export class AllVideoList extends React.Component {
           videoUrls.map( (vurl) => {
             if (vurl["title"] == "") {
               return(
-                <CardItem bordered>
+                <CardItem bordered key={vurl.key}>
                 <Text> </Text>
                 <Left />
                 
@@ -56,16 +56,16 @@ export class AllVideoList extends React.Component {
             }
             return(
               <TouchableOpacity key={vurl.key} onPress={() => this.goToVideo(vurl.title, vurl.url)}>
-              <CardItem bordered>
-              <Text>{vurl.title}</Text>
-              <Left />
-              <Right style={{alignSelf: "flex-end"}}>
-                <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
-                  <Icon name="arrow-forward" />
-                </View>
-              </Right>
-              </CardItem>
-            </TouchableOpacity>
+                <CardItem bordered>
+                  <Text>{vurl.title}</Text>
+                  <Left />
+                  <Right style={{alignSelf: "flex-end"}}>
+                    <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
+                      <Icon name="arrow-forward" />
+                    </View>
+                  </Right>
+                </CardItem>
+              </TouchableOpacity>
           )
           })
         }

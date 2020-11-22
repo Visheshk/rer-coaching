@@ -10,6 +10,7 @@
     "version": "1",
     "orientation": "default",
     "icon": "./assets/icon.png",
+    "scheme": "rercoach",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",

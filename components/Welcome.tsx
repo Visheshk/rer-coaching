@@ -46,6 +46,7 @@ export class WelcomeScreen extends React.Component {
   }
 
   componentDidMount() {
+    // console.log(Linking.makeUrl('path'));
     this.props.navigation.setOptions({ "headerRight": () => (
       <Button 
         color = "#AAA"

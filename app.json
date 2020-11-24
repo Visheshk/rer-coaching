@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "rer-coach",
+    "name": "R.E.A.D.Y.",
     "slug": "rer-coach",
     "platforms": [
       "ios",
@@ -10,6 +10,7 @@
     "version": "1",
     "orientation": "default",
     "icon": "./assets/icon.png",
+    
     "scheme": "rercoach",
     "splash": {
       "image": "./assets/splash.png",
@@ -17,7 +18,8 @@
       "backgroundColor": "#ffffff"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "enabled": true,
+      "fallbackToCacheTimeout": 50000
     },
     "ios": {
       "supportsTablet": true,
@@ -27,6 +29,10 @@
     "android": {
       "package": "com.step.rercoach",
       "versionCode": 6,
+      "adaptiveIcon": { 
+        "foregroundImage": "./assets/text.png",
+        "backgroundImage": "./assets/background.png"
+      },
       "intentFilters": [
         {
           "action": "VIEW",

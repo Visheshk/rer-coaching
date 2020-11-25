@@ -8,6 +8,7 @@ import phone from '../assets/tips/img1.png';
 import i2 from '../assets/tips/img2.png';
 import i3 from '../assets/tips/img3.png';
 import i4 from '../assets/tips/img4.png';
+import { Feather } from '@expo/vector-icons'; 
 
 
 const dataArray = [
@@ -67,9 +68,11 @@ export class HelpfulTips extends React.Component {
         onRequestClose={() => this.setState({"galleryVisible": false})}
       />
         <Content padder>
+
         <View style={{flexDirection: "row", flex: 1}}>
+
           <View style={{flex: 1}}>
-            <Text style={styles.header}> Set up your device </Text>
+            <Text style={[styles.header]}>Set up your device. </Text>    
             <Text style={styles.body}> 
             Turn up your volume so you can hear our videos, audio clips, and Floppy.
             {"\n"} </Text>
@@ -80,23 +83,33 @@ export class HelpfulTips extends React.Component {
           <View style={this.state.imageState}>
               <TouchableOpacity onPress={() => this.setState({"galleryVisible": true, "bigImage": 0}) }>
                 <Image source={phone}  style={{maxWidth: "100%", height: 250, resizeMode: 'contain'}} />
+                <View style={styles.maxIcon}>
+                  <Feather name="maximize-2" size={18} color="grey" />
+                </View>
               </TouchableOpacity>
           </View>
         </View>
         <Text style={styles.header}>Ready to try the R.E.A.D.Y. App?</Text>
+
         <Text style={styles.body}> It's simple to get started! Tap on the Coaching Experience (and Let's Read) to begin {"\n"}</Text>
 
         <Text style={styles.header}> Coaching Experience </Text>
         {this.makeBullet("View or check-off all R.E.A.D.Y. videos to start using the coaching experience activity")}
         {this.makeBullet("Buttons to know:")}
         
-        <View style={{flexDirection: "row", flex: 2, marginTop: -10, marginBottom: -30}}>
-          <TouchableOpacity style={{width: "50%", maxHeight: 150}} onPress={() => this.setState({"galleryVisible": true, "bigImage": 1}) }>
-            <Image source={i2}  style={{width: "100%", maxHeight: 150, resizeMode: 'contain'}} />
+        <View style={{flexDirection: "row", flex: 2}}>
+          <TouchableOpacity style={styles.halfColumnButton} onPress={() => this.setState({"galleryVisible": true, "bigImage": 1}) }>
+            <Image source={i2}  style={styles.halfColumnImage} />
+            <View style={styles.maxIcon}>
+                  <Feather name="maximize-2" size={14} color="grey" />
+                </View>
           </TouchableOpacity>
 
-          <TouchableOpacity style={{width: "50%", maxHeight: 150}} onPress={() => this.setState({"galleryVisible": true, "bigImage": 2}) }>
-            <Image source={i3}  style={{width: "100%", maxHeight: 150, resizeMode: 'contain'}} />
+          <TouchableOpacity style={styles.halfColumnButton} onPress={() => this.setState({"galleryVisible": true, "bigImage": 2}) }>
+            <Image source={i3}  style={styles.halfColumnImage} />
+            <View style={styles.maxIcon}>
+              <Feather name="maximize-2" size={14} color="grey" />
+            </View>
           </TouchableOpacity>
         </View>
 
@@ -146,5 +159,15 @@ const styles = StyleSheet.create({
   },
   bulletText: {
     flex: 1
-  }
+  },
+
+  maxIcon: {
+    position: "absolute", 
+    width: "100%", 
+    alignItems: "flex-end"
+  },
+
+  halfColumnButton: {flex:1, maxHeight: 80},
+  halfColumnImage: {width:"100%", maxHeight: 80, resizeMode: "contain"},
+
 })

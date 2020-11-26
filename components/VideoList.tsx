@@ -13,6 +13,7 @@ import { VideoControl } from './VideoControl';
 import { updateSeenScreens } from '../extras/methods.tsx';
 import Letsread from '../assets/images/letsread2.png'; 
 import Videos from '../assets/images/videos2.png'; 
+import { readyVideoTitles } from './videoInfo';
 import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Icon, Left, Right, Body } from 'native-base';
 
 export function VideoList({navigation, route}) {
@@ -24,6 +25,7 @@ export function VideoList({navigation, route}) {
   const [vid2Seen, setVid2Seen] = React.useState(false);
   const [vid3Seen, setVid3Seen] = React.useState(false);
   const [vid4Seen, setVid4Seen] = React.useState(false);
+  const [vid5Seen, setVid5Seen] = React.useState(false);
 
   // const [vidStatus, setVidStatus] = React.useState()
 
@@ -112,7 +114,6 @@ export function VideoList({navigation, route}) {
   // setVidStatus(await AsyncStorage.getItem("videoStatus"));
   // console.log(vidStatus);
 
-
   React.useEffect(() => {
     setTimeout(() => {
       Keyboard.dismiss();      
@@ -146,6 +147,7 @@ export function VideoList({navigation, route}) {
   }
 
   async function setSeenStates () {
+    let v5 = await AsyncStorage.getItem('video5seen');      await setVid5Seen("true" == String(v5));
     let v0 = await AsyncStorage.getItem('video0seen');      await setVid0Seen("true" == String(v0));
     let v1 = await AsyncStorage.getItem('video1seen');      await setVid1Seen("true" == String(v1));
     let v2 = await AsyncStorage.getItem('video2seen');      await setVid2Seen("true" == String(v2));
@@ -197,6 +199,46 @@ export function VideoList({navigation, route}) {
         />
       
         <Card style={{flex: 0}}>
+          { readyVideoTitles.map ((rvt) => {
+            return(
+              <TouchableOpacity key={rvt.key} onPress={() => navigation.navigate('VideoWatch', {page: rvt.key, video: rvt.pageTitle, "name": rvt.title})}>
+                <CardItem bordered style = {{opacity: rvt.seen ? SEEN_OPACITY: 1.0}}>
+                <Thumbnail source={rvt.thumbnail} square style={styles.vidThumb}/>
+                <Text>{rvt.title}</Text>
+                <Left />
+                <Right style={{alignSelf: "flex-end"}}>
+                  <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
+                    <Text style={styles.timestamp}>{rvt.length}</Text>
+                    <TouchableOpacity onPress={() => {changeReadState("video0seen", vid0Seen);}}>
+                      <Icon name={seenIcon(vid0Seen)} style={{color: "blue", paddingRight: 20}}/>
+                    </TouchableOpacity>
+
+                    <Icon name="arrow-forward" />
+                  </View>
+                </Right>
+               </CardItem>
+               </TouchableOpacity>
+               )
+            } ) 
+          }
+         <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 0, video: 'Past', "name": "Recall the Past"})}>
+          <CardItem bordered style = {{opacity: vid0Seen ? SEEN_OPACITY: 1.0}}>
+          <Thumbnail source={require("../assets/images/video-posters/Rthumb.png")} square style={styles.vidThumb}/>
+          <Text>Recall the Past</Text>
+          <Left />
+          <Right style={{alignSelf: "flex-end"}}>
+            <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
+              <Text style={styles.timestamp}>1:30</Text>
+              <TouchableOpacity onPress={() => {changeReadState("video0seen", vid0Seen);}}>
+                <Icon name={seenIcon(vid0Seen)} style={{color: "blue", paddingRight: 20}}/>
+              </TouchableOpacity>
+
+              <Icon name="arrow-forward" />
+            </View>
+          </Right>
+         </CardItem>
+         </TouchableOpacity>
+
          <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 0, video: 'Past', "name": "Recall the Past"})}>
           <CardItem bordered style = {{opacity: vid0Seen ? SEEN_OPACITY: 1.0}}>
           <Thumbnail source={require("../assets/images/video-posters/Rthumb.png")} square style={styles.vidThumb}/>

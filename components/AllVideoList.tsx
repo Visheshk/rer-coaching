@@ -14,8 +14,9 @@ import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Icon, Left
 
 const videoUrls = [
   {"key": "l1", "title": "Introduction to R.E.A.D.Y", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/welcome.mp4?raw=true"},
-  {"key": "l2", "title": "How to use the Coaching Experience", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/coaching-tut.mp4?raw=true"},
-  {"key": "l3", "title": "How to Read With Floppy", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/floppy-tut.mp4?raw=true"},
+  {"key": "l1.5", "title": "Introduction to Coaching Experience", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Intro%20Final%20V2.mp4?raw=true"},
+  {"key": "l2", "title": "Coaching Experience Tutorial", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/coaching-tut.mp4?raw=true"},
+  {"key": "l3", "title": "Read Aloud With Floppy Tutorial", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/floppy-tut.mp4?raw=true"},
   {"key": "l4", "title": "", "url": ""},
   {"key": "l5", "title": "Recall the Past", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Recall%20The%20Past%20Final%20V2.mp4?raw=true"},
   {"key": "l6", "title": "Explain New Words or Ideas", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Explain%20New%20Words%20Or%20Ideas%20Final%20V2.mp4?raw=true"},

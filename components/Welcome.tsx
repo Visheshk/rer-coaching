@@ -50,9 +50,8 @@ export class WelcomeScreen extends React.Component {
     this.props.navigation.setOptions({ "headerRight": () => (
       <Button 
         color = "#AAA"
-        onPress={() => navigation.navigate("Login")}
+        onPress={() => this.props.navigation.navigate("Login")}
         title="Login"
-
       />
     )});
    const getUInfo = async () => {

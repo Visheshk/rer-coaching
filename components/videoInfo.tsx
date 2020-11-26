@@ -30,7 +30,7 @@ export const readyVideoTitles = [
     "title": "Coaching Experience Tutorial",
     "vidHeight": 600,
     "length": "",
-    "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Recall%20The%20Past%20Final%20V2.mp4?raw=true", 
+    "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/coaching-tut.mp4?raw=true", 
     "thumbnail": require("../assets/images/video-posters/Rthumb.png"),
     "seen": false
   },

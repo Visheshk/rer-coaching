@@ -10,7 +10,7 @@ import { Asset } from 'expo-asset';
 // import { READY } from '../assets/loginvid.mp4';
 // import { AVPlaybackStatus, VideoProps } from 'expo-av/build/Video'
 import { styles } from '../style';
-import { sources, titles } from './videoInfo';
+import { readyVideoTitles } from './videoInfo';
 import { VideoControl } from './VideoControl';
 
 
@@ -24,28 +24,6 @@ export function VideoWatch({navigation, route}) {
   const [befState, setBefState] = React.useState(false);
   const [aftState, setAftState] = React.useState(false);
 
-  const videoLinks = {
-    // "Picture": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/CheckOutThePictures.mp4?raw=true",
-    // "Connections": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/MakingLifeConnections.mp4?raw=true",
-    // "Reading Fun": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/MakingReadingFun.mp4?raw=true",
-    // "READY": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/ReadyToRead.mp4?raw=true",
-    // "Word": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/WhatsThatWord.mp4?raw=true"
-    "Past": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Recall%20The%20Past%20Final%20V2.mp4?raw=true",
-    "Ideas": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Explain%20New%20Words%20Or%20Ideas%20Final%20V2.mp4?raw=true",
-    "Questions": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Ask%20Questions%20Final%20V2.mp4?raw=true",
-    "Future": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Discuss%20The%20Future%20Final%20V2.mp4?raw=true", 
-    "Difference": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/You%20Can%20Make%20A%20Difference%20Final%20V2.mp4?raw=true",    
-  };
- 
-  const pageTitles = {
-    "Past": "Recall the Past",
-    "Ideas": "Explain New Words or Ideas",
-    "Questions": "Ask Questions",
-    "Future": "Discuss the Future",
-    "Difference": "You Can Make a Difference",
-  };
-
-  const pageList = Object.keys(pageTitles);
 
   var storeData = async (vals) => {
     try {
@@ -73,10 +51,6 @@ export function VideoWatch({navigation, route}) {
     setTimeout(() => {
       Keyboard.dismiss();      
     }, 1000);
-    // Update the document title using the browser API
-    // setThisVid()
-    // setPage(route.params.page);
-    // console.log(thisPage);
     if (thisPage == null || thisPage == undefined) {
       setPage(route.params.page);
     }
@@ -88,24 +62,29 @@ export function VideoWatch({navigation, route}) {
         await AsyncStorage.setItem(vidItem, 'true') 
       } catch (error) {console.log(error);}
     })();
-    
-    setThisVid(pageList[thisPage]);
-    setTitle(pageTitles[thisVid]);
-    navigation.setOptions({ "title": pageTitle});
-    setVidUri(videoLinks[thisVid]);
 
-    console.log(thisVid);
-    console.log(pageTitles[thisVid]);
-    console.log(vidUri);
-    setBefState(true);
-    setAftState(true);
-    if (thisPage == 0) {
-      setBefState(false);
-    }
-    // console.log(vidUri);
-    if (thisPage == 4) {
-      console.log("last page");
-      setAftState(false);
+    if (thisPage) {
+      rvt = readyVideoTitles[thisPage];
+      console.log(rvt);
+      console.log(thisPage);
+      setThisVid(rvt["pageTitle"]);
+      setTitle(rvt["title"]);
+      navigation.setOptions({ "title": pageTitle});
+      setVidUri(rvt["url"]);
+
+      console.log(thisVid);
+      // console.log(pageTitles[thisVid]);
+      console.log(vidUri);
+      setBefState(true);
+      setAftState(true);
+      if (thisPage == 0) {
+        setBefState(false);
+      }
+      // console.log(vidUri);
+      if (thisPage == 5) {
+        console.log("last page");
+        setAftState(false);
+      }
     }
 
   });

@@ -26,6 +26,7 @@ export function VideoList({navigation, route}) {
   const [vid3Seen, setVid3Seen] = React.useState(false);
   const [vid4Seen, setVid4Seen] = React.useState(false);
   const [vid5Seen, setVid5Seen] = React.useState(false);
+  const [seenList, setSeenList] = React.useState([false, false, false, false, false]);
 
   // const [vidStatus, setVidStatus] = React.useState()
 
@@ -134,6 +135,8 @@ export function VideoList({navigation, route}) {
     // console.log(v0 + v1 + v2 + v3);
     rc = ((v0=="true")? 1: 0) + ((v1=="true")? 1: 0) + ((v2=="true")? 1: 0) + ((v3=="true")? 1: 0) + ((v4=="true")? 1: 0);
     console.log("Rc is " + rc);
+    setSeenList([JSON.parse(v0), JSON.parse(v1), JSON.parse(v2), JSON.parse(v3), JSON.parse(v4)]);
+    console.log(seenList);
     setReadCount(rc);
     if (rc > 4) {
       setReadAll(true);
@@ -147,7 +150,7 @@ export function VideoList({navigation, route}) {
   }
 
   async function setSeenStates () {
-    let v5 = await AsyncStorage.getItem('video5seen');      await setVid5Seen("true" == String(v5));
+    // let v5 = await AsyncStorage.getItem('video5seen');      await setVid5Seen("true" == String(v5));
     let v0 = await AsyncStorage.getItem('video0seen');      await setVid0Seen("true" == String(v0));
     let v1 = await AsyncStorage.getItem('video1seen');      await setVid1Seen("true" == String(v1));
     let v2 = await AsyncStorage.getItem('video2seen');      await setVid2Seen("true" == String(v2));
@@ -158,6 +161,7 @@ export function VideoList({navigation, route}) {
     // console.log(vid0Seen + " " + vid1Seen + " " + vid2Seen + " " + vid3Seen);
     // await setReadCount((vid0Seen? 1: 0) + (vid1Seen? 1: 0) + (vid2Seen? 1: 0) + (vid3Seen? 1: 0));
     updateReadCount(v0, v1, v2, v3, v4);
+    console.log(seenList);
     
     // console.log("seen states " + readCount);
 
@@ -172,7 +176,17 @@ export function VideoList({navigation, route}) {
     }
   }
 
-  async function changeReadState(vidName, seenState) {
+  async function changeReadState(index) {
+    // console.log(vidName);
+    // console.log(vidName + seenState);
+    let vidName = "video" + index.toString() + "seen";
+    let seenState = JSON.parse(seenList[index]);
+    console.log(vidName + " " + seenState + !seenState);
+    await AsyncStorage.setItem(vidName, String(!seenState));
+    setSeenStates();
+  }
+
+  async function changeReadState2(vidName, seenState) {
     // console.log(vidName);
     // console.log(vidName + seenState);
     await AsyncStorage.setItem(vidName, String(!seenState));
@@ -182,7 +196,7 @@ export function VideoList({navigation, route}) {
   function letsReadButton() { 
     console.log("pressing this butting");
     if (readCount > 4) {navigation.navigate("BookList");}
-    else {Alert.alert("Unlocks after videos","See all videos to unlock access to recording experience", 
+    else {Alert.alert("Unlocks after videos","See all videos to access recording experience", 
        [
         { text: "OK", onPress: () => console.log("OK Pressed") }
       ],
@@ -199,17 +213,17 @@ export function VideoList({navigation, route}) {
         />
       
         <Card style={{flex: 0}}>
-          { readyVideoTitles.map ((rvt) => {
+          { readyVideoTitles.map ((rvt, index) => {
             return(
               <TouchableOpacity key={rvt.key} onPress={() => navigation.navigate('VideoWatch', {"page": rvt["key"], "video": rvt["pageTitle"], "name": rvt["title"]})}>
-                <CardItem bordered style = {{opacity: rvt.seen ? SEEN_OPACITY: 1.0}}>
+                <CardItem bordered style = {{opacity: seenList[index] ? SEEN_OPACITY: 1.0}}>
                 <Thumbnail source={rvt.thumbnail} square style={styles.vidThumb}/>
                 <Text>{rvt.title}</Text>
                 <Left />
                 <Right style={{alignSelf: "flex-end"}}>
                   <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
                     <Text style={styles.timestamp}>{rvt.length}</Text>
-                    <TouchableOpacity onPress={() => {changeReadState("video0seen", vid0Seen);}}>
+                    <TouchableOpacity onPress={() => {changeReadState(index);}}>
                       <Icon name={seenIcon(vid0Seen)} style={{color: "blue", paddingRight: 20}}/>
                     </TouchableOpacity>
 

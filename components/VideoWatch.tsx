@@ -1,9 +1,8 @@
 import React from 'react';
-import { Text, View, TouchableHighlight, TouchableOpacity, StyleSheet, TextInput, Alert, Keyboard } from 'react-native';
+import { Text, View, TouchableHighlight, TouchableOpacity, StyleSheet, TextInput, Alert } from 'react-native';
 import { Button } from 'react-native-elements';
 
 import 'react-native-gesture-handler';
-import { useKeepAwake } from 'expo-keep-awake';
 import { AsyncStorage } from 'react-native';
 import { Audio, Video } from 'expo-av';
 import { Asset } from 'expo-asset';
@@ -32,7 +31,6 @@ export function VideoWatch({navigation, route}) {
 
   };
   storeData();
-  useKeepAwake();
 
   function changeVideo(dir) {
     let newPage = thisPage + dir;
@@ -48,9 +46,6 @@ export function VideoWatch({navigation, route}) {
   });
 
   React.useEffect(() => {
-    setTimeout(() => {
-      Keyboard.dismiss();      
-    }, 1000);
     if (thisPage == null || thisPage == undefined) {
       setPage(route.params.page);
     }
@@ -63,7 +58,7 @@ export function VideoWatch({navigation, route}) {
       } catch (error) {console.log(error);}
     })();
 
-    if (thisPage) {
+    if (Number.isInteger(thisPage)) {
       rvt = readyVideoTitles[thisPage];
       console.log(rvt);
       console.log(thisPage);

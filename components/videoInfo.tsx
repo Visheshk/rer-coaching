@@ -24,19 +24,9 @@ export const titles = [
   };
 
 export const readyVideoTitles = [
-  {
-    "pageTitle": "Tutorial", 
-    "key": 0,
-    "title": "Coaching Experience Tutorial",
-    "vidHeight": 600,
-    "length": "",
-    "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/coaching-tut.mp4?raw=true", 
-    "thumbnail": require("../assets/images/video-posters/Rthumb.png"),
-    "seen": false
-  },
  {
     "pageTitle": "Recall", 
-    "key": 1,
+    "key": 0,
     "title": "Recall the Past",
     "length": "1:30",
     "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Recall%20The%20Past%20Final%20V2.mp4?raw=true", 
@@ -45,7 +35,7 @@ export const readyVideoTitles = [
   },
    {
     "pageTitle": "Explain", 
-    "key": 2,
+    "key": 1,
     "title": "Explain New Words or Ideas",
     "length": "1:17",
     "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Explain%20New%20Words%20Or%20Ideas%20Final%20V2.mp4?raw=true", 
@@ -54,7 +44,7 @@ export const readyVideoTitles = [
   },
    {
     "pageTitle": "Ask", 
-    "key": 3,
+    "key": 2,
     "title": "Ask Questions",
     "length": "0:59",
     "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Ask%20Questions%20Final%20V2.mp4?raw=true", 
@@ -63,7 +53,7 @@ export const readyVideoTitles = [
   },
    {
     "pageTitle": "Discuss", 
-    "key": 4,
+    "key": 3,
     "title": "Discuss The Future",
     "length": "1:17",
     "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Discuss%20The%20Future%20Final%20V2.mp4?raw=true", 
@@ -72,7 +62,7 @@ export const readyVideoTitles = [
   },
    {
     "pageTitle": "Difference", 
-    "key": 5,
+    "key": 4,
     "title": "You Can Make a Difference",
     "length": "1:27",
     "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/You%20Can%20Make%20A%20Difference%20Final%20V2.mp4?raw=true", 

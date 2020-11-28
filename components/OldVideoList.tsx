@@ -16,7 +16,7 @@ import Videos from '../assets/images/videos2.png';
 import { readyVideoTitles } from './videoInfo';
 import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Icon, Left, Right, Body } from 'native-base';
 
-export function VideoList({navigation, route}) {
+export function VLOld({navigation, route}) {
 	// render() {
   // const classes = useStyles();
   const [userInfo, setUserInfo] = React.useState();
@@ -194,14 +194,14 @@ export function VideoList({navigation, route}) {
 		<Container>
       <Content>
         <VideoControl
-          height={350}
+          height={400}
           uri='https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/coaching-tut.mp4?raw=true'
         />
       
         <Card style={{flex: 0}}>
           { readyVideoTitles.map ((rvt) => {
             return(
-              <TouchableOpacity key={rvt.key} onPress={() => navigation.navigate('VideoWatch', {"page": rvt["key"], "video": rvt["pageTitle"], "name": rvt["title"]})}>
+              <TouchableOpacity key={rvt.key} onPress={() => navigation.navigate('VideoWatch', {page: rvt.key, video: rvt.pageTitle, "name": rvt.title})}>
                 <CardItem bordered style = {{opacity: rvt.seen ? SEEN_OPACITY: 1.0}}>
                 <Thumbnail source={rvt.thumbnail} square style={styles.vidThumb}/>
                 <Text>{rvt.title}</Text>
@@ -221,6 +221,117 @@ export function VideoList({navigation, route}) {
                )
             } ) 
           }
+         <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 0, video: 'Past', "name": "Recall the Past"})}>
+          <CardItem bordered style = {{opacity: vid0Seen ? SEEN_OPACITY: 1.0}}>
+          <Thumbnail source={require("../assets/images/video-posters/Rthumb.png")} square style={styles.vidThumb}/>
+          <Text>Recall the Past</Text>
+          <Left />
+          <Right style={{alignSelf: "flex-end"}}>
+            <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
+              <Text style={styles.timestamp}>1:30</Text>
+              <TouchableOpacity onPress={() => {changeReadState("video0seen", vid0Seen);}}>
+                <Icon name={seenIcon(vid0Seen)} style={{color: "blue", paddingRight: 20}}/>
+              </TouchableOpacity>
+
+              <Icon name="arrow-forward" />
+            </View>
+          </Right>
+         </CardItem>
+         </TouchableOpacity>
+
+         <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 0, video: 'Past', "name": "Recall the Past"})}>
+          <CardItem bordered style = {{opacity: vid0Seen ? SEEN_OPACITY: 1.0}}>
+          <Thumbnail source={require("../assets/images/video-posters/Rthumb.png")} square style={styles.vidThumb}/>
+          <Text>Recall the Past</Text>
+          <Left />
+          <Right style={{alignSelf: "flex-end"}}>
+            <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
+              <Text style={styles.timestamp}>1:30</Text>
+              <TouchableOpacity onPress={() => {changeReadState("video0seen", vid0Seen);}}>
+                <Icon name={seenIcon(vid0Seen)} style={{color: "blue", paddingRight: 20}}/>
+              </TouchableOpacity>
+
+              <Icon name="arrow-forward" />
+            </View>
+          </Right>
+         </CardItem>
+         </TouchableOpacity>
+
+         <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 1, video: 'Ideas', "name": "Explain New Words or Ideas"})}>
+          <CardItem bordered style = {{opacity: vid1Seen ? SEEN_OPACITY: 1.0}}>
+          
+          <Thumbnail source={require("../assets/images/video-posters/Ethumb.png")} square style={styles.vidThumb}/>
+          <Text>Explain New Words or Ideas</Text>
+          <Left />
+          <Right style={{alignSelf: "flex-end"}}>
+            <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
+              <Text style={styles.timestamp}>1:17</Text>
+              <TouchableOpacity onPress={() => {changeReadState("video1seen", vid1Seen);}}>
+                <Icon name={seenIcon(vid1Seen)} style={{color: "blue", paddingRight: 20}}/>
+              </TouchableOpacity>
+
+              <Icon name="arrow-forward" />
+            </View>
+          </Right>
+         </CardItem>
+         </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 2, video: 'Questions', "name": "Ask Questions"})}>
+        <CardItem bordered style = {{opacity: vid2Seen ? SEEN_OPACITY: 1.0}}>
+          <Thumbnail source={require("../assets/images/video-posters/Athumb.png")} square style={styles.vidThumb}/>
+          <Text>Ask Questions</Text>
+          <Left />
+          <Right style={{alignSelf: "flex-end"}}>
+            <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
+              <Text style={styles.timestamp}>0:59</Text>
+              <TouchableOpacity onPress={() => {changeReadState("video2seen", vid2Seen);}}>
+                <Icon name={seenIcon(vid2Seen)} style={{color: "blue", paddingRight: 20}}/>
+              </TouchableOpacity>
+
+              <Icon name="arrow-forward" />
+            </View>
+          </Right>
+        </CardItem>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 3, video: 'Future', "name": "Discuss the Future"})}>
+        <CardItem bordered style = {{opacity: vid3Seen ? SEEN_OPACITY: 1.0}}>
+          
+          <Thumbnail source={require("../assets/images/video-posters/Dthumb.png")} square style={styles.vidThumb}/>
+          <Text>Discuss the Future</Text>
+          <Left />
+          <Right style={{alignSelf: "flex-end"}}>
+            <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
+              <Text style={styles.timestamp}>1:17</Text>
+              <TouchableOpacity onPress={() => {changeReadState("video3seen", vid3Seen);}}>
+                <Icon name={seenIcon(vid3Seen)} style={{color: "blue", paddingRight: 20}}/>
+              </TouchableOpacity>
+
+              <Icon name="arrow-forward" />
+            </View>
+          </Right>
+        </CardItem>
+        </TouchableOpacity>    
+
+        <TouchableOpacity onPress={() => navigation.navigate('VideoWatch', {page: 4, video: 'Difference', "name": "You Can Make a Difference"})}>
+        <CardItem bordered style = {{opacity: vid4Seen ? SEEN_OPACITY: 1.0}}>
+          
+          <Thumbnail source={require("../assets/images/video-posters/Ythumb.png")} square style={styles.vidThumb}/>
+          <Text>You Can Make a Difference</Text>
+          <Left />
+          <Right style={{alignSelf: "flex-end"}}>
+            <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
+              <Text style={styles.timestamp}>1:27</Text>
+              <TouchableOpacity onPress={() => {changeReadState("video4seen", vid4Seen);}}>
+                <Icon name={seenIcon(vid4Seen)} style={{color: "blue", paddingRight: 20}}/>
+              </TouchableOpacity>
+
+              <Icon name="arrow-forward" />
+            </View>
+          </Right>
+         </CardItem>
+         </TouchableOpacity>
+
          
         </Card>
 

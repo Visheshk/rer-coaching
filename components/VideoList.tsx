@@ -224,7 +224,7 @@ export function VideoList({navigation, route}) {
                   <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
                     <Text style={styles.timestamp}>{rvt.length}</Text>
                     <TouchableOpacity onPress={() => {changeReadState(index);}}>
-                      <Icon name={seenIcon(vid0Seen)} style={{color: "blue", paddingRight: 20}}/>
+                      <Icon name={seenIcon(seenList[index])} style={{color: "blue", paddingRight: 20}}/>
                     </TouchableOpacity>
 
                     <Icon name="arrow-forward" />

@@ -13,6 +13,7 @@ export class VideoControl extends React.Component {
     console.log(props);
     this.video = null;
     this.state = {
+      "video": null,
       "vidPlaying": true,
       "playOpacity": 1,
       "playbackObject": null
@@ -21,14 +22,30 @@ export class VideoControl extends React.Component {
     
   }
 
-  componentDidUpdate(props) {
-    // console.log(props);
+  componentDidUpdate(prevProps, prevState) {
+    // console.log("component did update");
+    // console.log(prevProps.uri);
+    // console.log(prevState);
+    console.log(this.state.vidPlaying);
+    if (prevProps.uri !== this.props.uri) {
+      console.log("uri change");
+      this.setState({"vidPlaying": true});
+      // this.videoComp.forceUpdate();
+    }
 
   }
 
-  toggleButton(){
+  async toggleButton(newState = 0){
     console.log("toggling button");
-    this.setState({"vidPlaying": !this.state.vidPlaying});
+    
+    if (newState !== 0) {
+      await this.setState({"vidPlaying": newState});  
+    }
+    else {
+      await this.setState({"vidPlaying": !this.state.vidPlaying});
+    }
+    // this.playButton.forceUpdate();
+    return true;
   }
 
   // const [vidPlaying, setVidPlaying] = React.useState(false);
@@ -38,21 +55,22 @@ export class VideoControl extends React.Component {
   
   _handleVideoRef = component => {
     this.video = component; 
+    this.setState({"video": component});
   }
 
   _playState = async (playStatus) => {
     // console.log(playStatus);
     if (playStatus.isPlaying == true && this.state.vidPlaying == false) {
-      console.log("playing is ");
+      // console.log("playing is ");
       activateKeepAwake();
-      this.toggleButton();
+      this.toggleButton(true);
       // console.log(this.state.vidPlaying);
       // console.log(playStatus);
     }
     else if (playStatus.isPlaying == false && this.state.vidPlaying == true) {
-      console.log("paused");
+      // console.log("paused");
       deactivateKeepAwake();
-      this.toggleButton();
+      this.toggleButton(false);
       // console.log(this.state.vidPlaying);
       // console.log(playStatus);
       // if (playStatus)
@@ -62,19 +80,19 @@ export class VideoControl extends React.Component {
   }
 
   playVideo = async () => {
-    if (this.video !== null) {
-      var stat = await this.video.getStatusAsync();
+    if (this.state.video !== null) {
+      var stat = await this.state.video.getStatusAsync();
       if (stat.isPlaying == true) {
         console.log("playing")
-        this.video.pauseAsync(); 
+        this.state.video.pauseAsync(); 
       }
       else {
         console.log("not playing")
         if (stat.positionMillis == stat.playableDurationMillis) {
-          this.video.replayAsync();
+          this.state.video.replayAsync();
         }
         else {
-          this.video.playAsync();
+          this.state.video.playAsync();
         }
       }
     }
@@ -86,6 +104,7 @@ export class VideoControl extends React.Component {
 
         <Video
           source={{ uri: this.props.uri }}
+          key="videoComp"
           rate={1.0}
           volume={1.0}
           isMuted={false}
@@ -104,10 +123,12 @@ export class VideoControl extends React.Component {
           flexDirection: "row",
           height: "100%", 
           width: "100%", 
+          alignSelf: "center",
           justifyContent: "space-around", 
           alignItems: "center", 
           flex: 1, 
           position: "absolute"}}>
+          <View style={{opacity: this.state.vidPlaying? 0: 1,}}>
           <TouchableOpacity 
             ref={this.playButton}
             style={{
@@ -116,7 +137,7 @@ export class VideoControl extends React.Component {
               height: 80,
               borderRadius:80,
               justifyContent: "space-around",
-              opacity: this.state.vidPlaying? 1:0,
+              
               alignItems: "center"
             }}
             underlayColor="#111" delayPressIn={0} delayPressOut={10} onPress={this.playVideo}>
@@ -129,9 +150,10 @@ export class VideoControl extends React.Component {
                 color="white" />
               
           </TouchableOpacity>
+          </View>
 
         </View>
-        
+        <Text> {this.state.vidPlaying? 1: 0} </Text>
 
       </View>
   )

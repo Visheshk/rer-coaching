@@ -10,7 +10,6 @@
     "version": "1",
     "orientation": "default",
     "icon": "./assets/icon.png",
-    
     "scheme": "rercoach",
     "splash": {
       "image": "./assets/splash.png",
@@ -29,7 +28,7 @@
     "android": {
       "package": "com.step.rercoach",
       "versionCode": 6,
-      "adaptiveIcon": { 
+      "adaptiveIcon": {
         "foregroundImage": "./assets/text.png",
         "backgroundImage": "./assets/background.png"
       },

@@ -60,23 +60,24 @@ export function VideoWatch({navigation, route}) {
 
     if (Number.isInteger(thisPage)) {
       rvt = readyVideoTitles[thisPage];
-      console.log(rvt);
-      console.log(thisPage);
+      // console.log(rvt);
+      // console.log(thisPage);
       setThisVid(rvt["pageTitle"]);
       setTitle(rvt["title"]);
       navigation.setOptions({ "title": pageTitle});
       setVidUri(rvt["url"]);
 
-      console.log(thisVid);
+      // console.log(thisVid);
       // console.log(pageTitles[thisVid]);
-      console.log(vidUri);
+      // console.log(vidUri);
+      console.log(thisPage);
       setBefState(true);
       setAftState(true);
       if (thisPage == 0) {
         setBefState(false);
       }
       // console.log(vidUri);
-      if (thisPage == 5) {
+      if (thisPage == 4) {
         console.log("last page");
         setAftState(false);
       }

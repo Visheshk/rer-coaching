@@ -29,8 +29,8 @@
       "package": "com.step.rercoach",
       "versionCode": 6,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/text.png",
-        "backgroundImage": "./assets/background.png"
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#ffffff"
       },
       "intentFilters": [
         {

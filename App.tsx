@@ -220,7 +220,7 @@ function LoginScreen ( {route, navigation} ) {
     </View>
     </TouchableWithoutFeedback>
     <View style={{position: 'absolute', bottom: 0}}>
-      <Text style={{textAlign: "right", fontSize: 10, padding: 10, opacity: 0.5}}> v1.2.12 </Text>
+      <Text style={{textAlign: "right", fontSize: 10, padding: 10, opacity: 0.5}}> v1.3 </Text>
     </View>
 
     </ScrollView>

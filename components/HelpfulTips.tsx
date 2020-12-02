@@ -91,10 +91,10 @@ export class HelpfulTips extends React.Component {
         </View>
         <Text style={styles.header}>Ready to try the R.E.A.D.Y. App?</Text>
 
-        <Text style={styles.body}>It's simple to get started! Tap on the Coaching Experience (and Let's Read) to begin {"\n"}</Text>
+        <Text style={styles.body}>It's simple to get started! Tap on the Coaching Experience (and Let's Read) to begin. {"\n"}</Text>
 
         <Text style={styles.header}>Coaching Experience </Text>
-        {this.makeBullet("View or check-off all R.E.A.D.Y. videos to start using the coaching experience activity")}
+        {this.makeBullet("View or check-off all R.E.A.D.Y. videos to start using the coaching experience activity.")}
         {this.makeBullet("Buttons to know:")}
         
         <View style={{flexDirection: "row", flex: 2}}>

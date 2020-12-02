@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, StyleSheet, Text } from 'react-native';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { activateKeepAwake, deactivateKeepAwake } from 'expo-keep-awake';
-import { AsyncStorage } from 'react-native';
 import { Audio, Video } from 'expo-av';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -153,8 +152,6 @@ export class VideoControl extends React.Component {
           </View>
 
         </View>
-        <Text> {this.state.vidPlaying? 1: 0} </Text>
-
       </View>
   )
 }

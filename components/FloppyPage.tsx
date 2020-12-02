@@ -72,11 +72,6 @@ export function FloppyPage({navigation, route}) {
         />
       </View>
 
-      <View style={{ flex: 1, marginTop: 0, margin: 20, flexDirection: "row",  }}>          
-        <Text style={{fontSize: 14}}> Note: Next time you click on Read Aloud With Floppy, you will directly be sent to the Floppy interface. This tutorial video can be accessed again from the All Videos button.</Text>
-
-      </View>
-
     </View>
     </Content>
     </Container>

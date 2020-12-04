@@ -28,6 +28,7 @@
     "android": {
       "package": "com.step.rercoach",
       "versionCode": 6,
+      "icon": "./assets/icon.png",
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"

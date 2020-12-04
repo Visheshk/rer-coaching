@@ -31,7 +31,7 @@
       "icon": "./assets/icon.png",
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "./assets/background.png"
       },
       "intentFilters": [
         {

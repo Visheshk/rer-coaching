@@ -219,13 +219,13 @@ export class WelcomeScreen extends React.Component {
             </TouchableWithoutFeedback>
           </View>
 
-          <Text style={styles.title}> Hi {this.state.name}! {this.state.floppyTileTransparency}</Text>
+          <Text style={styles.title}> Hi {this.state.name}!</Text>
 
           <View style={{flex: 1, flexDirection: 'row', borderRadius: 5, overflow: 'visible'}}>
             <View style={styles.tileView}>
                <Tile
                 imageSrc={coachApp}
-                title="Coaching Experience"
+                title="READY Videos"
                 imageContainerStyle={{borderWidth: 3, margin:0}}
                 containerStyle={[styles.tileContainer, {borderWidth: 0}]}
                 imageProps={{resizeMode: "contain"}}

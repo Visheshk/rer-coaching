@@ -157,21 +157,21 @@ export class WelcomeScreen extends React.Component {
       // console.log("on tile click");
       // console.log(this.state.seenSpeakerVideo == "true");
       if (this.state.seenVideoList != "false") {
-        if (this.state.seenSpeakerVideo == "true") {
+        // if (this.state.seenSpeakerVideo == "true") {
           Linking.openURL(this.state.speakerAppURL); 
-        }
-        else {
-          this.setState({"seenSpeakerVideo": true})
+        // }
+        // else {
+          // this.setState({"seenSpeakerVideo": true})
 
-          updateSeenScreens("seenSpeakerVideo", true);
+          // updateSeenScreens("seenSpeakerVideo", true);
           // this.modalChange(true);
-          this.props.navigation.navigate("FloppyPage", {"speakerURL": this.state.speakerAppURL});
-          console.log("trying to navigate to floppy tut");
-        }
+          // this.props.navigation.navigate("FloppyPage", {"speakerURL": this.state.speakerAppURL});
+          // console.log("trying to navigate to floppy tut");
+        // }
         // navigation.navigate('Speaker', {'speakerurl': this.state.speakerAppURL}) ;
       }
       else {
-        alert("Try out the coaching experience before Reading Aloud with Floppy!");
+        alert("Look through the READY Videos before Reading Aloud with Floppy!");
       }
     } 
   }
@@ -252,7 +252,7 @@ export class WelcomeScreen extends React.Component {
             </View>
           </View>
           <View style={{position: 'absolute', top: 0}}>
-            <Text style={{textAlign: "right", fontSize: 9, padding: 10, opacity: 0.5}}> v1.3 </Text>
+            <Text style={{textAlign: "right", fontSize: 9, padding: 10, opacity: 0.5}}> v2.0 </Text>
           </View>
       	</View>
         <Card style={{flex: 0}}>
@@ -268,7 +268,7 @@ export class WelcomeScreen extends React.Component {
             </CardItem>
           </TouchableOpacity>
 
-          {this.AllVideos()}
+          
         </Card>
       </Content>
     </Container>

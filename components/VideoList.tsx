@@ -39,20 +39,7 @@ export function VideoList({navigation, route}) {
   const SEEN_OPACITY = 0.6;
 
   let rc = 0;
-  let videoUrls = {
-    "past": {
-      "title": "R - Recall the Past", 
-      "videoUrl": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/DRAFT_Recall%20The%20Past_9-26-20.mp4", 
-      "thumbnail": "https://raw.githubusercontent.com/Visheshk/rer-coaching/master/assets/videos/R%20-%20Recall%20the%20Past%20Thumbnail.png", 
-      "index": 0
-    }, 
-    "ideas": {
-      "title": "E - Explain New Words and Ideas", 
-      "videoUrl": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/DRAFT_Explain%20New%20Words%20Or%20Ideas_9-28-20.mp4?raw=true", 
-      "thumbnail": "https://raw.githubusercontent.com/Visheshk/rer-coaching/master/assets/videos/E%20-%20Explain%20New%20Words_Ideas%20Thumbnail.png", 
-      "index": 1
-    }
-  };
+
   //downloaded URLS
   //
 
@@ -67,29 +54,6 @@ export function VideoList({navigation, route}) {
 
     // in asyncstorage - store [v0seen, ... ,v5 seen]
     // if not found, write them all as false and do asynctorage.set
-    try {
-      vs = await AsyncStorage.getItem('videoStatus');
-      if (vs == null) {
-        vs = videoUrls;
-        for (let vu in videoUrls) {
-          // console.log("video url " + vu);
-          // videoUrls[vu] = 
-          vs[vu] = videoUrls[vu];
-          vs[vu]["downloaded"] = false;
-        }
-        // AsyncStorage.setItem("videoStatus", JSON.stringify(vidStatus));
-      }
-      else {
-        console.log(vs);
-        // AsyncStorage.setItem("videoStatus", JSON.parse(vidStatus));
-      }
-      
-    }
-    catch (error) {
-      console.error(error);
-    }
-
-    return vs;
 
     // file list (from asyncstorage)
     // new file list (from url)
@@ -134,9 +98,9 @@ export function VideoList({navigation, route}) {
     // console.log("thrd");
     // console.log(v0 + v1 + v2 + v3);
     rc = ((v0=="true")? 1: 0) + ((v1=="true")? 1: 0) + ((v2=="true")? 1: 0) + ((v3=="true")? 1: 0) + ((v4=="true")? 1: 0);
-    console.log("Rc is " + rc);
+    // console.log("Rc is " + rc);
     setSeenList([JSON.parse(v0), JSON.parse(v1), JSON.parse(v2), JSON.parse(v3), JSON.parse(v4)]);
-    console.log(seenList);
+    // console.log(seenList);
     setReadCount(rc);
     if (rc > 4) {
       setReadAll(true);
@@ -161,7 +125,7 @@ export function VideoList({navigation, route}) {
     // console.log(vid0Seen + " " + vid1Seen + " " + vid2Seen + " " + vid3Seen);
     // await setReadCount((vid0Seen? 1: 0) + (vid1Seen? 1: 0) + (vid2Seen? 1: 0) + (vid3Seen? 1: 0));
     updateReadCount(v0, v1, v2, v3, v4);
-    console.log(seenList);
+    // console.log(seenList);
     
     // console.log("seen states " + readCount);
 
@@ -181,7 +145,7 @@ export function VideoList({navigation, route}) {
     // console.log(vidName + seenState);
     let vidName = "video" + index.toString() + "seen";
     let seenState = JSON.parse(seenList[index]);
-    console.log(vidName + " " + seenState + !seenState);
+    // console.log(vidName + " " + seenState + !seenState);
     await AsyncStorage.setItem(vidName, String(!seenState));
     setSeenStates();
   }
@@ -194,7 +158,7 @@ export function VideoList({navigation, route}) {
   }
 
   function letsReadButton() { 
-    console.log("pressing this butting");
+    // console.log("pressing this butting");
     if (readCount > 4) {navigation.navigate("BookList");}
     else {Alert.alert("Unlocks after videos","See all videos to access recording experience", 
        [
@@ -203,15 +167,24 @@ export function VideoList({navigation, route}) {
       { cancelable: true } ); }
   }
 
+  const otherVideoUrls = [
+    {"key": "l111", "title": "", "url": ""},
+    {"key": "l11", "title": "Introduction to R.E.A.D.Y", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/welcome.mp4?raw=true"},
+    // {"key": "l1.5", "title": "Introduction to Coaching Experience", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Intro%20Final%20V2.mp4?raw=true"},
+    // {"key": "l12", "title": "Coaching Experience Tutorial", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/coaching-tut.mp4?raw=true"},
+    {"key": "l13", "title": "Read Aloud With Floppy Tutorial", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/floppy-tut.mp4?raw=true"},
+  ]
+
+  function goToVideo(title, url) {
+    navigation.navigate("VideoPage", {"title": title, "url": url});
+  }
+
+
 	return (
 
 		<Container>
       <Content>
-        <VideoControl
-          height={350}
-          uri='https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/coaching-tut.mp4?raw=true'
-        />
-      
+              
         <Card style={{flex: 0}}>
           { readyVideoTitles.map ((rvt, index) => {
             return(
@@ -235,35 +208,33 @@ export function VideoList({navigation, route}) {
                )
             } ) 
           }
-         
+          {
+            otherVideoUrls.map( (vurl) => {
+              if (vurl["title"] == "") {
+                return(
+                  <CardItem bordered key={vurl.key}>
+                  <Text> </Text>
+                  <Left />
+                  
+                  </CardItem>
+                )
+              }
+              return(
+                <TouchableOpacity key={vurl.key} onPress={() => goToVideo(vurl.title, vurl.url)}>
+                  <CardItem bordered>
+                    <Text>{vurl.title}</Text>
+                    <Left />
+                    <Right style={{alignSelf: "flex-end"}}>
+                      <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
+                        <Icon name="arrow-forward" />
+                      </View>
+                    </Right>
+                  </CardItem>
+                </TouchableOpacity>
+            )
+            })
+          }         
         </Card>
-
-      
-      
-        <View style={{padding: 30, opacity: 1.0, justifyContent: 'space-around'}}>
-        
-          <Text style={{backgroundColor: "#eee", padding: 15, borderRadius: 10}}>
-            When you're done watching the videos, you'll be able to click 'Let's Read' to practice your literacy-building strategies!
-          </Text>
-         
-          <TouchableOpacity 
-            // disabled={readAll? false: true} 
-            style={{flex:0.7, opacity:1, elevation: -1}} 
-            key="letsread" 
-            onPress={() => letsReadButton()}> 
-            <Card style={{opacity: readAll? 1.0: SEEN_OPACITY}}>
-              <CardItem>
-                <Left>
-                  <Thumbnail source={Letsread} square style={{resizeMode: "contain"}}/>
-                  <Body>
-                    <Text>Let's Read</Text>
-                  </Body>
-                </Left>
-              </CardItem>
-            </Card>
-          </TouchableOpacity>
-
-        </View>
       </Content>
 		</Container>
 	);

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text, Button, View, StyleSheet, TouchableWithoutFeedback, TouchableOpacity, TouchableHighlight, TextInput, Alert, AsyncStorage, Linking, Image, Keyboard } from 'react-native';
+import { Text, Button, View, StyleSheet, TouchableWithoutFeedback, TouchableOpacity, TouchableHighlight, TextInput, Alert, AsyncStorage, Image, Keyboard } from 'react-native';
+import * as Linking from 'expo-linking';
 import { Modal } from 'react-native';
 // import { Button } from 'react-native-elements';
 // import Button from '@material-ui/core/Button';
@@ -36,6 +37,7 @@ export class WelcomeScreen extends React.Component {
       speakerAppURL: "",
 
       seenVideoList: false,
+      floppyTileTransparency: 0.5,
       seenSpeakerVideo: false,
 
       speakerModal: false,
@@ -46,6 +48,7 @@ export class WelcomeScreen extends React.Component {
   }
 
   componentDidMount() {
+    // getVideoData();
     // console.log(Linking.makeUrl('path'));
     this.props.navigation.setOptions({ "headerRight": () => (
       <Button 
@@ -54,80 +57,91 @@ export class WelcomeScreen extends React.Component {
         title="Login"
       />
     )});
-   const getUInfo = async () => {
+    const getUInfo = async () => {
     // console.log("getting user info")
-    AsyncStorage.getItem('userInfo').then(response =>  {
-      let res = JSON.parse(response);
-      let respEmpty = false;
-      if (res == null) { respEmpty = true; }
-      else if (res.name == null || res.name == "") { respEmpty = true; }
-      else if (res.studentId == null || res.studentId == "") { respEmpty = true; }
-      else if (res.age == null || res.age == "") { respEmpty = true; }
-      // console.log(res);
-      if (respEmpty == false ) {
-        this.setState({
-          userInfo: res,
-          name: res.name,
-          age: res.age,
-          studyId: res.studentId
-        });
-        // console.log(" updating state from userInfo 22");
-        // console.log(this.state);
-        (async () => {
-          try {
-            // console.log(res);
-            let resp = await fetch('https://talkwithme.herokuapp.com/api/users/', {
-            method: 'POST',
-            mode: 'cors',
-            headers: {
-               "Accept": "*/*",
-              "Accept-Language": "en-US,en;q=0.5",
-              'Content-Type': 'application/json;charset=UTF-8'
-            },
-            body: JSON.stringify({
-              "name": res.name, "age": res.age, "study_id": res.studentId
-            })
+      AsyncStorage.getItem('userInfo').then(response =>  {
+        let res = JSON.parse(response);
+        let respEmpty = false;
+        if (res == null) { respEmpty = true; }
+        else if (res.name == null || res.name == "") { respEmpty = true; }
+        else if (res.studentId == null || res.studentId == "") { respEmpty = true; }
+        else if (res.age == null || res.age == "") { respEmpty = true; }
+        // console.log(res);
+        if (respEmpty == false ) {
+          this.setState({
+            userInfo: res,
+            name: res.name,
+            age: res.age,
+            studyId: res.studentId
           });
+          // console.log(" updating state from userInfo 22");
+          // console.log(this.state);
+          (async () => {
+            try {
+              // console.log(res);
+              let resp = await fetch('https://talkwithme.herokuapp.com/api/users/', {
+              method: 'POST',
+              mode: 'cors',
+              headers: {
+                 "Accept": "*/*",
+                "Accept-Language": "en-US,en;q=0.5",
+                'Content-Type': 'application/json;charset=UTF-8'
+              },
+              body: JSON.stringify({
+                "name": res.name, "age": res.age, "study_id": res.studentId
+              })
+            });
 
-            let t = await resp.text();
-            // console.log(t);
-            this.setState({isLoading: false});
-            this.setState({speakerAppURL: "https://talkwithme.herokuapp.com/talk/booklist.html?session=" + t});
-            console.log(this.state.speakerAppURL);
-          } catch (error) {
-            console.log("fetch failing");
-            console.error(error);
-          }
-        })();
-      }
-      else {
-        this.props.navigation.navigate('Login');
-      }
-      // console.log(response);
-    })
-    .catch(err => {
-      console.error(err);
-    });
-  }
+              let t = await resp.text();
+              // console.log(t);
+              this.setState({isLoading: false});
+              this.setState({speakerAppURL: "https://talkwithme.herokuapp.com/talk/booklist.html?session=" + t});
+              // console.log(this.state.speakerAppURL);
+            } catch (error) {
+              console.log("fetch failing");
+              console.error(error);
+            }
+          })();
+        }
+        else {
+          this.props.navigation.navigate('Login');
+        }
+        // console.log(response);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+    }
 
-  const getVideoData = async () => {
-    try {
-      this.setState({"seenVideoList": await AsyncStorage.getItem("seenVideoList")});
-      this.setState({"seenSpeakerVideo": await AsyncStorage.getItem("seenSpeakerVideo")});
-      console.log("getting just videolist");
-      console.log(this.state.seenVideoList);
-    } catch(e) {console.error(e);}
-  }
-  getVideoData();
-  getUInfo();
-
-  this._unsubscribe = this.props.navigation.addListener('focus', () => {
+    const getVideoData = async () => {
+      try {
+        this.setState({"seenVideoList": await AsyncStorage.getItem("seenVideoList")});
+        this.setState({"seenSpeakerVideo": await AsyncStorage.getItem("seenSpeakerVideo")});
+        // console.log("getting just videolist");
+        // console.log("videolist bool is " + this.state.seenVideoList);
+        let ftt = 0.5;
+        // console.log(this.state.seenVideoList);
+        // console.log(this.state.seenVideoList == "true");
+        if (this.state.seenVideoList == "true") { ftt = 1.0; }
+        // console.log(ftt)
+        this.setState({"floppyTileTransparency": ftt})
+      } catch(e) {console.error(e);}
+    }
     getVideoData();
     getUInfo();
-  });
+
+    this._unsubscribe = this.props.navigation.addListener('focus', () => {
+      console.log("on focuys");
+      getVideoData();
+      getUInfo();
+    });
 
     Keyboard.dismiss();
 
+  }
+
+  componentDidUpdate() {
+    // console.log("updating comp");
   }
   // handleOnPress = () => 
   modalChange = (newState) => this.setState({ "speakerModal": newState })
@@ -138,9 +152,10 @@ export class WelcomeScreen extends React.Component {
   }
   
   speakerClick = function () {
+    console.log(this.state.seenVideoList);
     if (!this.state.isLoading){
-      console.log("on tile click");
-      console.log(this.state.seenSpeakerVideo == "true");
+      // console.log("on tile click");
+      // console.log(this.state.seenSpeakerVideo == "true");
       if (this.state.seenVideoList != "false") {
         if (this.state.seenSpeakerVideo == "true") {
           Linking.openURL(this.state.speakerAppURL); 
@@ -204,7 +219,7 @@ export class WelcomeScreen extends React.Component {
             </TouchableWithoutFeedback>
           </View>
 
-          <Text style={styles.title}> Hi {this.state.name}! </Text>
+          <Text style={styles.title}> Hi {this.state.name}! {this.state.floppyTileTransparency}</Text>
 
           <View style={{flex: 1, flexDirection: 'row', borderRadius: 5, overflow: 'visible'}}>
             <View style={styles.tileView}>
@@ -219,19 +234,21 @@ export class WelcomeScreen extends React.Component {
               </Tile>
             </View>   
 
-            <View style={styles.tileView}>
+            <View style={[styles.tileView]}>
+            <View style={{opacity: this.state.floppyTileTransparency}}>
               <Tile
                 imageSrc={bunnyReading}
                 title="Read Aloud with Floppy"
-                imageContainerStyle={{borderWidth: 3, margin:0}}
-                containerStyle={[styles.tileContainer, {borderWidth: 0, opacity: this.state.isLoading ? 0.3: 1.0}]}
-                disabled={this.state.isLoading}
+                imageContainerStyle={{borderWidth: 3, margin:0, }}
+                containerStyle={[styles.tileContainer, {borderWidth: 0}]}
+                disabled={this.state.isLoading }
                 imageProps={{resizeMode: "contain", width: "50%"}}
                 onPress={() => {
                   this.speakerClick();
                 }}
               >
               </Tile>      
+              </View>
             </View>
           </View>
           <View style={{position: 'absolute', top: 0}}>

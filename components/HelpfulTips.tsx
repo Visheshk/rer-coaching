@@ -91,27 +91,7 @@ export class HelpfulTips extends React.Component {
         </View>
         <Text style={styles.header}>Ready to try the R.E.A.D.Y. App?</Text>
 
-        <Text style={styles.body}>It's simple to get started! Tap on the Coaching Experience (and Let's Read) to begin. {"\n"}</Text>
-
-        <Text style={styles.header}>Coaching Experience </Text>
-        {this.makeBullet("View or check-off all R.E.A.D.Y. videos to start using the coaching experience activity.")}
-        {this.makeBullet("Buttons to know:")}
-        
-        <View style={{flexDirection: "row", flex: 2}}>
-          <TouchableOpacity style={styles.halfColumnButton} onPress={() => this.setState({"galleryVisible": true, "bigImage": 1}) }>
-            <Image source={i2}  style={styles.halfColumnImage} />
-            <View style={styles.maxIcon}>
-                  <Feather name="maximize-2" size={14} color="grey" />
-                </View>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.halfColumnButton} onPress={() => this.setState({"galleryVisible": true, "bigImage": 2}) }>
-            <Image source={i3}  style={styles.halfColumnImage} />
-            <View style={styles.maxIcon}>
-              <Feather name="maximize-2" size={14} color="grey" />
-            </View>
-          </TouchableOpacity>
-        </View>
+        <Text style={styles.body}>It's simple to get started! <Text style={styles.bold}>Tap on  R.E.A.D.Y. Videos to begin.</Text> View all the R.E.A.D.Y. videos to start using the Read Aloud with Floppy experience with your child.{"\n"}</Text>
 
         <Text style={styles.header}> {"\n"}Read Aloud with Floppy</Text>
         {this.makeBullet("There are 5 books to read with your child. Scroll down if you don't see all 5 in the menu.")}
@@ -139,6 +119,10 @@ const styles = StyleSheet.create({
 
   body: {
     // fontSize: 16
+  },
+
+  bold: {
+    fontWeight: "bold"
   },
 
   link: {

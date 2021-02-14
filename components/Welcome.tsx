@@ -171,7 +171,7 @@ export class WelcomeScreen extends React.Component {
         // navigation.navigate('Speaker', {'speakerurl': this.state.speakerAppURL}) ;
       }
       else {
-        alert("Look through the READY Videos before Reading Aloud with Floppy!");
+        alert("Look through the R.E.A.D.Y. Videos before Reading Aloud with Floppy!");
       }
     } 
   }
@@ -221,44 +221,46 @@ export class WelcomeScreen extends React.Component {
 
           <Text style={styles.title}> Hi {this.state.name}!</Text>
 
-          <View style={{flex: 1, flexDirection: 'row', borderRadius: 5, overflow: 'visible'}}>
-            <View style={styles.tileView}>
-               <Tile
-                imageSrc={coachApp}
-                title="READY Videos"
-                imageContainerStyle={{borderWidth: 3, margin:0}}
-                containerStyle={[styles.tileContainer, {borderWidth: 0}]}
-                imageProps={{resizeMode: "contain"}}
-                onPress={() => {navigation.navigate('VideoList', {name: this.state.name})}}
-              >
-              </Tile>
-            </View>   
+          <View style={{flex: 1, flexDirection: 'column', borderRadius: 5, overflow: 'visible'}}>
+            <TouchableOpacity  onPress={() => {this.speakerClick();}} >
+              <View style={styles.tileView}>
+                 
+                <View style={{ flex: 1.5, flexDirection: 'row', justifyContent: 'space-between' }}>
+                  <Image source={bunnyReading} style={{width: "100%", height: 240, resizeMode: 'contain'}}/>
+                </View>
 
-            <View style={[styles.tileView]}>
-            <View style={{opacity: this.state.floppyTileTransparency}}>
-              <Tile
-                imageSrc={bunnyReading}
-                title="Read Aloud with Floppy"
-                imageContainerStyle={{borderWidth: 3, margin:0, }}
-                containerStyle={[styles.tileContainer, {borderWidth: 0}]}
-                disabled={this.state.isLoading }
-                imageProps={{resizeMode: "contain", width: "50%"}}
-                onPress={() => {
-                  this.speakerClick();
-                }}
-              >
-              </Tile>      
-              </View>
-            </View>
+                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: "center" }} >
+                  <Text style={{fontSize: 30, fontWeight: "bold"}}>Read Aloud With Floppy</Text>
+                </View>
+              </View>   
+            </TouchableOpacity>
           </View>
+
+          <View style={{flex: 1, flexDirection: 'column', borderRadius: 5, overflow: 'visible', justifyContent: "flex-start",}}>
+            <TouchableOpacity onPress={() => {navigation.navigate('VideoList', {name: this.state.name, speakerURL: this.state.speakerAppURL})}}>
+              
+              <View style={styles.tileView}>
+              
+                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-start' }} >
+                  <Image source={coachApp} style={{margin: 5, width: "100%", height: 80, resizeMode: 'contain'}}/>
+                </View>
+
+                <View style={{ flex: 2, flexDirection: 'row', alignItems: "center" }}>
+                  <Text style={{fontSize: 20}}>R.E.A.D.Y. Resources</Text>
+                </View>              
+              </View>
+              
+            </TouchableOpacity>
+          </View>
+
           <View style={{position: 'absolute', top: 0}}>
-            <Text style={{textAlign: "right", fontSize: 9, padding: 10, opacity: 0.5}}> v2.0 </Text>
+            <Text style={{textAlign: "right", fontSize: 9, padding: 10, opacity: 0.5}}> v2.4 </Text>
           </View>
       	</View>
         <Card style={{flex: 0}}>
           <TouchableOpacity onPress={() => navigation.navigate("HelpfulTips")}>
             <CardItem bordered>
-            <Text>Helpful Tips</Text>
+            <Text>Tips for Getting Started</Text>
             <Left />
             <Right style={{alignSelf: "flex-end"}}>
               <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
@@ -287,7 +289,7 @@ const styles = StyleSheet.create({
   },
 
   tileView: {
-    flex: 0.5, padding: 5
+    flex: 1, padding: 10, flexDirection: "row", borderWidth: 0, margin: 5, elevation: 3,
   },
 
   title: {

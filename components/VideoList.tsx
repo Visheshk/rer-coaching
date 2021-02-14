@@ -1,5 +1,6 @@
 import React from 'react';
 import { Dimensions, View, StyleSheet, TextInput, Alert, TouchableOpacity, TouchableHighlight, Keyboard, Image } from 'react-native';
+import * as Linking from 'expo-linking';
 import 'react-native-gesture-handler';
 import {AsyncStorage} from 'react-native';
 // import { AVPlaybackStatus, VideoProps } from 'expo-av/build/Video'
@@ -13,12 +14,15 @@ import { VideoControl } from './VideoControl';
 import { updateSeenScreens } from '../extras/methods.tsx';
 import Letsread from '../assets/images/letsread2.png'; 
 import Videos from '../assets/images/videos2.png'; 
+import bunnyReading from '../assets/images/bunny-reading.png';
 import { readyVideoTitles } from './videoInfo';
 import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Icon, Left, Right, Body } from 'native-base';
 
 export function VideoList({navigation, route}) {
 	// render() {
   // const classes = useStyles();
+  const { speakerURL } = route.params;
+  // const nparams = navigation.params;
   const [userInfo, setUserInfo] = React.useState();
   const [vid0Seen, setVid0Seen] = React.useState(false);
   const [vid1Seen, setVid1Seen] = React.useState(false);
@@ -159,8 +163,17 @@ export function VideoList({navigation, route}) {
 
   function letsReadButton() { 
     // console.log("pressing this butting");
-    if (readCount > 4) {navigation.navigate("BookList");}
-    else {Alert.alert("Unlocks after videos","See all videos to access recording experience", 
+    if (readCount > 4) {
+      // navigation.navigate("BookList");
+      if (speakerURL == undefined) {
+        navigation.navigate("Welcome");
+        // console.log(speakerURL);
+      }
+      else {
+        Linking.openURL(speakerURL);
+      }
+    }
+    else {Alert.alert("Unlocks after viewing R.E.A.D.Y. videos","See all videos to Read Aloud with Floppy", 
        [
         { text: "OK", onPress: () => console.log("OK Pressed") }
       ],
@@ -235,6 +248,32 @@ export function VideoList({navigation, route}) {
             })
           }         
         </Card>
+
+
+         <View style={{padding: 30, opacity: 1.0, justifyContent: 'space-around'}}>
+
+          <Text style={{backgroundColor: "#eee", padding: 15, borderRadius: 10}}>
+            When you're done watching the R.E.A.D.Y. videos, you can access the Read Aloud with Floppy to begin reading R.E.A.D.Y. app books with your child.
+          </Text>
+
+          <TouchableOpacity 
+            // disabled={readAll? false: true} 
+            style={{flex:0.7, opacity:1, elevation: -1}} 
+            key="letsread" 
+            onPress={() => letsReadButton()}> 
+            <Card style={{opacity: readAll? 1.0: SEEN_OPACITY}}>
+              <CardItem>
+                <Left>
+                  <Thumbnail source={bunnyReading} square style={{resizeMode: "contain"}}/>
+                  <Body>
+                    <Text>Read Aloud With Floppy</Text>
+                  </Body>
+                </Left>
+              </CardItem>
+            </Card>
+          </TouchableOpacity>
+
+        </View>
       </Content>
 		</Container>
 	);

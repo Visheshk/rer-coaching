@@ -91,7 +91,7 @@ export class HelpfulTips extends React.Component {
         </View>
         <Text style={styles.header}>Ready to try the R.E.A.D.Y. App?</Text>
 
-        <Text style={styles.body}>It's simple to get started! <Text style={styles.bold}>Tap on  R.E.A.D.Y. Videos to begin.</Text> View all the R.E.A.D.Y. videos to start using the Read Aloud with Floppy experience with your child.{"\n"}</Text>
+        <Text style={styles.body}>It's simple to get started! <Text style={styles.bold}>R.E.A.D.Y. Resources</Text> includes videos of real parents and caregivers using R.E.A.D.Y. strategies as they read books aloud with children. You can view as many of these videos as you'd like and, when you’re feeling ready, you and your child can jump into the <Text style={styles.bold}>Read Aloud With Floppy</Text> portion of the app.{"\n"}</Text>
 
         <Text style={styles.header}> {"\n"}Read Aloud with Floppy</Text>
         {this.makeBullet("There are 5 books to read with your child. Scroll down if you don't see all 5 in the menu.")}

@@ -373,7 +373,7 @@ export default function App(props) {
           name="HelpfulTips"
           component={HelpfulTips}
           options={
-            {title: 'Helpful Tips'}
+            {title: 'Tips for Getting Started'}
           }
         />
 

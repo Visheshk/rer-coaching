@@ -224,14 +224,16 @@ export class WelcomeScreen extends React.Component {
           <View style={{flex: 1, flexDirection: 'column', borderRadius: 5, overflow: 'visible'}}>
             <TouchableOpacity  onPress={() => {this.speakerClick();}} >
               <View style={styles.tileView}>
-                 
-                <View style={{ flex: 1.5, flexDirection: 'row', justifyContent: 'space-between' }}>
-                  <Image source={bunnyReading} style={{width: "100%", height: 240, resizeMode: 'contain'}}/>
-                </View>
-
-                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: "center" }} >
+                
+                <View style={styles.tileText} >
                   <Text style={{fontSize: 30, fontWeight: "bold"}}>Read Aloud With Floppy</Text>
                 </View>
+
+                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
+                  <Image source={bunnyReading} style={{width: "100%", height: 150, resizeMode: 'contain'}}/>
+                </View>
+
+                
               </View>   
             </TouchableOpacity>
           </View>
@@ -240,38 +242,25 @@ export class WelcomeScreen extends React.Component {
             <TouchableOpacity onPress={() => {navigation.navigate('VideoList', {name: this.state.name, speakerURL: this.state.speakerAppURL})}}>
               
               <View style={styles.tileView}>
-              
-                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-start' }} >
-                  <Image source={coachApp} style={{margin: 5, width: "100%", height: 80, resizeMode: 'contain'}}/>
-                </View>
-
-                <View style={{ flex: 2, flexDirection: 'row', alignItems: "center" }}>
-                  <Text style={{fontSize: 20}}>R.E.A.D.Y. Resources</Text>
+                
+                <View style={styles.tileText}>
+                  <Text style={{fontSize: 30}}>R.E.A.D.Y. Resources</Text>
                 </View>              
+
+                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-start' }} >
+                  <Image source={coachApp} style={{margin: 5, width: "100%", height: 110, resizeMode: 'contain'}}/>
+                </View>
+                
               </View>
               
             </TouchableOpacity>
           </View>
 
           <View style={{position: 'absolute', top: 0}}>
-            <Text style={{textAlign: "right", fontSize: 9, padding: 10, opacity: 0.5}}> v2.4 </Text>
+            <Text style={{textAlign: "right", fontSize: 9, padding: 10, opacity: 0.5}}> v2.5 </Text>
           </View>
       	</View>
-        <Card style={{flex: 0}}>
-          <TouchableOpacity onPress={() => navigation.navigate("HelpfulTips")}>
-            <CardItem bordered>
-            <Text>Tips for Getting Started</Text>
-            <Left />
-            <Right style={{alignSelf: "flex-end"}}>
-              <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
-                <Icon name="arrow-forward" />
-              </View>
-            </Right>
-            </CardItem>
-          </TouchableOpacity>
-
-          
-        </Card>
+        
       </Content>
     </Container>
 	);
@@ -290,6 +279,13 @@ const styles = StyleSheet.create({
 
   tileView: {
     flex: 1, padding: 10, flexDirection: "row", borderWidth: 0, margin: 5, elevation: 3,
+  },
+
+  tileText: {
+    flex: 1, 
+    flexDirection: 'row', 
+    alignItems: "center" ,
+    left:20
   },
 
   title: {

@@ -185,7 +185,7 @@ export function VideoList({navigation, route}) {
     {"key": "l11", "title": "Introduction to R.E.A.D.Y", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/welcome.mp4?raw=true"},
     // {"key": "l1.5", "title": "Introduction to Coaching Experience", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Intro%20Final%20V2.mp4?raw=true"},
     // {"key": "l12", "title": "Coaching Experience Tutorial", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/coaching-tut.mp4?raw=true"},
-    {"key": "l13", "title": "Read Aloud With Floppy Tutorial", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/floppy-tut.mp4?raw=true"},
+    // {"key": "l13", "title": "Read Aloud With Floppy Tutorial", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/floppy-tut.mp4?raw=true"},
   ]
 
   function goToVideo(title, url) {
@@ -247,33 +247,21 @@ export function VideoList({navigation, route}) {
             )
             })
           }         
+
+          <TouchableOpacity onPress={() => navigation.navigate("HelpfulTips")}>
+            <CardItem bordered>
+            <Text>Tips for Getting Started</Text>
+            <Left />
+            <Right style={{alignSelf: "flex-end"}}>
+              <View style={{alignSelf: "flex-end", flexDirection: "row"}}>
+                <Icon name="arrow-forward" />
+              </View>
+            </Right>
+            </CardItem>
+          </TouchableOpacity>
         </Card>
 
 
-         <View style={{padding: 30, opacity: 1.0, justifyContent: 'space-around'}}>
-
-          <Text style={{backgroundColor: "#eee", padding: 15, borderRadius: 10}}>
-            When you're done watching the R.E.A.D.Y. videos, you can access the Read Aloud with Floppy to begin reading R.E.A.D.Y. app books with your child.
-          </Text>
-
-          <TouchableOpacity 
-            // disabled={readAll? false: true} 
-            style={{flex:0.7, opacity:1, elevation: -1}} 
-            key="letsread" 
-            onPress={() => letsReadButton()}> 
-            <Card style={{opacity: readAll? 1.0: SEEN_OPACITY}}>
-              <CardItem>
-                <Left>
-                  <Thumbnail source={bunnyReading} square style={{resizeMode: "contain"}}/>
-                  <Body>
-                    <Text>Read Aloud With Floppy</Text>
-                  </Body>
-                </Left>
-              </CardItem>
-            </Card>
-          </TouchableOpacity>
-
-        </View>
       </Content>
 		</Container>
 	);

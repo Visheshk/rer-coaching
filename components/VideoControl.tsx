@@ -65,7 +65,9 @@ export class VideoControl extends React.Component {
     if (playStatus.didJustFinish == true) {
       console.log("video did just finish");
       // console.log(this.props);
-      this.props.progressHandler(true);
+      if (this.props.progressHandler != undefined) {
+        this.props.progressHandler(true);
+      }
     }
   }
 

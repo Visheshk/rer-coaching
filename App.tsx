@@ -45,6 +45,9 @@ function LoginScreen ( {route, navigation} ) {
   const [name, setName] = React.useState("");
   const [age, setAge] = React.useState("");
   const [studId, setStudId] = React.useState("");
+  const [vidSeen, setVidSeen] = React.useState(false);
+
+  const videoTrack = React.useRef(null);
 
 
   var storeData = async (vals, forward=true) => {
@@ -56,6 +59,7 @@ function LoginScreen ( {route, navigation} ) {
       await AsyncStorage.setItem('age', vals["age"]);
       await AsyncStorage.setItem('studentId', vals["studentId"]);
       await AsyncStorage.setItem('name', vals["name"]);
+      // await AsyncStorage.getItem('introVidSeen', vals["name"]);
       console.log(forward);
       if (forward) {
         console.log("trying to navigate");
@@ -74,15 +78,26 @@ function LoginScreen ( {route, navigation} ) {
   var _handleVideoRef = component => {
     playbackObject = component;
   }
-  var pauseVideo = function () {
-    // playbackObject.pauseAsync();
+
+  var getVideoProgress = progress => {
+    console.log("video progress printed here " + progress);
+    // console.log(progress);
+    if (progress == true) {
+      console.log("video seen");
+      setVidSeen(true);
+      AsyncStorage.setItem("introVidSeen", "true");
+    }
   }
+  // var pauseVideo = function () {
+  //   // playbackObject.pauseAsync();
+  // }
 
   React.useEffect(() => {
     navigation.setOptions({ "headerLeft": null});
     (async() => {
       try {
         const uinf = await AsyncStorage.getItem('userInfo');
+        // const introVidSeen = await AsyncStorage.getItem('introVidSeen');
         console.log(uinf);
         if (uinf !== null){
           setUserInfo(JSON.parse(uinf));
@@ -90,15 +105,38 @@ function LoginScreen ( {route, navigation} ) {
         else {
           setUserInfo({"name": "", "age": "", "studentId": ""});
         }
+        // if (introVidSeen !== null) {
+        //   setVidSeen(JSON.parse(introVidSeen));
+        // }
         console.log(userInfo);
         // if (userInfo !== undefined && userInfo !== null) {
         //   setName(userInfo.name);
         //   setAge(userInfo.age)
         //   setStudId(userInfo.studentId);
         // }
+
+        const introVidSeen = await AsyncStorage.getItem('introVidSeen');
+        console.log("intro vid seen " + introVidSeen);
+        if (introVidSeen !== null) {
+          console.log("intro vid seen " + introVidSeen);
+          setVidSeen(JSON.parse(introVidSeen));
+        }
       } finally {
         setIsReady(true);
       }
+
+      try {
+        const introVidSeen = await AsyncStorage.getItem('introVidSeen');
+        
+      }
+      finally {
+        // const introVidSeen = await AsyncStorage.getItem('introVidSeen');
+        // if (introVidSeen !== null) {
+        //   console.log("intro vid seen " + introVidSeen);
+        //   setVidSeen(JSON.parse(introVidSeen));
+        // }
+      }
+
     })();
   }, [isReady]);
 
@@ -115,6 +153,8 @@ function LoginScreen ( {route, navigation} ) {
         <VideoControl
           height={300}
           uri='https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/welcome.mp4?raw=true'
+          ref={videoTrack}
+          progressHandler={getVideoProgress}
         />
       <Text> {"\n"} </Text>
       <Formik
@@ -130,22 +170,28 @@ function LoginScreen ( {route, navigation} ) {
         })}
         onSubmit={(values, formikActions) => {
           // console.log(values);
-          setTimeout(async() => {
-            
-            pauseVideo();
-            console.log(values);
-            // Important: Make sure to setSubmitting to false so our loading indicator
-            // goes away.
-            formikActions.setSubmitting(false);
-            await storeData(values, true);
-            // console.log("here i will navigate");
-            navigation.navigate("Welcome", {"user": values});
-
-            // Alert.alert(JSON.stringify(values));
-            // AsyncStorage("")
-            
-            
-          }, 500);
+          if (vidSeen == true) {
+            setTimeout(async() => {
+              // pauseVideo();
+              console.log(values);
+              // Important: Make sure to setSubmitting to false so our loading indicator
+              // goes away.
+              formikActions.setSubmitting(false);
+              await storeData(values, true);
+              // console.log(videoTrack.video);
+              // console.log("here i will navigate");
+              navigation.navigate("Welcome", {"user": values});
+              // Alert.alert(JSON.stringify(values));
+              // AsyncStorage("")
+            }, 500);
+          }
+          else {
+            Alert.alert("Progress after finishing the introduction video","Watch through the whole video so you're ready to enter the app!", 
+             [
+              { text: "OK", onPress: () => {console.log("OK Pressed"); formikActions.setSubmitting(false);} }
+            ],
+            { cancelable: true } );
+          }
         }}>
         {props => (
           <KeyboardAvoidingView

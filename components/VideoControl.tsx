@@ -18,20 +18,21 @@ export class VideoControl extends React.Component {
       "playbackObject": null
 
     }
-    
+    // console.log(props.progressHandler)
+    // if (props.progressHandler != undefined){
+    //   this.progressHandler = props.progressHandler;
+    // }
+    //if props.progressHandler is defined, then set progressHandler
   }
 
+  // const 
+
   componentDidUpdate(prevProps, prevState) {
-    // console.log("component did update");
-    // console.log(prevProps.uri);
-    // console.log(prevState);
     console.log(this.state.vidPlaying);
     if (prevProps.uri !== this.props.uri) {
       console.log("uri change");
       this.setState({"vidPlaying": true});
-      // this.videoComp.forceUpdate();
     }
-
   }
 
   async toggleButton(newState = 0){
@@ -46,11 +47,6 @@ export class VideoControl extends React.Component {
     // this.playButton.forceUpdate();
     return true;
   }
-
-  // const [vidPlaying, setVidPlaying] = React.useState(false);
-  // const [playOpacity, setPlayOpacity] = React.useState(1);
-  // let vidUri = 
-  // let playbackObject;
   
   _handleVideoRef = component => {
     this.video = component; 
@@ -58,24 +54,19 @@ export class VideoControl extends React.Component {
   }
 
   _playState = async (playStatus) => {
-    // console.log(playStatus);
     if (playStatus.isPlaying == true && this.state.vidPlaying == false) {
-      // console.log("playing is ");
       activateKeepAwake();
       this.toggleButton(true);
-      // console.log(this.state.vidPlaying);
-      // console.log(playStatus);
     }
     else if (playStatus.isPlaying == false && this.state.vidPlaying == true) {
-      // console.log("paused");
       deactivateKeepAwake();
       this.toggleButton(false);
-      // console.log(this.state.vidPlaying);
-      // console.log(playStatus);
-      // if (playStatus)
-
     }
-    // console.log(this.state.vidPlaying);
+    if (playStatus.didJustFinish == true) {
+      console.log("video did just finish");
+      // console.log(this.props);
+      this.props.progressHandler(true);
+    }
   }
 
   playVideo = async () => {

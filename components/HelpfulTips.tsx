@@ -74,7 +74,7 @@ export class HelpfulTips extends React.Component {
           <View style={{flex: 1}}>
             <Text style={[styles.header]}>Set up your device. </Text>    
             <Text style={styles.body}> 
-            Turn up your volume so you can hear our videos, audio clips, and Floppy.
+            {"\n"}Turn up your volume so you can hear our videos, audio clips, and Floppy.
             {"\n"} </Text>
             <Text style={styles.link} onPress={() => this.openLink()}> 
             New to Androids and need more help? Click here for more information. 
@@ -91,10 +91,14 @@ export class HelpfulTips extends React.Component {
         </View>
         <Text style={styles.header}>Ready to try the R.E.A.D.Y. App?</Text>
 
-        <Text style={styles.body}>It's simple to get started! <Text style={styles.bold}>R.E.A.D.Y. Resources</Text> includes videos of real parents and caregivers using R.E.A.D.Y. strategies as they read books aloud with children. You can view as many of these videos as you'd like and, when you’re feeling ready, you and your child can jump into the <Text style={styles.bold}>Read Aloud With Floppy</Text> portion of the app.{"\n"}</Text>
+        <Text style={styles.body}>It's simple to get started! <Text style={styles.bold}>R.E.A.D.Y. Resources</Text> includes videos of real parents and caregivers using R.E.A.D.Y. strategies as they read books aloud with children. You can view as many of these videos as you'd like and when you’re feeling ready, you and your child can jump into the <Text style={styles.bold}>Read Aloud With Floppy</Text> portion of the app.{"\n"}</Text>
 
         <Text style={styles.header}> {"\n"}Read Aloud with Floppy</Text>
         {this.makeBullet("There are 5 books to read with your child. Scroll down if you don't see all 5 in the menu.")}
+        {this.makeBullet("Tap on the cover of the book you’d like to read. When you press Start, Floppy will be listening carefully as you and your child read together.")}
+        {this.makeBullet("Make sure your phone is sitting nearby so Floppy can hear you, and set your volume up, so you can hear Floppy chime in with questions to spur conversations along the way.")}
+        {this.makeBullet("You can keep reading as the chimes sound because they are meant to give you time to finish the sentence you’re on before Floppy asks a question.")}
+        {this.makeBullet("When you and your child are done reading the book, press End Session to hop into another book.")}
         {this.makeBullet("When reading with your child, you should hear Floppy’s prompts within the first few pages. If you don’t, tap “Debug” to see a transcript of what Floppy heard you say. Nothing transcribed in Debug? Check your internet and/or contact us.")}
         {this.makeBullet("Button to know:")}
         <View style={{flexDirection: "row", flex: 2, marginTop: -30, marginBottom: -30}}>

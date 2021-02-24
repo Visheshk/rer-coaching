@@ -120,9 +120,10 @@ function LoginScreen ( {route, navigation} ) {
         index: 0,
       });
     });
+    AsyncStorage.setItem("atLogin", "true");
 
-    console.log(navigation);
-    console.log(route);
+    // console.log(navigation);
+    // console.log(route);
     // navigation.dispatch(
     //   CommonActions.reset({
     //     index: 0,
@@ -188,7 +189,9 @@ function LoginScreen ( {route, navigation} ) {
 
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <View style={styles.container}>
-      <Text style={styles.title}>R.E.A.D.Y. to Read</Text>
+      <TouchableWithoutFeedback onLongPress={() => {AsyncStorage.setItem("introVidSeen", "false"); setVidSeen(false);}}>
+        <Text style={styles.title} >R.E.A.D.Y. to Read</Text>
+      </TouchableWithoutFeedback>
         <VideoControl
           height={300}
           uri='https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/welcome.mp4?raw=true'
@@ -217,6 +220,7 @@ function LoginScreen ( {route, navigation} ) {
               // goes away.
               formikActions.setSubmitting(false);
               await storeData(values, true);
+              await AsyncStorage.setItem("atLogin", "false");
               // console.log(videoTrack.video);
               // console.log("here i will navigate");
               navigation.navigate("Welcome", {"user": values});
@@ -292,7 +296,7 @@ function LoginScreen ( {route, navigation} ) {
               mode="contained"
               loading={props.isSubmitting}
               disabled={props.isSubmitting}
-              style={{ marginVertical: 16 }}>
+              style={{ marginVertical: 16, opacity: vidSeen? 1.0: 0.5 }}>
               Submit
             </Button>
             

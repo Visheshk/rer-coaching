@@ -50,6 +50,8 @@ export class WelcomeScreen extends React.Component {
   componentDidMount() {
     // getVideoData();
     // console.log(Linking.makeUrl('path'));
+
+    
     this.props.navigation.setOptions({ "headerRight": () => (
       <Button 
         color = "#AAA"
@@ -59,7 +61,10 @@ export class WelcomeScreen extends React.Component {
     )});
 
     const getUInfo = async () => {
-    // console.log("getting user info")
+      const atLogin = await AsyncStorage.getItem("atLogin");
+      // if (atLogin == "false") {
+
+      // console.log("getting user info")
       // const PERSISTENCE_KEY = 'NAVIGATION_STATE';
       // const savedStateString = await AsyncStorage.getItem(PERSISTENCE_KEY);
         // console.log(savedStateString);
@@ -73,6 +78,7 @@ export class WelcomeScreen extends React.Component {
         else if (res.name == null || res.name == "") { respEmpty = true; }
         else if (res.studentId == null || res.studentId == "") { respEmpty = true; }
         else if (res.age == null || res.age == "") { respEmpty = true; }
+        else if (atLogin == "true") {respEmpty = true;}
         // console.log(res);
         if (respEmpty == false ) {
           this.setState({

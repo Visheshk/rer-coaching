@@ -50,7 +50,16 @@ export class WelcomeScreen extends React.Component {
   componentDidMount() {
     // getVideoData();
     // console.log(Linking.makeUrl('path'));
+    this.props.navigation.dispatch(state => {
+      // Remove the home route from the stack
+      const routes = state.routes.filter(r => r.name == 'Welcome');
 
+      return CommonActions.reset({
+        ...state,
+        routes,
+        index: 0,
+      });
+    });
     
     this.props.navigation.setOptions({ "headerRight": () => (
       <Button 
@@ -270,7 +279,7 @@ export class WelcomeScreen extends React.Component {
           </View>
 
           <View style={{position: 'absolute', top: 0}}>
-            <Text style={{textAlign: "right", fontSize: 9, padding: 10, opacity: 0.5}}> v2.5 </Text>
+            <Text style={{textAlign: "right", fontSize: 9, padding: 10, opacity: 0.5}}> v2.6 </Text>
           </View>
       	</View>
         

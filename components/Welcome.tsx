@@ -178,7 +178,7 @@ export class WelcomeScreen extends React.Component {
     if (!this.state.isLoading){
       // console.log("on tile click");
       // console.log(this.state.seenSpeakerVideo == "true");
-      if (this.state.seenVideoList != "false") {
+      // if (this.state.seenVideoList != "false") {
         // if (this.state.seenSpeakerVideo == "true") {
           Linking.openURL(this.state.speakerAppURL); 
         // }
@@ -191,11 +191,11 @@ export class WelcomeScreen extends React.Component {
           // console.log("trying to navigate to floppy tut");
         // }
         // navigation.navigate('Speaker', {'speakerurl': this.state.speakerAppURL}) ;
-      }
-      else {
-        alert("Look through the R.E.A.D.Y. Videos before Reading Aloud with Floppy!");
-      }
-    } 
+    }
+      // else {
+        // alert("Look through the R.E.A.D.Y. Videos before Reading Aloud with Floppy!");
+      // }
+    // } 
   }
   
   AllVideos = function() {

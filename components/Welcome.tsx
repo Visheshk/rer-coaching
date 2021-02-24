@@ -57,8 +57,15 @@ export class WelcomeScreen extends React.Component {
         title="Login"
       />
     )});
+
     const getUInfo = async () => {
     // console.log("getting user info")
+      // const PERSISTENCE_KEY = 'NAVIGATION_STATE';
+      // const savedStateString = await AsyncStorage.getItem(PERSISTENCE_KEY);
+        // console.log(savedStateString);
+      // let sss = JSON.parse(savedStateString);
+      // console.log(sss)
+
       AsyncStorage.getItem('userInfo').then(response =>  {
         let res = JSON.parse(response);
         let respEmpty = false;

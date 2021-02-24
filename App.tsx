@@ -13,7 +13,7 @@ import { VideoControl } from './components/VideoControl';
 import { Formik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, CommonActions } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 // import { NetInfo } from '@react-native-community/netinfo';
 import 'react-native-gesture-handler';
@@ -48,6 +48,23 @@ function LoginScreen ( {route, navigation} ) {
   const [vidSeen, setVidSeen] = React.useState(false);
 
   const videoTrack = React.useRef(null);
+  
+  // navigation.dispatch(state => {
+  //   // Remove the home route from the stack
+  //   const routes = state.routes.filter(r => r.name !== 'Login');
+
+  //   return CommonActions.reset({
+  //     ...state,
+  //     routes,
+  //     index: routes.length - 1,
+  //   });
+  // });
+
+
+  // navigation.reset({
+  //   index: 0,
+  //   routes: [{ name: 'Login' }]
+  // });
 
 
   var storeData = async (vals, forward=true) => {
@@ -93,6 +110,28 @@ function LoginScreen ( {route, navigation} ) {
   // }
 
   React.useEffect(() => {
+    navigation.dispatch(state => {
+      // Remove the home route from the stack
+      const routes = state.routes.filter(r => r.name == 'Login');
+
+      return CommonActions.reset({
+        ...state,
+        routes,
+        index: 0,
+      });
+    });
+
+    console.log(navigation);
+    console.log(route);
+    // navigation.dispatch(
+    //   CommonActions.reset({
+    //     index: 0,
+    //     routes: [
+    //       { name: 'Login' },
+    //     ],
+    //   })
+    // );
+
     navigation.setOptions({ "headerLeft": null});
     (async() => {
       try {

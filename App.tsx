@@ -207,7 +207,10 @@ function LoginScreen ( {route, navigation} ) {
             .required('Required'),
           age: Yup.number()              
             .required('Required'),
-          studentId: Yup.string()              
+          studentId: Yup.mixed()
+            .oneOf([1510, 1515, 1610, 1615, 1710, 1715, 1810, 1815, 1910, 1915, 2210, 2215, 2310, 2315, 2410, 2415, 2510, 2515, 2610, 2615,
+              "1510", "1515", "1610", "1615", "1710", "1715", "1810", "1815", "1910", "1915", "2210", "2215", "2310", "2315", "2410", "2415", "2510", "2515", "2610", "2615",
+              "admin", "ready1", "READY1"], "Not a valid research ID")
             .required('Required')
         })}
         onSubmit={(values, formikActions) => {

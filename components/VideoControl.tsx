@@ -3,6 +3,7 @@ import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { activateKeepAwake, deactivateKeepAwake } from 'expo-keep-awake';
 import { Audio, Video } from 'expo-av';
 import { Ionicons } from '@expo/vector-icons';
+import * as Analytics from 'expo-firebase-analytics';
 
 export class VideoControl extends React.Component {
   constructor (props) {
@@ -61,6 +62,7 @@ export class VideoControl extends React.Component {
     else if (playStatus.isPlaying == false && this.state.vidPlaying == true) {
       deactivateKeepAwake();
       this.toggleButton(false);
+      await Analytics.logEvent("VideoPausing", playStatus);
     }
     if (playStatus.didJustFinish == true) {
       console.log("video did just finish");
@@ -68,10 +70,12 @@ export class VideoControl extends React.Component {
       if (this.props.progressHandler != undefined) {
         this.props.progressHandler(true);
       }
+      await Analytics.logEvent("VideoFinished", {"videoURI": this.props.uri})
     }
   }
 
   playVideo = async () => {
+    await Analytics.logEvent("VideoToggle", {"playing": this.state.vidPlaying, "videoURI": this.props.uri})
     if (this.state.video !== null) {
       var stat = await this.state.video.getStatusAsync();
       if (stat.isPlaying == true) {

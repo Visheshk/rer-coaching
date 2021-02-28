@@ -6,6 +6,7 @@ import * as SplashScreen  from 'expo-splash-screen';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import { Audio, Video } from 'expo-av';
 import VideoPlayer from 'expo-video-player';
+import * as Analytics from 'expo-firebase-analytics';
 import { VideoControl } from './components/VideoControl';
 // import { useKeepAwake, activateKeepAwake } from 'expo-keep-awake';
 // import Slider from '@react-native-community/slider';
@@ -30,6 +31,7 @@ import { AllVideoList } from './components/AllVideoList';
 import { HelpfulTips } from './components/HelpfulTips';
 import { VideoPage } from './components/VideoPage';
 import { PR2 } from './components/pr2';
+
 
 import { FloppyPage } from './components/FloppyPage';
 
@@ -109,7 +111,9 @@ function LoginScreen ( {route, navigation} ) {
   //   // playbackObject.pauseAsync();
   // }
 
+  // Analytics.setDebugModeEnabled(true);
   React.useEffect(() => {
+    Analytics.setCurrentScreen('LoginScreen');
     navigation.dispatch(state => {
       // Remove the home route from the stack
       const routes = state.routes.filter(r => r.name == 'Login');
@@ -210,12 +214,21 @@ function LoginScreen ( {route, navigation} ) {
           studentId: Yup.mixed()
             .oneOf([1510, 1515, 1610, 1615, 1710, 1715, 1810, 1815, 1910, 1915, 2210, 2215, 2310, 2315, 2410, 2415, 2510, 2515, 2610, 2615,
               "1510", "1515", "1610", "1615", "1710", "1715", "1810", "1815", "1910", "1915", "2210", "2215", "2310", "2315", "2410", "2415", "2510", "2515", "2610", "2615",
-              "admin", "ready1", "READY1"], "Not a valid research ID")
+              "Admin","admin", "ADMIN","Ready1","ready1", "READY1"], "Not a valid research ID")
             .required('Required')
         })}
         onSubmit={(values, formikActions) => {
           // console.log(values);
+          //fvalues = form values object; to add other info for log event
+          let fvalues = values;
+          fvalues["vidSeen"] = vidSeen;
+          Analytics.logEvent("FormSubmit", fvalues);
           if (vidSeen == true) {
+            // cons
+            Analytics.setUserProperties({
+              "researchID": fvalues.studentId, 
+              "name": fvalues.name, 
+              "age": fvalues.age});
             setTimeout(async() => {
               // pauseVideo();
               console.log(values);
@@ -232,6 +245,7 @@ function LoginScreen ( {route, navigation} ) {
             }, 500);
           }
           else {
+            
             Alert.alert("Progress after finishing the introduction video","Watch through the whole video so you're ready to enter the app!", 
              [
               { text: "OK", onPress: () => {console.log("OK Pressed"); formikActions.setSubmitting(false);} }
@@ -329,6 +343,8 @@ export default function App(props) {
   const [initialState, setInitialState] = React.useState();
   const [userInfo, setUserInfo] = React.useState();
   const [screenState, setScreenState] = React.useState();
+
+
   // const containerRef = React.useRef();
   // const { getInitialState } = useLinking(containerRef);
 

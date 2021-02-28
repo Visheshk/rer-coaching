@@ -13,6 +13,7 @@ import VideoPlayer from 'expo-video-player';
 // import { AVPlaybackStatus, VideoProps } from 'expo-av/build/Video'
 // import { styles } from '../style';
 import { useNavigation, CommonActions } from '@react-navigation/native';
+import * as Analytics from 'expo-firebase-analytics';
 
 import { updateSeenScreens } from '../extras/methods.tsx';
 import {logo} from '../assets/images/ready-logo.png';
@@ -50,6 +51,7 @@ export class WelcomeScreen extends React.Component {
   componentDidMount() {
     // getVideoData();
     // console.log(Linking.makeUrl('path'));
+    // Analytics.setCurrentScreen('WelcomeScreen');
     this.props.navigation.dispatch(state => {
       // Remove the home route from the stack
       const routes = state.routes.filter(r => r.name == 'Welcome');
@@ -148,6 +150,7 @@ export class WelcomeScreen extends React.Component {
         // console.log(ftt)
         this.setState({"floppyTileTransparency": ftt})
       } catch(e) {console.error(e);}
+      Analytics.setCurrentScreen('WelcomeScreen');
     }
     getVideoData();
     getUInfo();
@@ -176,6 +179,7 @@ export class WelcomeScreen extends React.Component {
   speakerClick = function () {
     console.log(this.state.seenVideoList);
     if (!this.state.isLoading){
+      Analytics.logEvent("OpenFloppy", {});
       // console.log("on tile click");
       // console.log(this.state.seenSpeakerVideo == "true");
       // if (this.state.seenVideoList != "false") {

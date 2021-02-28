@@ -1,11 +1,11 @@
 import React from 'react';
 import { Text, View, TouchableHighlight, TouchableOpacity, StyleSheet, TextInput, Alert } from 'react-native';
 import { Button } from 'react-native-elements';
-
 import 'react-native-gesture-handler';
 import { AsyncStorage } from 'react-native';
 import { Audio, Video } from 'expo-av';
 import { Asset } from 'expo-asset';
+import * as Analytics from 'expo-firebase-analytics';
 // import { READY } from '../assets/loginvid.mp4';
 // import { AVPlaybackStatus, VideoProps } from 'expo-av/build/Video'
 import { styles } from '../style';
@@ -30,12 +30,13 @@ export function VideoWatch({navigation, route}) {
     } catch (error) { console.log(error); }
 
   };
-  storeData();
+  // storeData();
 
   function changeVideo(dir) {
     let newPage = thisPage + dir;
     if (newPage > 4) {  newPage = 4;   }
     else if (newPage < 0) {  newPage = 0;  }
+    Analytics.logEvent("ChangeVideoButton", {"dir": dir, "thisPage": thisPage, "newPage": newPage});
     setPage(newPage);
   }
 
@@ -49,7 +50,7 @@ export function VideoWatch({navigation, route}) {
     if (thisPage == null || thisPage == undefined) {
       setPage(route.params.page);
     }
-
+    Analytics.setCurrentScreen("VideoWatchScreen");
     (async() => {
       try {
         let vidItem = "video" + thisPage + "seen";

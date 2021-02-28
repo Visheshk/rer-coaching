@@ -21,6 +21,7 @@
     "expo": "^40.0.0",
     "expo-av": "~8.7.0",
     "expo-file-system": "~9.3.0",
+    "expo-firebase-analytics": "~2.6.0",
     "expo-image-picker": "~9.2.0",
     "expo-keep-awake": "~8.4.0",
     "expo-linking": "~2.0.1",

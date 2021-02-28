@@ -8,6 +8,7 @@ import { styles } from '../style';
 
 import { Audio, Video } from 'expo-av';
 import VideoPlayer from 'expo-video-player';
+import * as Analytics from 'expo-firebase-analytics';
 import { VideoControl } from './VideoControl';
 // import { useKeepAwake } from 'expo-keep-awake';
 
@@ -84,10 +85,12 @@ export function VideoList({navigation, route}) {
   // console.log(vidStatus);
 
   React.useEffect(() => {
+    
     setTimeout(() => {
       Keyboard.dismiss();      
     }, 1000);
     const unsubscribe = navigation.addListener('focus', () => {
+      Analytics.setCurrentScreen('ResourcesScreen');
       // The screen is focused
       // Call any action
       setSeenStates();
@@ -151,6 +154,8 @@ export function VideoList({navigation, route}) {
     let seenState = JSON.parse(seenList[index]);
     // console.log(vidName + " " + seenState + !seenState);
     await AsyncStorage.setItem(vidName, String(!seenState));
+    let logObj = {"index": index, "seenState": seenState, "seenList": seenList};
+    await Analytics.logEvent("VideoSeenButton", logObj);
     setSeenStates();
   }
 
@@ -189,6 +194,7 @@ export function VideoList({navigation, route}) {
   ]
 
   function goToVideo(title, url) {
+    Analytics.logEvent("VideoPageNav", {"url": url, "title": title});
     navigation.navigate("VideoPage", {"title": title, "url": url});
   }
 
@@ -201,7 +207,14 @@ export function VideoList({navigation, route}) {
         <Card style={{flex: 0}}>
           { readyVideoTitles.map ((rvt, index) => {
             return(
-              <TouchableOpacity key={rvt.key} onPress={() => navigation.navigate('VideoWatch', {"page": rvt["key"], "video": rvt["pageTitle"], "name": rvt["title"]})}>
+              <TouchableOpacity 
+                key={rvt.key} 
+                onPress={() => {
+                  let videoWatchDetails = {"page": rvt["key"], "video": rvt["pageTitle"], "name": rvt["title"]};
+                  Analytics.logEvent("READYVideoPress", videoWatchDetails);
+                  navigation.navigate('VideoWatch', videoWatchDetails)}
+                }
+              >
                 <CardItem bordered style = {{opacity: seenList[index] ? SEEN_OPACITY: 1.0}}>
                 <Thumbnail source={rvt.thumbnail} square style={styles.vidThumb}/>
                 <Text>{rvt.title}</Text>

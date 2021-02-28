@@ -21,3 +21,4 @@ web-report/
 # /dist
 # @end @expo/electron-adapter
 keystore-info
+google-services.json

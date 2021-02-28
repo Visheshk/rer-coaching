@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Container, Header, Content, Accordion } from "native-base";
-
 import { View, Text, Keyboard, StyleSheet, Image, TouchableOpacity, Dimensions, Linking } from 'react-native';
-
 import ImageView from "react-native-image-viewing";
+import * as Analytics from 'expo-firebase-analytics';
+
 import phone from '../assets/tips/img1.png';
 import i2 from '../assets/tips/img2.png';
 import i3 from '../assets/tips/img3.png';
@@ -37,11 +37,19 @@ export class HelpfulTips extends React.Component {
       galleryVisible: false,
       bigImage: 0
     }
+
+    // Analytics.setCurrentScreen('HelpfulTipsScreen');
   
+  }
+
+  componentDidUpdate() {
+    Analytics.setCurrentScreen('HelpfulTipsScreen')
+    // console.log("updating comp");
   }
 
   openLink = () => {
     console.log("opening link");
+    Analytics.logEvent('TipsLinkClick', {});
     Linking.openURL("https://support.google.com/pixelphone/?hl=en#topic=7078250");
   }
 

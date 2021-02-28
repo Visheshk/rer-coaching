@@ -12,6 +12,7 @@ export class VideoPage extends React.Component {
 
   componentDidMount(props) {
     console.log("cduuuu");
+    Analytics.setCurrentScreen('VideoPageScreen');
     console.log(this.props);
     this.props.navigation.setOptions({
       // headerTitleStyle: {textAlign: 'center'},

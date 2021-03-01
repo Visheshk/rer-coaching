@@ -187,7 +187,7 @@ export function VideoList({navigation, route}) {
 
   const otherVideoUrls = [
     {"key": "l111", "title": "", "url": ""},
-    {"key": "l11", "title": "Introduction to R.E.A.D.Y", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/welcome.mp4?raw=true"},
+    {"key": "l11", "title": "Introduction to R.E.A.D.Y", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Intro%20Final%20V2.mp4?raw=true"},
     // {"key": "l1.5", "title": "Introduction to Coaching Experience", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Intro%20Final%20V2.mp4?raw=true"},
     // {"key": "l12", "title": "Coaching Experience Tutorial", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/coaching-tut.mp4?raw=true"},
     // {"key": "l13", "title": "Read Aloud With Floppy Tutorial", "url": "https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/floppy-tut.mp4?raw=true"},

@@ -198,7 +198,7 @@ function LoginScreen ( {route, navigation} ) {
       </TouchableWithoutFeedback>
         <VideoControl
           height={300}
-          uri='https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/welcome.mp4?raw=true'
+          uri='https://github.com/Visheshk/rer-coaching/blob/master/assets/videos/Intro%20Final%20V2.mp4?raw=true'
           ref={videoTrack}
           progressHandler={getVideoProgress}
         />
